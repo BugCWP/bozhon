@@ -1,15 +1,33 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <title>Document</title>
     <script src="../js/vue.js"></script>
     <script src="../js/jquery-3.3.1.min.js"></script>
-    <link href="../css/index.css">
+    <link href="../css/index.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="BoZhon-Hear-div">
-        <a><img src="../images/abd4af3e47a214a78c73467f30dbbda8.png"/></a>
+    <div id="bozhon-head-page">
+        <div id="bozhon-head-logo">
+            <a><img src="../images/abd4af3e47a214a78c73467f30dbbda8.png"/></a>
+        </div>
+        <div id="bozhon-head-login" v-on:click="headmuneshow"><img v-bind:src="imgsrc" ></div>
+       <div id="bozhon-head-mune" v-bind:style="{opacity:opacitytxt}">
+           <div id="bozhon-head-username"><img src="../images/usernameimg.png"/>{{username}}</div>
+           <div id="bozhon-head-jump"  ><img src="../images/设置.png" v-on:click="headmunejump"/></div>
+           <div id='bozhon-head-exit' ><img src="../images/退出.png" v-on:click="headmuneexit"></div>
+           <div></div>
+       </div>
+      
+    </div>
+    <div id="bozhon-mune-box">
+        <div class="bozhon-mune-table" v-for="(item,index) in btntxts" v-on:click="isshow(index)" v-bind:style="{'background':activecolor===index?'#B27306':''}">{{item.btntxt}}</div>
+    </div>
+    <div id="bozhon-show-box">
+        <div id="bozhon-show-one" v-bind:style="{display:displaystr}" >{{message}}</div>
+        <div id="bozhon-show-two" v-bind:style="{display:displaystr}" >{{message}}</div>
+        <div id="bozhon-show-three" v-bind:style="{display:displaystr}" >{{message}}</div>
     </div>
     <script src="../js/index.js"></script>
 </body>
