@@ -11,6 +11,18 @@
    margin-top:20px;
    float: left;
 }
+#bozhon-head-findinput{
+    float: left;
+}
+#bozhon-head-findinput input{
+    width:150px;
+    height:30px;
+    border-bottom: 1px solid black;
+    
+}
+#bozhon-head-find{
+    float: left;
+}
 #bozhon-head-login{
    float: left;
    position: absolute;
@@ -26,34 +38,48 @@
     height: 40px;
 }
 #bozhon-head-mune{
-    width: 200px;
-    height: 100px;
+    width: 150px;
     position: absolute;
-    right: 0px;
+    right: 10px;
     top: 60px;
     background-color:white;
     border-radius:0px 0px 4px 4px;
-    box-shadow:0 8px 6px -6px #000000;
+    border:1px solid black;
     z-index: 1001;
+}
+#bozhon-head-sanjiao{
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-bottom: 10px solid black;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid transparent;
+    z-index: 1002;
+    left: 85px;
+    top: -20px;
 }
 #bozhon-head-username{
     width: 100%;
-    height: 40px;
-    padding-left:40px; 
-    padding-top: 10px;
+    height: 30px;
+    padding-top: 5px;
     font-size: 18px;
-    font-weight: 600;
+   
+    cursor: pointer;
 }
 #bozhon-head-username img{
-    width: 25px;
-    height: 25px;
-    padding-right: 10px;
+    width: 20px;
+    height: 20px;
+    padding-right: 20px;
+    position: relative;
+    left: 10px;
 }
 #bozhon-head-jump{
-    width: 50%;
+    width: 100%;
     height: 30px;
-    text-align: center;
-    float: left;
+    cursor: pointer;
+    font-size: 18px;
+   
 
 }
 #bozhon-head-jump img{
@@ -61,21 +87,23 @@
     height: 25px;
     position: relative;
     left: 10px;
-    top:10px;
+    padding-right: 20px;
     cursor: pointer;
 }
 #bozhon-head-exit{
-    width: 50%;
+    width: 100%;
     height: 30px;
-    text-align: center;
-    float: left;
+    cursor: pointer;
+    font-size: 18px;
+    
 }
 #bozhon-head-exit img{
     width: 25px;
     height: 25px;
     position: relative;
-    top:10px;
+    left: 10px;
     cursor: pointer;
+    padding-right: 20px;
 }
 #bozhon-mune-box {
     width:18%;

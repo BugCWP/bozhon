@@ -12,11 +12,14 @@
         <div id="bozhon-head-logo">
             <a><img src="../images/abd4af3e47a214a78c73467f30dbbda8.png"/></a>
         </div>
+        <div id="bozhon-head-findinput"><input type="text"/></div>
+        <div id="bozhon-head-find"></div>
         <div id="bozhon-head-login" v-on:click="headmuneshow"><img v-bind:src="imgsrc" ></div>
        <div id="bozhon-head-mune" v-bind:style="{opacity:opacitytxt}">
+           <div id="bozhon-head-sanjiao"></div>
            <div id="bozhon-head-username"><img src="../images/usernameimg.png"/>{{username}}</div>
-           <div id="bozhon-head-jump"  ><img src="../images/设置.png" v-on:click="headmunejump"/></div>
-           <div id='bozhon-head-exit' ><img src="../images/退出.png" v-on:click="headmuneexit"></div>
+           <div id="bozhon-head-jump" v-if="jumpshow" ><img src="../images/设置.png" v-on:click="headmunejump"/>配置</div>
+           <div id='bozhon-head-exit' ><img src="../images/退出.png" v-on:click="headmuneexit">退出</div>
            <div></div>
        </div>
       
