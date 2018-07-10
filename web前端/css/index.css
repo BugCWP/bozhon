@@ -1,6 +1,6 @@
 #bozhon-head-page{
     width: 100%;
-    height: 60px;
+    height: 40px;
     box-shadow:0 8px 6px -6px #000000;
     position:fixed;
     z-index: 1000;
@@ -8,34 +8,32 @@
 }
 #bozhon-head-logo {
    margin-left:10px;
-   margin-top:20px;
    float: left;
 }
-#bozhon-head-findinput{
-    float: left;
-}
-#bozhon-head-findinput input{
-    width:150px;
-    height:30px;
-    border-bottom: 1px solid black;
-    
-}
-#bozhon-head-find{
-    float: left;
+#bozhon-head-logo img{
+    width: 190px;
+    height: 30px;
 }
 #bozhon-head-login{
    float: left;
    position: absolute;
    right: 50px;
-   top:10px;
    font-size: 15px;
    font-family: Microsoft Yahei;
    font-weight: 600;
+   border-radius: 100%;
+   width: 34px;
+   height: 34px;
+   overflow: hidden;
    cursor: pointer;
 }
 #bozhon-head-login img{
-    width: 35px;
-    height: 40px;
+    height: 34px;
+    widows: 34px;
+    position: relative;
+}
+.bozhon-head-loginborder{
+    border:3px solid #F8B62B;
 }
 #bozhon-head-mune{
     width: 150px;
@@ -106,36 +104,216 @@
     padding-right: 20px;
 }
 #bozhon-mune-box {
-    width:18%;
     height:555px;
     float:left;
     background-color: #F8B62B;
     position: relative;
-    top:60px;
+    top:40px;
+    font-size: 10px;
+    font-weight: 500;
+}
+.bozhon-mune-boxwidth{
+    width: 15%;
+}
+.bozhon-mune-boxchange{
+    width: 4%;
+}
+#bozhon-mune-btn{
+    width:100%;
+    height: 30px;
+    text-align: center;
+    padding-top: 20px;
+    cursor: pointer;
+}
+#bozhon-mune-btn img{
+    width:25px;
+    height:25px;
 }
 .bozhon-mune-table{
     width:100%;
-    height:30px;
+    height:50px;
     text-align:center;
-    padding-top:20px;
     cursor:pointer;
 }
-
+.bozhon-mune-table img{
+    height: 25px;
+    width: 25px;
+    position: relative;
+    left:0px;
+    top:10px;
+    margin-right: 10px;
+}
 .bozhon-mune-table:hover{
     background-color: #B27306;
 }
 #bozhon-show-box{
-    width:81.5%;
     height:555px;
     float:left;
     margin-top:5px;
     position: relative;
-    top: 60px;
+    top: 40px;
+}
+.bozhon-show-boxclass{
+    width: 85%;
+}
+.bozhon-show-boxchange{
+    width: 96%;
 }
 #bozhon-show-one{
     width:100%;
     height:555px;
+    background-color:white;
+}
+#bozhon-show-one-part1{
+    float: left;
+    width: 100%;
+    height: 100px;
+    background-color: white;
+}
+#bozhon-show-one-part1-low1{
+    width: 95%;
+    height: 70px;
+    position: relative;
+    left: 2.5%;
+    border-bottom: 1px solid gray;
+}
+#bozhon-show-one-part1-low1 span:nth-child(1){
+    font-size: 25px;
+    font-style: heiti;
+    font-weight: 700;
+    position: relative;
+    top: 30px;
     
+}
+#bozhon-show-one-part1-low1 span:nth-child(2){
+    font-size:10px;
+    font-style: heiti;
+    font-weight: 500;
+    position: relative;
+    color: gray;
+    top:33px;
+    left: 3px;
+}
+#bozhon-show-one-part1-low1 span:nth-child(3){
+    font-size:15px;
+    font-style: heiti;
+    font-weight: 500;
+    position: relative;
+    color: gray;
+    top:33px;
+    left: 3px;
+}
+#bozhon-show-one-part2{
+   float: left;
+   width: 100%;
+   background-color: white;
+}
+#bozhon-show-one-part2-low1{
+   width: 95%;
+   position: relative;
+   left: 2.5%;
+   height: 40px;
+   border-bottom:1px solid gray;
+}
+#bozhon-show-one-part2-low1 img:nth-child(1){
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top:7px;
+}
+#bozhon-show-one-part2-low1 span:nth-child(2){
+    font-size:20px;
+    font-style: heiti;
+    font-weight: 700;
+    position: relative;
+    color: gray;
+}
+#bozhon-show-one-part2-low1 span:nth-child(3){
+    font-size:20px;
+    font-style: heiti;
+    font-weight: 700;
+    position: absolute;
+    left: 95%;
+    top: 10px;
+    color: gray;
+}
+#bozhon-show-one-part2-low1 img:nth-child(4){
+    width:15px;
+    height: 15px;
+    position: absolute;
+    left: 95%;
+    top: 15px;
+}
+#bozhon-show-one-part2-low2{
+
+}
+#bozhon-show-one-part3{
+   float: left;
+   width: 100%;
+   background-color: white;
+}
+#bozhon-show-one-part3-low1{
+    width: 95%;
+    position: relative;
+    left: 2.5%;
+    height: 40px;
+    border-bottom:1px solid gray;
+ }
+#bozhon-show-one-part3-low1 img{
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top:7px;
+}
+#bozhon-show-one-part3-low1 span:nth-child(2){
+    font-size:20px;
+    font-style: heiti;
+    font-weight: 700;
+    position: relative;
+    color: gray;
+}
+#bozhon-show-one-part3-low1 span:nth-child(3){
+    font-size:20px;
+    font-style: heiti;
+    font-weight: 700;
+    position: absolute;
+    left: 95%;
+    top: 10px;
+    color: gray;
+}
+#bozhon-show-one-part4{
+    float: left;
+    width: 100%;
+    background-color: white;
+ }
+ #bozhon-show-one-part4-low1{
+    width: 95%;
+    position: relative;
+    left: 2.5%;
+    height: 40px;
+    border-bottom:1px solid gray;
+ }
+ #bozhon-show-one-part4-low1 img{
+     width: 30px;
+     height: 30px;
+     position: relative;
+     top:7px;
+ }
+ #bozhon-show-one-part4-low1 span:nth-child(2){
+     font-size:20px;
+     font-style: heiti;
+     font-weight: 700;
+     position: relative;
+     color: gray;
+ }
+ #bozhon-show-one-part4-low1 span:nth-child(3){
+    font-size:20px;
+    font-style: heiti;
+    font-weight: 700;
+    position: absolute;
+    left: 95%;
+    top: 10px;
+    color: gray;
 }
 #bozhon-show-two {
     width: 100%;
@@ -146,4 +324,8 @@
     width: 100%;
     height: 555px;
     
+}
+#bozhon-show-four{
+    width: 100%;
+    height: 555px;
 }
