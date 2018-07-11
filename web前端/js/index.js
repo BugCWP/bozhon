@@ -231,6 +231,7 @@ var bozhonmunebox = new Vue({
         munechange:function(){
             if(bozhonmunebox.boxclasstxt==true){
                  bozhonmunebox.boxclasstxt=false;
+                 $("#bozhon-show-box").removeClass("bozhon-show-boxchange");
                  if(bozhonmunebox.activecolor==0){
                     bozhonmunebox.btntxts=bozhonmunebox.btntxts1;
                  }else if(bozhonmunebox.activecolor==1){
@@ -244,6 +245,7 @@ var bozhonmunebox = new Vue({
             }else{
                 bozhonmunebox.boxclasstxt=true;
                 bozhonmunebox.btntxts=bozhonmunebox.btntxts2;
+                $("#bozhon-show-box").addClass("bozhon-show-boxchange");
                 if(bozhonmunebox.activecolor==0){
                     bozhonmunebox.btntxts=bozhonmunebox.btntxts2;
                  }else if(bozhonmunebox.activecolor==1){
@@ -265,19 +267,43 @@ var bozhonshowone = new Vue({
     data: {
         message: '1',
         displaystr:'block',
-        imgsrc1:'../images/箭头.png',
-        imgsrc2:'../images/箭头.png',
-        imgsrc2:'../images/箭头.png',
+        imgsrc1:'../images/箭头 (1).png',
+        imgsrc2:'../images/箭头 (1).png',
+        imgsrc3:'../images/箭头 (1).png',
+        index1:'4',
+        index2:'5',
+        index3:'6',
+        lowclasstxt1:true,
+        lowclasstxt2:true,
+        lowclasstxt3:true,
     },
     methods: {
         isshowpart:function(i){
              if(i==1){
-
+                this.imgsrc1='../images/箭头 (1).png';
+                this.index1='4';
+                this.lowclasstxt1=true;
              }else if(i==2){
-
+                this.imgsrc2='../images/箭头 (1).png';
+                this.index2='5';
+                this.lowclasstxt2=true;
              }else if(i==3){
-
-             }
+                this.imgsrc3='../images/箭头 (1).png';
+                this.index3='6';
+                this.lowclasstxt3=true;
+             }else if(i==4){
+                 this.imgsrc1='../images/箭头.png';
+                 this.index1='1';
+                 this.lowclasstxt1=false;
+             }else if(i==5){
+                this.imgsrc2='../images/箭头.png';
+                this.index2='2';
+                this.lowclasstxt2=false;
+            }else if(i==6){
+                this.imgsrc3='../images/箭头.png';
+                this.index3='3';
+                this.lowclasstxt3=false;
+            }
         }
     }
 })
@@ -287,6 +313,20 @@ var bozhonshowtwo = new Vue({
     data: {
         message: '2',
         displaystr:'none',
+        items:[
+            {
+                type1:'',
+                type2:'',
+                type3:'',
+                type4:'',
+                type5:'',
+                type6:'',
+                type7:'',
+                type8:'',
+                type9:'',
+                type10:'',
+            }
+        ]
     },
     methods: {
        

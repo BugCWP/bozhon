@@ -1,71 +1,169 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
     <script src="../js/vue.js"></script>
     <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/lc_switch.js"></script>
     <link href="../css/index.css" rel="stylesheet" />
+    <link href="../css/lc_switch.css" rel="stylesheet"></link>
 </head>
+
 <body>
     <div id="bozhon-head-page">
         <div id="bozhon-head-logo">
-            <a><img src="../images/abd4af3e47a214a78c73467f30dbbda8.png"/></a>
+            <a>
+                <img src="../images/abd4af3e47a214a78c73467f30dbbda8.png" />
+            </a>
         </div>
-        <div id="bozhon-head-login" v-on:click="headmuneshow" v-bind:class="{'bozhon-head-loginborder':bordertxt}"><img v-bind:src="imgsrc" /></div>
-       <div id="bozhon-head-mune" v-bind:style="{opacity:opacitytxt}">
-           <div id="bozhon-head-sanjiao"></div>
-           <div id="bozhon-head-username"><img src="../images/usernameimg.png"/>{{username}}</div>
-           <div id="bozhon-head-jump" v-if="jumpshow" ><img src="../images/设置.png" v-on:click="headmunejump"/>配置</div>
-           <div id='bozhon-head-exit' ><img src="../images/退出.png" v-on:click="headmuneexit">退出</div>
-           <div></div>
-       </div>
+        <div id="bozhon-head-login" v-on:click="headmuneshow" v-bind:class="{'bozhon-head-loginborder':bordertxt}">
+            <img v-bind:src="imgsrc" />
+        </div>
+        <div id="bozhon-head-mune" v-bind:style="{opacity:opacitytxt}">
+            <div id="bozhon-head-sanjiao"></div>
+            <div id="bozhon-head-username">
+                <img src="../images/usernameimg.png" />{{username}}</div>
+            <div id="bozhon-head-jump" v-if="jumpshow">
+                <img src="../images/设置.png" v-on:click="headmunejump" />配置</div>
+            <div id='bozhon-head-exit'>
+                <img src="../images/退出.png" v-on:click="headmuneexit">退出</div>
+            <div></div>
+        </div>
     </div>
     <div id="bozhon-mune-box" :class="{'bozhon-mune-boxchange':boxclasstxt}" class="bozhon-mune-boxwidth">
-        <div id="bozhon-mune-btn" v-on:click="munechange"><img src="../images/菜单 (2).png"></div>
-        <div class="bozhon-mune-table" v-for="(item,index) in btntxts" v-on:click="isshow(index)" v-bind:style="{'background':activecolor===index?'#B27306':''}"><img v-bind:src="item.imgsrc">{{item.btntxt}}</div>
+        <div id="bozhon-mune-btn" v-on:click="munechange">
+            <img src="../images/菜单 (2).png">
+        </div>
+        <div class="bozhon-mune-table" v-for="(item,index) in btntxts" v-on:click="isshow(index)" v-bind:style="{'background':activecolor===index?'#B27306':''}">
+            <img v-bind:src="item.imgsrc">{{item.btntxt}}</div>
     </div>
-    <div id="bozhon-show-box" :class="{'bozhon-show-boxchange':boxclasstxt}"class="bozhon-show-boxclass" >
-        
-        <div id="bozhon-show-one" v-bind:style="{display:displaystr}" >
+    <div id="bozhon-show-box" :class="{'bozhon-show-boxchange':boxclasstxt}" class="bozhon-show-boxclass">
+
+        <div id="bozhon-show-one" v-bind:style="{display:displaystr}">
             <div id="bozhon-show-one-part1">
                 <div id="bozhon-show-one-part1-low1">
-                    <span>控制台</span><span>>>></span><span>查看</span>
+                    <span>控制台</span>
+                    <span>>>></span>
+                    <span>查看</span>
                 </div>
             </div>
             <div id="bozhon-show-one-part2">
                 <div id="bozhon-show-one-part2-low1">
-                    <img src="../images/信号.png"/>
+                    <img src="../images/信号.png" />
                     <span>实时状态</span>
                     <span>|</span>
-                    <img v-bind:src="imgsrc1"/>
+                    <img v-bind:src="imgsrc1" v-on:click="isshowpart(index1==1?1:4)" />
                 </div>
-                <div id="bozhon-show-one-part2-low2"></div>
+                <div id="bozhon-show-one-part2-low2" class="bozhon-show-one-part2-low2class2" :class="{'bozhon-show-one-part2-low2class':lowclasstxt1}">
+                    <div class="bozhon-show-one-part2-low2-boxclass"></div>
+                    <div class="bozhon-show-one-part2-low2-boxclass"></div>
+                    <div class="bozhon-show-one-part2-low2-boxclass"></div>
+                    <div class="bozhon-show-one-part2-low2-boxclass"></div>
+                    <div class="bozhon-show-one-part2-low2-boxclass"></div>
+                    <div class="bozhon-show-one-part2-low2-boxclass"></div>
+                </div>
             </div>
             <div id="bozhon-show-one-part3">
                 <div id="bozhon-show-one-part3-low1">
-                    <img src="../images/信号.png"/>
+                    <img src="../images/信号.png" />
                     <span>机器人种类</span>
                     <span>|</span>
-                    <img v-bind:src="imgsrc2" />
+                    <img v-bind:src="imgsrc2" v-on:click="isshowpart(index2==2?2:5)" />
                 </div>
-                <div id="bozhon-show-one-part3-low2"></div>
+                <div id="bozhon-show-one-part3-low2" class="bozhon-show-one-part3-low2class2" :class="{'bozhon-show-one-part3-low2class':lowclasstxt2}">
+
+                </div>
             </div>
             <div id="bozhon-show-one-part4">
                 <div id="bozhon-show-one-part4-low1">
-                    <img src="../images/信号.png"/>
+                    <img src="../images/信号.png" />
                     <span>统计数据</span>
                     <span>|</span>
-                    <img v-bind:src="imgsrc3"/>
+                    <img v-bind:src="imgsrc3" v-on:click="isshowpart(index3==3?3:6)" />
                 </div>
-                <div id="bozhon-show-one-part4-low2"></div>
+                <div id="bozhon-show-one-part4-low2" class="bozhon-show-one-part4-low2class2" :class="{'bozhon-show-one-part4-low2class':lowclasstxt3}">
+
+                </div>
             </div>
         </div>
-        <div id="bozhon-show-two" v-bind:style="{display:displaystr}" >{{message}}</div>
-        <div id="bozhon-show-three" v-bind:style="{display:displaystr}" >{{message}}</div>
+        <div id="bozhon-show-two" v-bind:style="{display:displaystr}">
+            <div id="bozhon-show-two-part1">
+                <div id="bozhon-show-two-part1-low1">
+                    <span>机器人列表</span>
+                    <span>>>></span>
+                    <span>查看</span>
+                </div>
+            </div>
+            <div id="bozhon-show-two-part2">
+                <div id="bozhon-show-two-part2-low1">
+                    <span>机器人列表</span>
+                </div>
+                <table id="bozhon-show-two-part2-low2">
+                    <tr>
+                        <th style="width: 30px">
+                            <input type="checkbox" />
+                        </th>
+                        <th style="width: 100px">机器人</th>
+                        <th style="width: 100px">在线</th>
+                        <th style="width: 100px">电池电量</th>
+                        <th style="width: 100px">诊断状态</th>
+                        <th style="width: 120px">任务状态</th>
+                        <th style="width: 120px">任务名称</th>
+                        <th style="width: 100px">控制模式</th>
+                        <th style="width: 120px">申请区域</th>
+                        <th style="width: 130px">批复区域</th>
+                    </tr>
+                    <tr v-for="item in items">
+                        <td style="width: 30px">
+                            <input type="checkbox" />
+                        </td>
+                        <td style="width: 100px">{{item.type1}}</td>
+                        <td style="width: 100px">{{item.type2}}</td>
+                        <td style="width: 100px">{{item.type3}}</td>
+                        <td style="width: 100px">{{item.type4}}</td>
+                        <td style="width: 120px">{{item.type5}}</td>
+                        <td style="width: 120px">{{item.type6}}</td>
+                        <td style="width: 100px">{{item.type7}}</td>
+                        <td style="width: 120px">{{item.type8}}</td>
+                        <td style="width: 130px">{{item.type9s}}</td>
+                    </tr>
+                </table>
+
+            </div>
+            <div id="bozhon-show-two-part3">
+                <div id="bozhon-show-two-part3-low1">
+                    <div id="bozhon-show-two-part3-table">
+
+                    </div>
+                    <div id="bozhon-show-two-part3-low1-btn">
+                        <div id="bozhon-show-two-part3-btn1">
+                            <span>清错</span><br/>
+                            <input id="bozhon-show-two-part3-btn11" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
+                        </div>
+                        <div id="bozhon-show-two-part3-btn2">
+                            <span>删除任务</span><br/>
+                            <input id="bozhon-show-two-part3-btn21" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
+                        </div>
+                        <div id="bozhon-show-two-part3-btn3">
+                            <span>切换模式</span><br/>
+                            <input id="bozhon-show-two-part3-btn31" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
+                        </div>
+                        <div id="bozhon-show-two-part3-btn4">
+                            <span>清除区域</span><br/>
+                            <input id="bozhon-show-two-part3-btn41" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
+                        </div>
+                    </div>
+                    </div>
+
+            </div>
+        </div>
+        <div id="bozhon-show-three" v-bind:style="{display:displaystr}">{{message}}</div>
         <div id="bozhon-show-four" v-bind:style="{display:displaystr}">{{message}}</div>
     </div>
     <script src="../js/indexjquery.js"></script>
     <script src="../js/index.js"></script>
 </body>
+
 </html>
