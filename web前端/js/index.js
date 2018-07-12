@@ -7,6 +7,14 @@ var bozhonheadpage=new Vue({
         jumpshow:true,
         imgsrc:'../images/iconfont-yonghu.png',
         bordertxt:false,
+        projects:[
+            {
+                project:'bozhon',
+            },
+            {
+                project:'bozhoning',
+            }
+        ],
     },
     methods:{
         headmuneshow:function(){
@@ -201,32 +209,62 @@ var bozhonmunebox = new Vue({
     methods: {
         isshow: function (index) {
             this.activecolor=index;
-            if(index==0){
-                bozhonshowone.displaystr = 'block';
-                bozhonshowtwo.displaystr = 'none';
-                bozhonshowthree.displaystr = 'none';
-                bozhonshowfour.displaystr='none';
-                bozhonmunebox.btntxts=bozhonmunebox.btntxts1;
-            }else if(index==1){
-                bozhonshowone.displaystr = 'none';
-                bozhonshowtwo.displaystr = 'block';
-                bozhonshowthree.displaystr = 'none';
-                bozhonshowfour.displaystr='none';
-                bozhonmunebox.btntxts=bozhonmunebox.btntxts3;
+            if (bozhonmunebox.boxclasstxt == false) {
+                if (index == 0) {
+                    bozhonshowone.displaystr = 'block';
+                    bozhonshowtwo.displaystr = 'none';
+                    bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts1;
+                } else if (index == 1) {
+                    bozhonshowone.displaystr = 'none';
+                    bozhonshowtwo.displaystr = 'block';
+                    bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts3;
 
-            }else if(index==2){
-                bozhonshowone.displaystr = 'none';
-                bozhonshowtwo.displaystr = 'none';
-                bozhonshowthree.displaystr = 'block';
-                bozhonshowfour.displaystr='none';
-                bozhonmunebox.btntxts=bozhonmunebox.btntxts4;
-            }else if(index==3){
-                bozhonshowone.displaystr = 'none';
-                bozhonshowtwo.displaystr = 'none';
-                bozhonshowthree.displaystr = 'none';
-                bozhonshowfour.displaystr='block';
-                bozhonmunebox.btntxts=bozhonmunebox.btntxts5;
+                } else if (index == 2) {
+                    bozhonshowone.displaystr = 'none';
+                    bozhonshowtwo.displaystr = 'none';
+                    bozhonshowthree.displaystr = 'block';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts4;
+                } else if (index == 3) {
+                    bozhonshowone.displaystr = 'none';
+                    bozhonshowtwo.displaystr = 'none';
+                    bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr = 'block';
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts5;
+                }
+            }else{
+                if(index==0){
+                    bozhonshowone.displaystr = 'block';
+                    bozhonshowtwo.displaystr = 'none';
+                    bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr='none';
+                    bozhonmunebox.btntxts=bozhonmunebox.btntxts2;
+                }else if(index==1){
+                    bozhonshowone.displaystr = 'none';
+                    bozhonshowtwo.displaystr = 'block';
+                    bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr='none';
+                    bozhonmunebox.btntxts=bozhonmunebox.btntxts6;
+    
+                }else if(index==2){
+                    bozhonshowone.displaystr = 'none';
+                    bozhonshowtwo.displaystr = 'none';
+                    bozhonshowthree.displaystr = 'block';
+                    bozhonshowfour.displaystr='none';
+                    bozhonmunebox.btntxts=bozhonmunebox.btntxts7;
+                }else if(index==3){
+                    bozhonshowone.displaystr = 'none';
+                    bozhonshowtwo.displaystr = 'none';
+                    bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr='block';
+                    bozhonmunebox.btntxts=bozhonmunebox.btntxts8;
+                }
             }
+          
         },
         munechange:function(){
             if(bozhonmunebox.boxclasstxt==true){
@@ -338,9 +376,31 @@ var bozhonshowthree = new Vue({
     data: {
         message: '3',
         displaystr: 'none',
+        items:[
+            {
+                type1:'',
+                type2:'',
+                type3:'',
+                type4:'',
+                type5:'',
+                startandstop:true,
+            }
+        ],
     },
     methods: {
-       
+       isstartandstop:function(value,i){
+           if(value.startandstop==true){
+              value.startandstop=false; 
+           }else if(value.startandstop==false){
+             value.startandstop=true;
+           }
+       },
+       isDelete:function(i){
+
+       },
+       isfresh:function(i){
+
+       }
     }
 })
 
@@ -349,6 +409,15 @@ var bozhonshowfour = new Vue({
     data: {
         message: '4',
         displaystr: 'none',
+        items:[
+            {
+                type1:'',
+                type2:'',
+                type3:'',
+                type4:'',
+                type5:'',
+            }
+        ]
     },
     methods: {
        

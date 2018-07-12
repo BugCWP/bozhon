@@ -3,12 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>BOHHOM</title>
     <script src="../js/vue.js"></script>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/lc_switch.js"></script>
+    <script src="../js/jquery-nicescroll.js"></script>
+    <script src="../js/jquery-jSelect.js"></script>
     <link href="../css/index.css" rel="stylesheet" />
     <link href="../css/lc_switch.css" rel="stylesheet"></link>
+    <link href="../css/j-select.css" rel="stylesheet">
 </head>
 
 <body>
@@ -17,6 +20,11 @@
             <a>
                 <img src="../images/abd4af3e47a214a78c73467f30dbbda8.png" />
             </a>
+        </div>
+        <div id="bozhon-head-select" class="form">
+            <select class="select">
+                <option v-for="(item,index) in projects" v-bind:value="item.project">{{item.project}}</option>
+            </select>
         </div>
         <div id="bozhon-head-login" v-on:click="headmuneshow" v-bind:class="{'bozhon-head-loginborder':bordertxt}">
             <img v-bind:src="imgsrc" />
@@ -139,28 +147,115 @@
                     </div>
                     <div id="bozhon-show-two-part3-low1-btn">
                         <div id="bozhon-show-two-part3-btn1">
-                            <span>清错</span><br/>
+                            <span>清错</span>
+                            <br/>
                             <input id="bozhon-show-two-part3-btn11" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
                         </div>
                         <div id="bozhon-show-two-part3-btn2">
-                            <span>删除任务</span><br/>
+                            <span>删除任务</span>
+                            <br/>
                             <input id="bozhon-show-two-part3-btn21" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
                         </div>
                         <div id="bozhon-show-two-part3-btn3">
-                            <span>切换模式</span><br/>
+                            <span>切换模式</span>
+                            <br/>
                             <input id="bozhon-show-two-part3-btn31" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
                         </div>
                         <div id="bozhon-show-two-part3-btn4">
-                            <span>清除区域</span><br/>
+                            <span>清除区域</span>
+                            <br/>
                             <input id="bozhon-show-two-part3-btn41" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
                         </div>
                     </div>
-                    </div>
+                </div>
 
             </div>
         </div>
-        <div id="bozhon-show-three" v-bind:style="{display:displaystr}">{{message}}</div>
-        <div id="bozhon-show-four" v-bind:style="{display:displaystr}">{{message}}</div>
+        <div id="bozhon-show-three" v-bind:style="{display:displaystr}">
+            <div id="bozhon-show-three-part1">
+                <div id="bozhon-show-three-part1-low1">
+                    <span>任务列表</span>
+                    <span>>>></span>
+                    <span>查看</span>
+                </div>
+            </div>
+            <div id="bozhon-show-three-part2">
+                <div id="bozhon-show-three-part2-low1">
+                    <span>执行中任务</span>
+                </div>
+                <table id="bozhon-show-three-part2-low2">
+                    <tr>
+                        <th style="width: 30px">
+                            <input type="checkbox" />
+                        </th>
+                        <th style="width: 150px">机器人</th>
+                        <th style="width: 170px">状态</th>
+                        <th style="width: 170px">名称</th>
+                        <th style="width: 170px">时间</th>
+                        <th style="width: 170px">UUID</th>
+                        <th style="width: 190px">操作</th>
+                    </tr>
+                    <tr v-for="(item,index) in items">
+                        <td style="width: 30px">
+                            <input type="checkbox" />
+                        </td>
+                        <td style="width: 150px">{{item.type1}}</td>
+                        <td style="width: 170px">{{item.type2}}</td>
+                        <td style="width: 170px">{{item.type3}}</td>
+                        <td style="width: 170px">{{item.type4}}</td>
+                        <td style="width: 170px">{{item.type5}}</td>
+                        <td style="width:190px">
+                        <img v-on:click="isstartandstop(item,index)" v-bind:src="item.startandstop==true?'../images/暂停.png':'../images/节点-开始.png'"/>
+                        <img src="../images/垃圾桶.png" v-on:click="isDelete(index)" />
+                        <img v-on:click="isfresh(index)" src="../images/刷新.png"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="bozhon-show-four" v-bind:style="{display:displaystr}">
+            <div id="bozhon-show-four-part1">
+                <div id="bozhon-show-four-part1-low1">
+                    <span>任务列表</span>
+                    <span>>>></span>
+                    <span>查看</span>
+                </div>
+            </div>
+            <div id="bozhon-show-four-part2">
+                <div id="bozhon-show-four-part2-low1">
+                    <span>等待中任务</span>
+                </div>
+                <table id="bozhon-show-four-part2-low2">
+                    <tr>
+                        <th style="width: 30px">
+                            <input type="checkbox" />
+                        </th>
+                        <th style="width: 140px">时间</th>
+                        <th style="width: 170px">UUID</th>
+                        <th style="width: 170px">名称</th>
+                        <th style="width: 170px">状态</th>
+                        <th style="width: 170px">等级</th>
+                        <th style="width: 200px">操作</th>
+                    </tr>
+                    <tr v-for="item in items">
+                        <td style="width: 30px">
+                            <input type="checkbox" />
+                        </td>
+                        <td style="width: 140px">{{item.type1}}</td>
+                        <td style="width: 170px">{{item.type2}}</td>
+                        <td style="width: 170px">{{item.type3}}</td>
+                        <td style="width: 170px">{{item.type4}}</td>
+                        <td style="width: 170px">{{item.type5}}</td>
+                        <td style="width: 200px">
+                            <img src="../images/上移.png"/>
+                            <img src="../images/下移.png"/>
+                            <img src="../images/置顶.png"/>
+                            <img src="../images/垃圾桶.png"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
     <script src="../js/indexjquery.js"></script>
     <script src="../js/index.js"></script>

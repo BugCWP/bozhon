@@ -19,4 +19,6 @@ $(function(){
 	$('body').delegate('.lcs_check', 'lcs-off', function() {
 		console.log('field is unchecked');
 	});
+
+	$(".select").jSelect();
 })

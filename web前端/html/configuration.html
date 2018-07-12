@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BOHHOM</title>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/vue.js"></script>
+
+    <link href="../css/configuration.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="bozhon-head-page">
+        <div id="bozhon-head-logo">
+            <img src="../images/abd4af3e47a214a78c73467f30dbbda8.png" />
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <div id="bozhon-mune-box" class="bozhon-mune-boxwidth" :class="{'bozhon-mune-boxchange':boxclasstxt}">
+        <div id="bozhon-mune-btn" v-on:click="munechange">
+            <img src="../images/菜单 (2).png" />
+        </div>
+        <div class="bozhon-mune-table" v-for="(item,index) in btntxts" v-on:click="isshow(index)" v-bind:style="{'background':activecolor===index?'#B27306':''}">
+            <img v-bind:src="item.imgsrc">{{item.btntxt}}</div>
+    </div>
+    </div>
+    <div id="bozhon-show-box" class="bozhon-show-boxclass">
+        <div id="bozhon-show-one" v-bind:style="{display:displaystr}">
+            <div id="bozhon-show-one-part1">
+                <div id="bozhon-show-one-part1-low1">
+                    <span>控制台</span>
+                    <span>>>></span>
+                    <span>查看</span>
+                    <span>用户名：</span>
+                    <input type="text" id="bozhon-show-one-part1-low1-username">
+                    <input type="button" id="bozhon-show-one-part1-low1-select">
+                    <input type="button" id="bozhon-show-one-part1-low1-flesh">
+                </div>
+            </div>
+        </div>
+        <div id="bozhon-show-two" v-bind:style="{display:displaystr}">
+            <div id="bozhon-show-two-part1">
+                <div id="bozhon-show-one-part1-low1">
+                    <span>控制台</span>
+                    <span>>>></span>
+                    <span>查看</span>
+                </div>
+            </div>
+        </div>
+        <div id="bozhon-show-three" v-bind:style="{display:displaystr}">
+            <div id="bozhon-show-three-part1">
+                <div id="bozhon-show-one-part1-low1">
+                    <span>控制台</span>
+                    <span>>>></span>
+                    <span>查看</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/configuration.js"></script>
+    <script src="../js/configurationjquery.js"></script>
+</body>
+
+</html>
