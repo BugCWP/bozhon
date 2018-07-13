@@ -16,7 +16,18 @@
             <img src="../images/abd4af3e47a214a78c73467f30dbbda8.png" />
         </div>
         <div>
-
+        </div>
+        <div id="bozhon-head-login" v-on:click="headmuneshow" v-bind:class="{'bozhon-head-loginborder':bordertxt}">
+            <img v-bind:src="imgsrc" />
+        </div>
+        <div id="bozhon-head-mune" v-bind:style="{display:displaytxt}">
+            <div id="bozhon-head-sanjiao"></div>
+            <div id="bozhon-head-username">
+                <img src="../images/usernameimg.png" />{{username}}</div>
+            <div id="bozhon-head-jump" v-if="jumpshow">
+                <img src="../images/设置.png" v-on:click="headmunejump" />调度</div>
+            <div id='bozhon-head-exit'>
+                <img src="../images/退出.png" v-on:click="headmuneexit" />退出</div>
         </div>
     </div>
     <div id="bozhon-mune-box" class="bozhon-mune-boxwidth" :class="{'bozhon-mune-boxchange':boxclasstxt}">
@@ -31,32 +42,128 @@
         <div id="bozhon-show-one" v-bind:style="{display:displaystr}">
             <div id="bozhon-show-one-part1">
                 <div id="bozhon-show-one-part1-low1">
-                    <span>控制台</span>
+                    <span>用户列表</span>
                     <span>>>></span>
                     <span>查看</span>
                     <span>用户名：</span>
                     <input type="text" id="bozhon-show-one-part1-low1-username">
-                    <input type="button" id="bozhon-show-one-part1-low1-select">
-                    <input type="button" id="bozhon-show-one-part1-low1-flesh">
+                    <input type="button" id="bozhon-show-one-part1-low1-select" value="查询">
+                    <input type="button" id="bozhon-show-one-part1-low1-flesh" value="刷新">
                 </div>
+            </div>
+            <div id="bozhon-show-one-part2">
+                <div id="bozhon-show-one-part2-low1">
+                    <span>项目列表</span>
+                </div>
+                <table id="bozhon-show-one-part2-low2">
+                    <tr>
+                        <th style="width: 30px">
+                            <input type="checkbox" />
+                        </th>
+                        <th style="width: 200px">ID</th>
+                        <th style="width: 200px">用户名</th>
+                        <th style="width: 200px">用户角色</th>
+                        <th style="width: 200px">上次登录时间</th>
+                        <th style="width: 200px">登录次数统计</th>
+                    </tr>
+                    <tr v-for="item in items">
+                        <td style="width: 30px">
+                            <input type="checkbox" />
+                        </td>
+                        <td style="width: 200px">{{item.txt1}}</td>
+                        <td style="width: 200px">{{item.txt2}}</td>
+                        <td style="width: 200px">{{item.txt3}}</td>
+                        <td style="width: 200px">{{item.txt4}}</td>
+                        <td style="width: 200px">{{item.txt5}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div id="bozhon-show-two" v-bind:style="{display:displaystr}">
             <div id="bozhon-show-two-part1">
-                <div id="bozhon-show-one-part1-low1">
-                    <span>控制台</span>
+                <div id="bozhon-show-two-part1-low1">
+                    <span>项目列表</span>
                     <span>>>></span>
                     <span>查看</span>
+                    <span>关键字：</span>
+                    <input type="text" id="bozhon-show-two-part1-low1-keyword" />
+                    <input type="button" id="bozhon-show-two-part1-low1-select" value="查询" />
+                    <input type="button" id="bozhon-show-two-part1-low1-add" value="新增" />
+                    <input type="button" id="bozhon-show-two-part1-low1-update" value="修改" />
+                    <input type="button" id="bozhon-show-two-part1-low1-delete" value="删除" />
+                    <input type="button" id="bozhon-show-two-part1-low1-flesh" value="刷新" />
                 </div>
+            </div>
+            <div id="bozhon-show-two-part2">
+                <div id="bozhon-show-two-part2-low1">
+                    <span>项目列表</span>
+                </div>
+                <table id="bozhon-show-two-part2-low2">
+                    <tr>
+                        <th style="width: 30px;">
+                            <input type="checkbox">
+                        </th>
+                        <th style="width: 120px;">ID</th>
+                        <th style="width: 120px;">国家</th>
+                        <th style="width: 120px;">一级城市</th>
+                        <th style="width: 120px;">二级城市</th>
+                        <th style="width: 120px;">项目名称</th>
+                        <th style="width: 120px;">项目描述</th>
+                        <th style="width: 130px;">项目类型</th>
+                        <th style="width: 130px;">当前配置版本</th>
+                        <th style="width: 120px;">操作</th>
+                    </tr>
+                    <tr v-for="item in items">
+                        <td style="width: 30px;">
+                            <input type="checkbox">
+                        </td>
+                        <td style="width: 120px;">{{item.txt1}}</td>
+                        <td style="width: 120px;">{{item.txt2}}</td>
+                        <td style="width: 120px;">{{item.txt3}}</td>
+                        <td style="width: 120px;">{{item.txt4}}</td>
+                        <td style="width: 120px;">{{item.txt5}}</td>
+                        <td style="width: 120px;">{{item.txt6}}</td>
+                        <td style="width: 130px;">{{item.txt7}}</td>
+                        <td style="width: 130px;">{{item.txt8}}</td>
+                        <td style="width: 120px;">{{item.txt9}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div id="bozhon-show-three" v-bind:style="{display:displaystr}">
             <div id="bozhon-show-three-part1">
                 <div id="bozhon-show-one-part1-low1">
-                    <span>控制台</span>
+                    <span>更新事件</span>
                     <span>>>></span>
                     <span>查看</span>
                 </div>
+            </div>
+            <div id="bozhon-show-three-part2">
+                <div id="bozhon-show-three-part2-low1">
+                    <span>项目列表</span>
+                </div>
+                <table id="bozhon-show-three-part2-low2">
+                    <tr>
+                        <th style="width: 30px">
+                            <input type="checkbox" />
+                        </th>
+                        <th style="width: 200px">项目名称</th>
+                        <th style="width: 200px">更新时间</th>
+                        <th style="width: 200px">目标UUID</th>
+                        <th style="width: 200px">更新结果</th>
+                        <th style="width: 200px">结果描述</th>
+                    </tr>
+                    <tr v-for="item in items">
+                        <td style="width: 30px">
+                            <input type="checkbox" />
+                        </td>
+                        <td style="width: 200px">{{item.txt1}}</td>
+                        <td style="width: 200px">{{item.txt2}}</td>
+                        <td style="width: 200px">{{item.txt3}}</td>
+                        <td style="width: 200px">{{item.txt4}}</td>
+                        <td style="width: 200px">{{item.txt5}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

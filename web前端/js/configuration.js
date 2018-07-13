@@ -1,10 +1,32 @@
 var bozhonheadpage = new Vue({
     el: '#bozhon-head-page',
     data: {
-
+        logintxt:'账号',
+        displaytxt:'none',
+        username:'11',
+        jumpshow:true,
+        imgsrc:'../images/iconfont-yonghu.png',
+        bordertxt:false,
     },
     methods: {
-
+        headmuneshow:function(){
+            if(bozhonheadpage.displaytxt=='none'){
+               bozhonheadpage.displaytxt='block';
+               bozhonheadpage.bordertxt=true;
+            }else{
+               bozhonheadpage.displaytxt='none';
+              bozhonheadpage.bordertxt=false;
+            }
+        },
+        headmunejumpshow:function(){
+             
+        },
+        headmunejump:function(){
+            
+        },
+        headmuneexit:function(){
+            
+        }
     }
 })
 
@@ -183,6 +205,15 @@ var bozhonshowone = new Vue({
     el: '#bozhon-show-one',
     data: {
         displaystr: 'block',
+        items:[
+            {
+                txt1:'',
+                txt2:'',
+                txt3:'',
+                txt4:'',
+                txt5:'',
+            }
+        ]
     },
     methods: {
 
@@ -193,15 +224,38 @@ var bozhonshowtwo = new Vue({
     el: '#bozhon-show-two',
     data: {
         displaystr: 'none',
+        items:[
+            {
+                txt1:'',
+                txt2:'',
+                txt3:'',
+                txt4:'',
+                txt5:'',
+                txt6:'',
+                txt7:'',
+                txt8:'',
+                txt9:'',
+                txt10:'',
+            }
+        ]
     },
     methods: {
-
+         
     }
 })
 var bozhonshowthree = new Vue({
     el: '#bozhon-show-three',
     data: {
         displaystr: 'none',
+        items:[
+            {
+                txt1:'',
+                txt2:'',
+                txt3:'',
+                txt4:'',
+                txt5:'',
+            }
+        ]
     },
     methods: {
 
