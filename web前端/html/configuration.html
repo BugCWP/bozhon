@@ -6,8 +6,10 @@
     <title>BOHHOM</title>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/vue.js"></script>
-
+    <script src="../js/jquery-nicescroll.js"></script>
+    <script src="../js/jquery-jSelect.js"></script>
     <link href="../css/configuration.css" rel="stylesheet" />
+    <link href="../css/j-select.css" rel="stylesheet">
 </head>
 
 <body>
@@ -15,15 +17,17 @@
         <div id="bozhon-head-logo">
             <img src="../images/abd4af3e47a214a78c73467f30dbbda8.png" />
         </div>
-        <div>
+        <div id="bozhon-head-select" class="form">
+            <select class="select">
+                <option v-for="(item,index) in projects" v-bind:value="item.project">{{item.project}}</option>
+            </select>
         </div>
         <div id="bozhon-head-login" v-on:click="headmuneshow" v-bind:class="{'bozhon-head-loginborder':bordertxt}">
             <img v-bind:src="imgsrc" />
         </div>
+        <div id="bozhon-head-username">{{username}}</div>
         <div id="bozhon-head-mune" v-bind:style="{display:displaytxt}">
             <div id="bozhon-head-sanjiao"></div>
-            <div id="bozhon-head-username">
-                <img src="../images/usernameimg.png" />{{username}}</div>
             <div id="bozhon-head-jump" v-if="jumpshow">
                 <img src="../images/设置.png" v-on:click="headmunejump" />调度</div>
             <div id='bozhon-head-exit'>

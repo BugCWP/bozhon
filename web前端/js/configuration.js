@@ -3,10 +3,18 @@ var bozhonheadpage = new Vue({
     data: {
         logintxt:'账号',
         displaytxt:'none',
-        username:'11',
+        username:'崔永元',
         jumpshow:true,
         imgsrc:'../images/iconfont-yonghu.png',
         bordertxt:false,
+        projects:[
+            {
+                project:'bozhon',
+            },
+            {
+                project:'bozhoning',
+            }
+        ],
     },
     methods: {
         headmuneshow:function(){

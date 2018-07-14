@@ -14,10 +14,23 @@
     width: 190px;
     height: 30px;
 }
+#bozhon-head-select{
+    float: left;
+    position: absolute;
+    left: 950px;
+}
+#bozhon-head-select select{
+    width: 150px;
+    height: 30px;
+    border:0px;
+    border-bottom: 1px solid #383635;
+    outline: none;
+}
+
 #bozhon-head-login{
     float: left;
     position: absolute;
-    right: 50px;
+    right: 120px;
     font-size: 15px;
     font-family: Microsoft Yahei;
     font-weight: 600;
@@ -31,6 +44,7 @@
      height: 34px;
      widows: 34px;
      position: relative;
+     float: left;
  }
  .bozhon-head-loginborder{
      border:3px solid #F8B62B;
@@ -38,7 +52,7 @@
  #bozhon-head-mune{
      width: 150px;
      position: absolute;
-     right: 10px;
+     right: 50px;
      top: 50px;
      background-color:white;
      border-radius:0px 0px 4px 4px;
@@ -54,15 +68,16 @@
      border-right: 10px solid transparent;
      border-top: 10px solid transparent;
      z-index: 1002;
-     left: 85px;
+     left: 65px;
      top: -20px;
  }
  #bozhon-head-username{
-     width: 100%;
+     width: 70px;
      height: 30px;
-     padding-top: 5px;
      font-size: 18px;
-    
+    position: absolute;
+    right: 50px;
+    top:10px;
      cursor: pointer;
  }
  #bozhon-head-username img{

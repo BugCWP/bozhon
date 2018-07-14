@@ -29,10 +29,10 @@
         <div id="bozhon-head-login" v-on:click="headmuneshow" v-bind:class="{'bozhon-head-loginborder':bordertxt}">
             <img v-bind:src="imgsrc" />
         </div>
+        <div id="bozhon-head-username">{{username}}</div>
         <div id="bozhon-head-mune" v-bind:style="{opacity:opacitytxt}">
             <div id="bozhon-head-sanjiao"></div>
-            <div id="bozhon-head-username">
-                <img src="../images/usernameimg.png" />{{username}}</div>
+            
             <div id="bozhon-head-jump" v-if="jumpshow">
                 <img src="../images/设置.png" v-on:click="headmunejump" />配置</div>
             <div id='bozhon-head-exit'>
