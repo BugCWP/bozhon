@@ -3,7 +3,8 @@ var bozhonheadpage=new Vue({
     data: {
         logintxt:'账号',
         opacitytxt:0,
-        username:'崔永元',
+        username:localStorage.getItem("uName"),
+        userlevel:localStorage.getItem("level"),
         jumpshow:true,
         imgsrc:'../images/iconfont-yonghu.png',
         bordertxt:false,

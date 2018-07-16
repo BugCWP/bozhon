@@ -38,8 +38,14 @@
         <div id="bozhon-mune-btn" v-on:click="munechange">
             <img src="../images/菜单 (2).png" />
         </div>
-        <div class="bozhon-mune-table" v-for="(item,index) in btntxts" v-on:click="isshow(index)" v-bind:style="{'background':activecolor===index?'#B27306':''}">
-            <img v-bind:src="item.imgsrc">{{item.btntxt}}</div>
+        <div class="bozhon-mune-table" v-for="(item,index) in btntxts" v-on:click="isshow(index)" v-bind:style="{'background':activecolor===index?'#B27306':'','height':heightsize===index?'200px':'50px'}" >
+            <img v-bind:src="item.imgsrc">{{item.btntxt}}<br/>
+            <div v-if="index===3" id="secondmune">
+                 <div id="secondmuneone" v-on:click="issecondshow(1)" v-bind:class="{'secondmuneclass':secondmuneonetxt}"><img v-bind:src="secondmuneonetxt===true?'../images/国旗.png':'../images/国旗 (1).png'"/>国家列表</div>
+                 <div id="secondmunetwo" v-on:click="issecondshow(2)" v-bind:class="{'secondmuneclass':secondmunetwotxt}"><img v-bind:src="secondmunetwotxt===true?'../images/所在城市.png':'../images/所在城市 (1).png'"/>一级城市列表</div>
+                 <div id="secondmunethree" v-on:click="issecondshow(3)" v-bind:class="{'secondmuneclass':secondmunethreetxt}"><img v-bind:src="secondmunethreetxt===true?'../images/城市建设.png':'../images/城市建设 (1).png'"/>二级城市列表</div>
+            </div>
+        </div>
     </div>
     </div>
     <div id="bozhon-show-box" class="bozhon-show-boxclass">
@@ -147,6 +153,114 @@
                     <span>项目列表</span>
                 </div>
                 <table id="bozhon-show-three-part2-low2">
+                    <tr>
+                        <th style="width: 30px">
+                            <input type="checkbox" />
+                        </th>
+                        <th style="width: 200px">项目名称</th>
+                        <th style="width: 200px">更新时间</th>
+                        <th style="width: 200px">目标UUID</th>
+                        <th style="width: 200px">更新结果</th>
+                        <th style="width: 200px">结果描述</th>
+                    </tr>
+                    <tr v-for="item in items">
+                        <td style="width: 30px">
+                            <input type="checkbox" />
+                        </td>
+                        <td style="width: 200px">{{item.txt1}}</td>
+                        <td style="width: 200px">{{item.txt2}}</td>
+                        <td style="width: 200px">{{item.txt3}}</td>
+                        <td style="width: 200px">{{item.txt4}}</td>
+                        <td style="width: 200px">{{item.txt5}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="bozhon-show-four" v-bind:style="{display:displaystr}">
+            <div id="bozhon-show-four-part1">
+                <div id="bozhon-show-four-part1-low1">
+                    <span>地区管理</span>
+                    <span>>>></span>
+                    <span>查看</span>
+                </div>
+            </div>
+            <div id="bozhon-show-four-part2">
+                <div id="bozhon-show-four-part2-low1">
+                    <span>项目列表</span>
+                </div>
+                <table id="bozhon-show-four-part2-low2">
+                    <tr>
+                        <th style="width: 30px">
+                            <input type="checkbox" />
+                        </th>
+                        <th style="width: 200px">项目名称</th>
+                        <th style="width: 200px">更新时间</th>
+                        <th style="width: 200px">目标UUID</th>
+                        <th style="width: 200px">更新结果</th>
+                        <th style="width: 200px">结果描述</th>
+                    </tr>
+                    <tr v-for="item in items">
+                        <td style="width: 30px">
+                            <input type="checkbox" />
+                        </td>
+                        <td style="width: 200px">{{item.txt1}}</td>
+                        <td style="width: 200px">{{item.txt2}}</td>
+                        <td style="width: 200px">{{item.txt3}}</td>
+                        <td style="width: 200px">{{item.txt4}}</td>
+                        <td style="width: 200px">{{item.txt5}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="bozhon-show-five" v-bind:style="{display:displaystr}">
+            <div id="bozhon-show-five-part1">
+                <div id="bozhon-show-five-part1-low1">
+                    <span>配置管理</span>
+                    <span>>>></span>
+                    <span>查看</span>
+                </div>
+            </div>
+            <div id="bozhon-show-five-part2">
+                <div id="bozhon-show-five-part2-low1">
+                    <span>配置列表</span>
+                </div>
+                <table id="bozhon-show-five-part2-low2">
+                    <tr>
+                        <th style="width: 30px">
+                            <input type="checkbox" />
+                        </th>
+                        <th style="width: 200px">项目名称</th>
+                        <th style="width: 200px">更新时间</th>
+                        <th style="width: 200px">目标UUID</th>
+                        <th style="width: 200px">更新结果</th>
+                        <th style="width: 200px">结果描述</th>
+                    </tr>
+                    <tr v-for="item in items">
+                        <td style="width: 30px">
+                            <input type="checkbox" />
+                        </td>
+                        <td style="width: 200px">{{item.txt1}}</td>
+                        <td style="width: 200px">{{item.txt2}}</td>
+                        <td style="width: 200px">{{item.txt3}}</td>
+                        <td style="width: 200px">{{item.txt4}}</td>
+                        <td style="width: 200px">{{item.txt5}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="bozhon-show-six" v-bind:style="{display:displaystr}">
+            <div id="bozhon-show-six-part1">
+                <div id="bozhon-show-six-part1-low1">
+                    <span>目标管理</span>
+                    <span>>>></span>
+                    <span>查看</span>
+                </div>
+            </div>
+            <div id="bozhon-show-six-part2">
+                <div id="bozhon-show-six-part2-low1">
+                    <span>目标列表</span>
+                </div>
+                <table id="bozhon-show-six-part2-low2">
                     <tr>
                         <th style="width: 30px">
                             <input type="checkbox" />
