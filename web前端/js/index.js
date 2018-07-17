@@ -31,10 +31,12 @@ var bozhonheadpage=new Vue({
              
         },
         headmunejump:function(){
-            
+            location.href='../html/configuration.html';
         },
         headmuneexit:function(){
-            
+            localStorage.clear("uName");
+            localStorage.clear("level");
+            location.href='../html/login.html';
         }
     }
 })

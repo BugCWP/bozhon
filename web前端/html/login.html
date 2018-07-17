@@ -14,7 +14,7 @@
     <img src="../images/userpwdimg.png" id="bozhon-login-pwdimg">
     <input id="bozhon-login-nameinput" placeholder="UserName" type="text" v-model="username"/>
     <input id="bozhon-login-pwdinput" placeholder="PassWord" type="password" v-model="password"/>
-    <input type="button" value="登陆" id="bozhon-login-loginbuttn"/>
+    <input type="button" value="登陆" id="bozhon-login-loginbuttn" v-on:click="getlogin"/>
 </div>
 <canvas id="canvas"></canvas>
 <script src="../js/login.js"></script>

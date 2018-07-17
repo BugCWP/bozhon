@@ -3,9 +3,10 @@ var bozhonheadpage = new Vue({
     data: {
         logintxt:'账号',
         displaytxt:'none',
-        username:'崔永元',
+        username:localStorage.getItem('uName'),
         jumpshow:true,
         imgsrc:'../images/iconfont-yonghu.png',
+        userlevel:localStorage.getItem("level"),
         bordertxt:false,
         projects:[
             {
@@ -30,10 +31,12 @@ var bozhonheadpage = new Vue({
               
         },
         headmunejump:function(){
-            
+            location.href="../html/index.html";
         },
         headmuneexit:function(){
-            
+            localStorage.clear('uName');
+            localStorage.clear('level');
+            location.href="../html/login.html";
         }
     }
 })
@@ -384,6 +387,9 @@ var bozhonmunebox = new Vue({
         secondmuneonetxt:false,
         secondmunetwotxt:false,
         secondmunethreetxt:false,
+        cityname:'国家',
+        firstcity:'一级城市',
+        secondcity:'二级城市',
     },
     methods: {
         isshow: function (index) {
@@ -393,6 +399,7 @@ var bozhonmunebox = new Vue({
                     bozhonshowone.displaystr = 'block';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr='none';
                     bozhonshowfive.displaystr='none';
                     bozhonshowsix.displaystr='none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts1;
@@ -403,6 +410,7 @@ var bozhonmunebox = new Vue({
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'block';
                     bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr='none';
                     bozhonshowfive.displaystr='none';
                     bozhonshowsix.displaystr='none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts2;
@@ -413,6 +421,7 @@ var bozhonmunebox = new Vue({
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'block';
+                    bozhonshowfour.displaystr='none';
                     bozhonshowfive.displaystr='none';
                     bozhonshowsix.displaystr='none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts3;
@@ -431,6 +440,7 @@ var bozhonmunebox = new Vue({
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr='none';
                     bozhonshowfive.displaystr='block';
                     bozhonshowsix.displaystr='none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts22;
@@ -441,6 +451,7 @@ var bozhonmunebox = new Vue({
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr='none';
                     bozhonshowfive.displaystr='none';
                     bozhonshowsix.displaystr='block';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts33;
@@ -453,6 +464,7 @@ var bozhonmunebox = new Vue({
                     bozhonshowone.displaystr = 'block';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr='none';
                     bozhonshowfive.displaystr='none';
                     bozhonshowsix.displaystr='none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts4;
@@ -463,6 +475,7 @@ var bozhonmunebox = new Vue({
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'block';
                     bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr='none';
                     bozhonshowfive.displaystr='none';
                     bozhonshowsix.displaystr='none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts5;
@@ -473,6 +486,7 @@ var bozhonmunebox = new Vue({
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'block';
+                    bozhonshowfour.displaystr='none';
                     bozhonshowfive.displaystr='none';
                     bozhonshowsix.displaystr='none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts6;
@@ -492,6 +506,7 @@ var bozhonmunebox = new Vue({
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr='none';
                     bozhonshowfive.displaystr='block';
                     bozhonshowsix.displaystr='none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts55;
@@ -502,6 +517,7 @@ var bozhonmunebox = new Vue({
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
+                    bozhonshowfour.displaystr='none';
                     bozhonshowfive.displaystr='none';
                     bozhonshowsix.displaystr='block';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts66;
@@ -516,6 +532,9 @@ var bozhonmunebox = new Vue({
             if(bozhonmunebox.boxclasstxt==true){
                  bozhonmunebox.boxclasstxt=false;
                  $("#bozhon-show-box").removeClass("bozhon-show-boxchange");
+                 this.cityname='国家';
+                 this.firstcity='一级城市';
+                 this.secondcity='二级城市';
                  if(bozhonmunebox.activecolor==0){
                     bozhonmunebox.btntxts=bozhonmunebox.btntxts1;
                  }else if(bozhonmunebox.activecolor==1){
@@ -533,6 +552,9 @@ var bozhonmunebox = new Vue({
                 bozhonmunebox.boxclasstxt=true;
                 bozhonmunebox.btntxts=bozhonmunebox.btntxts2;
                 $("#bozhon-show-box").addClass("bozhon-show-boxchange");
+                this.cityname='';
+                this.firstcity='';
+                this.secondcity='';
                 if(bozhonmunebox.activecolor==0){
                     bozhonmunebox.btntxts=bozhonmunebox.btntxts4;
                  }else if(bozhonmunebox.activecolor==1){
@@ -548,25 +570,34 @@ var bozhonmunebox = new Vue({
                  }
             }
         },
-        secondmunechange:function(){
-            
+        secondmunechange: function () {
+          
         },
         issecondshow:function(index){
           this.activecolor=3;
+          bozhonshowone.displaystr = 'none';
+          bozhonshowtwo.displaystr = 'none';
+          bozhonshowthree.displaystr = 'none';
+          bozhonshowfour.displaystr = 'block';
+          bozhonshowfive.displaystr = 'none';
+          bozhonshowsix.displaystr = 'none';
           if(bozhonmunebox.boxclasstxt==false){
             bozhonmunebox.btntxts=bozhonmunebox.btntxts11;
              if(index==1){
                 this.secondmuneonetxt=true;
                 this.secondmunetwotxt=false;
                 this.secondmunethreetxt=false;
+                bozhonshowfour.citylevel='国家';
              }else if(index==2){
                 this.secondmuneonetxt=false;
                 this.secondmunetwotxt=true;
-                this.secondmunethreetxt=false;
+                this.secondmunethreetxt=false; 
+                bozhonshowfour.citylevel='一级城市';
              }else if(index==3){
                 this.secondmuneonetxt=false;
                 this.secondmunetwotxt=false;
                 this.secondmunethreetxt=true;
+                bozhonshowfour.citylevel='二级城市';
              }
           }else{
             bozhonmunebox.btntxts=bozhonmunebox.btntxts44;
@@ -574,14 +605,17 @@ var bozhonmunebox = new Vue({
                 this.secondmuneonetxt=true;
                 this.secondmunetwotxt=false;
                 this.secondmunethreetxt=false;
+                bozhonshowfour.citylevel='国家';
              }else if(index==2){
                 this.secondmuneonetxt=false;
                 this.secondmunetwotxt=true;
                 this.secondmunethreetxt=false;
+                bozhonshowfour.citylevel='一级城市';
              }else if(index==3){
                 this.secondmuneonetxt=false;
                 this.secondmunetwotxt=false;
                 this.secondmunethreetxt=true;
+                bozhonshowfour.citylevel='二级城市';
              }
           }
         }
@@ -603,7 +637,21 @@ var bozhonshowone = new Vue({
         ]
     },
     methods: {
+        //取用户管理表
+       getbozhonshowone:function(){
+           $.ajax({
+               url:localStorage.getItem("Url")+ 'api/getUsersByPage',
+               type:'post',
+               data: '',
+               dataType:"json",
+               succsess:function(data){
+                  
+               },
+               error:function(data){
 
+               }
+           })
+       }
     }
 })
 
@@ -648,6 +696,20 @@ var bozhonshowthree = new Vue({
 
     }
 })
+var bozhonshowfour=new Vue({
+    el:'#bozhon-show-four',
+    data:{
+        displaystr:'none',
+        tablestr:'1',
+        citylevel:'国家',
+        items:[
+            {
+                txt1:'',
+                txt2:'',
+            }
+        ]
+    }
+})
 var bozhonshowfive = new Vue({
     el: '#bozhon-show-five',
     data: {
@@ -658,7 +720,6 @@ var bozhonshowfive = new Vue({
                 txt2:'',
                 txt3:'',
                 txt4:'',
-                txt5:'',
             }
         ]
     },
