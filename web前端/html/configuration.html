@@ -10,6 +10,7 @@
     <script src="../js/jquery-jSelect.js"></script>
     <link href="../css/configuration.css" rel="stylesheet" />
     <link href="../css/j-select.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../images/11.ico"></link>
 </head>
 
 <body>
@@ -28,10 +29,10 @@
         <div id="bozhon-head-username">{{username}}</div>
         <div id="bozhon-head-mune" v-bind:style="{display:displaytxt}">
             <div id="bozhon-head-sanjiao"></div>
-            <div id="bozhon-head-jump" v-if="jumpshow">
-                <img src="../images/设置.png" v-on:click="headmunejump" />调度</div>
-            <div id='bozhon-head-exit'>
-                <img src="../images/退出.png" v-on:click="headmuneexit" />退出</div>
+            <div id="bozhon-head-jump" v-if="jumpshow"v-on:click="headmunejump">
+                <img src="../images/设置.png"  />调度</div>
+            <div id='bozhon-head-exit' v-on:click="headmuneexit">
+                <img src="../images/退出.png" />退出</div>
         </div>
     </div>
     <div id="bozhon-mune-box" class="bozhon-mune-boxwidth" :class="{'bozhon-mune-boxchange':boxclasstxt}">
@@ -42,7 +43,7 @@
             <img v-bind:src="item.imgsrc">{{item.btntxt}}<br/>
             <div v-if="index===3" id="secondmune" @click.stop>
                  <div id="secondmuneone" v-on:click="issecondshow(1)" v-bind:class="{'secondmuneclass':secondmuneonetxt}"><img v-bind:src="secondmuneonetxt===true?'../images/国旗.png':'../images/国旗 (1).png'"/>{{cityname}}</div>
-                 <div id="secondmunetwo" v-on:click="issecondshow(2)" v-bind:class="{'secondmuneclass':secondmunetwotxt}"><img v-bind:src="secondmunetwotxt===true?'../images/所在城市.png':'../images/所在城市 (1).png'"/>{{firstcity}}}</div>
+                 <div id="secondmunetwo" v-on:click="issecondshow(2)" v-bind:class="{'secondmuneclass':secondmunetwotxt}"><img v-bind:src="secondmunetwotxt===true?'../images/所在城市.png':'../images/所在城市 (1).png'"/>{{firstcity}}</div>
                  <div id="secondmunethree" v-on:click="issecondshow(3)" v-bind:class="{'secondmuneclass':secondmunethreetxt}"><img v-bind:src="secondmunethreetxt===true?'../images/城市建设.png':'../images/城市建设 (1).png'"/>{{secondcity}}</div>
             </div>
         </div>
@@ -67,26 +68,36 @@
                 </div>
                 <table id="bozhon-show-one-part2-low2">
                     <tr>
-                        <th style="width: 30px">
-                            <input type="checkbox" />
+                        <th style="width: 1%">
+                            <input type="checkbox"v-model:checked="boxcheck" />
                         </th>
-                        <th style="width: 200px">ID</th>
-                        <th style="width: 200px">用户名</th>
-                        <th style="width: 200px">用户角色</th>
-                        <th style="width: 200px">上次登录时间</th>
-                        <th style="width: 200px">登录次数统计</th>
+                        <th style="width: 4%">ID</th>
+                        <th style="width: 4%">用户名</th>
+                        <th style="width: 4%">用户角色</th>
+                        <th style="width: 4%">上次登录时间</th>
+                        <th style="width: 4%">登录次数统计</th>
                     </tr>
                     <tr v-for="item in items">
-                        <td style="width: 30px">
-                            <input type="checkbox" />
+                        <td style="width: 1%">
+                            <input type="checkbox"v-bind:checked="boxcheck" />
                         </td>
-                        <td style="width: 200px">{{item.txt1}}</td>
-                        <td style="width: 200px">{{item.txt2}}</td>
-                        <td style="width: 200px">{{item.txt3}}</td>
-                        <td style="width: 200px">{{item.txt4}}</td>
-                        <td style="width: 200px">{{item.txt5}}</td>
+                        <td style="width: 4%">{{item.txt1}}</td>
+                        <td style="width:4%">{{item.txt2}}</td>
+                        <td style="width: 4%">{{item.txt3}}</td>
+                        <td style="width: 4%">{{item.txt4}}</td>
+                        <td style="width: 4%">{{item.txt5}}</td>
                     </tr>
                 </table>
+            </div>
+            <div id="bozhon-show-one-part3">
+                    <div id='bozhon-show-one-part3-pagebtn'>
+                        <div id="bozhon-show-one-part3-pagefirst"><img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup"></div>
+                       <div id="bozhon-show-one-part3-pageprev"><img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup"></div>
+                       <div id="bozhon-show-one-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of{{pageNumber}}|</div>
+                       <div id="bozhon-show-one-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
+                       <div id="bozhon-show-one-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
+                       <div id="bozhon-show-one-part3-cue">number:{{pagesize}}</div>
+                    </div>
             </div>
         </div>
         <div id="bozhon-show-two" v-bind:style="{display:displaystr}">
@@ -110,34 +121,44 @@
                 </div>
                 <table id="bozhon-show-two-part2-low2">
                     <tr>
-                        <th style="width: 30px;">
-                            <input type="checkbox">
+                        <th style="width: 1%;">
+                            <input type="checkbox" v-model:checked="boxcheck">
                         </th>
-                        <th style="width: 120px;">ID</th>
-                        <th style="width: 120px;">国家</th>
-                        <th style="width: 120px;">一级城市</th>
-                        <th style="width: 120px;">二级城市</th>
-                        <th style="width: 120px;">项目名称</th>
-                        <th style="width: 120px;">项目描述</th>
-                        <th style="width: 130px;">项目类型</th>
-                        <th style="width: 130px;">当前配置版本</th>
-                        <th style="width: 120px;">操作</th>
+                        <th style="width: 4%;">ID</th>
+                        <th style="width: 4%;">国家</th>
+                        <th style="width: 4%;">一级城市</th>
+                        <th style="width: 4%;">二级城市</th>
+                        <th style="width: 4%;">项目名称</th>
+                        <th style="width: 4%;">项目描述</th>
+                        <th style="width: 4%;">项目类型</th>
+                        <th style="width: 4%;">当前配置版本</th>
+                        <!-- <th style="width: 4%;">操作</th> -->
                     </tr>
                     <tr v-for="item in items">
-                        <td style="width: 30px;">
-                            <input type="checkbox">
+                        <td style="width: 1%;">
+                            <input type="checkbox" v-bind:checked="boxcheck">
                         </td>
-                        <td style="width: 120px;">{{item.txt1}}</td>
-                        <td style="width: 120px;">{{item.txt2}}</td>
-                        <td style="width: 120px;">{{item.txt3}}</td>
-                        <td style="width: 120px;">{{item.txt4}}</td>
-                        <td style="width: 120px;">{{item.txt5}}</td>
-                        <td style="width: 120px;">{{item.txt6}}</td>
-                        <td style="width: 130px;">{{item.txt7}}</td>
-                        <td style="width: 130px;">{{item.txt8}}</td>
-                        <td style="width: 120px;">{{item.txt9}}</td>
+                        <td style="width: 4%;">{{item.txt1}}</td>
+                        <td style="width: 4%;">{{item.txt2}}</td>
+                        <td style="width: 4%;">{{item.txt3}}</td>
+                        <td style="width: 4%;">{{item.txt4}}</td>
+                        <td style="width: 4%;">{{item.txt5}}</td>
+                        <td style="width: 4%;">{{item.txt6}}</td>
+                        <td style="width: 4%;">{{item.txt7}}</td>
+                        <td style="width: 4%;">{{item.txt8}}</td>
+                        <!-- <td style="width: 4%;">{{item.txt9}}</td> -->
                     </tr>
                 </table>
+            </div>
+            <div id="bozhon-show-two-part3">
+                    <div id='bozhon-show-two-part3-pagebtn'>
+                        <div id="bozhon-show-two-part3-pagefirst"><img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup"></div>
+                       <div id="bozhon-show-two-part3-pageprev"><img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup"></div>
+                       <div id="bozhon-show-two-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of{{pageNumber}}|</div>
+                       <div id="bozhon-show-two-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
+                       <div id="bozhon-show-two-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
+                       <div id="bozhon-show-two-part3-cue">number:{{pagesize}}</div>
+                    </div>
             </div>
         </div>
         <div id="bozhon-show-three" v-bind:style="{display:displaystr}">
@@ -154,26 +175,36 @@
                 </div>
                 <table id="bozhon-show-three-part2-low2">
                     <tr>
-                        <th style="width: 30px">
-                            <input type="checkbox" />
+                        <th style="width: 1%">
+                            <input type="checkbox" v-model:checked="boxcheck"/>
                         </th>
-                        <th style="width: 200px">项目名称</th>
-                        <th style="width: 200px">更新时间</th>
-                        <th style="width: 200px">目标UUID</th>
-                        <th style="width: 200px">更新结果</th>
-                        <th style="width: 200px">结果描述</th>
+                        <th style="width: 4%">项目名称</th>
+                        <th style="width: 4%">更新时间</th>
+                        <th style="width: 4%">目标UUID</th>
+                        <th style="width: 4%">更新结果</th>
+                        <th style="width: 4%">结果描述</th>
                     </tr>
                     <tr v-for="item in items">
-                        <td style="width: 30px">
-                            <input type="checkbox" />
+                        <td style="width: 1%">
+                            <input type="checkbox"v-bind:checked="boxcheck" />
                         </td>
-                        <td style="width: 200px">{{item.txt1}}</td>
-                        <td style="width: 200px">{{item.txt2}}</td>
-                        <td style="width: 200px">{{item.txt3}}</td>
-                        <td style="width: 200px">{{item.txt4}}</td>
-                        <td style="width: 200px">{{item.txt5}}</td>
+                        <td style="width: 4%">{{item.txt1}}</td>
+                        <td style="width: 4%">{{item.txt2}}</td>
+                        <td style="width: 4%">{{item.txt3}}</td>
+                        <td style="width: 4%">{{item.txt4}}</td>
+                        <td style="width: 4%">{{item.txt5}}</td>
                     </tr>
                 </table>
+            </div>
+            <div id="bozhon-show-three-part3">
+                    <div id='bozhon-show-three-part3-pagebtn'>
+                        <div id="bozhon-show-three-part3-pagefirst"><img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup"></div>
+                       <div id="bozhon-show-three-part3-pageprev"><img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup"></div>
+                       <div id="bozhon-show-three-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of{{pageNumber}}|</div>
+                       <div id="bozhon-show-three-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
+                       <div id="bozhon-show-three-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
+                       <div id="bozhon-show-three-part3-cue">number:{{pagesize}}</div>
+                    </div>
             </div>
         </div>
         <div id="bozhon-show-four" v-bind:style="{display:displaystr}">
@@ -194,20 +225,30 @@
                 </div>
                 <table id="bozhon-show-four-part2-low2">
                     <tr>
-                        <th style="width: 30px">
-                            <input type="checkbox" />
+                        <th style="width: 1%">
+                            <input type="checkbox" v-model:checked="boxcheck"/>
                         </th>
-                        <th style="width: 500px">ID</th>
-                        <th style="width: 500px">{{citylevel}}</th>
+                        <th style="width: 10%">ID</th>
+                        <th style="width: 10%">{{citylevel}}</th>
                     </tr>
                     <tr v-for="item in items">
-                        <td style="width: 30px">
-                            <input type="checkbox" />
+                        <td style="width: 1%">
+                            <input type="checkbox"v-bind:checked="boxcheck" />
                         </td>
-                        <td style="width: 500px">{{item.txt1}}</td>
-                        <td style="width: 500px">{{item.txt2}}</td>
+                        <td style="width: 10%">{{item.txt1}}</td>
+                        <td style="width: 10%">{{item.txt2}}</td>
                     </tr>
                 </table>
+            </div>
+            <div id="bozhon-show-four-part3">
+                    <div id='bozhon-show-four-part3-pagebtn'>
+                        <div id="bozhon-show-four-part3-pagefirst"><img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup"></div>
+                       <div id="bozhon-show-four-part3-pageprev"><img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup"></div>
+                       <div id="bozhon-show-four-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of{{pageNumber}}|</div>
+                       <div id="bozhon-show-four-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
+                       <div id="bozhon-show-four-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
+                       <div id="bozhon-show-four-part3-cue">number:{{pagesize}}</div>
+                    </div>
             </div>
         </div>
         <div id="bozhon-show-five" v-bind:style="{display:displaystr}">
@@ -228,24 +269,34 @@
                 </div>
                 <table id="bozhon-show-five-part2-low2">
                     <tr>
-                        <th style="width: 30px">
-                            <input type="checkbox" />
+                        <th style="width: 1%">
+                            <input type="checkbox" v-model:checked="boxcheck"/>
                         </th>
-                        <th style="width: 250px">ID</th>
-                        <th style="width: 250px">配置文件名</th>
-                        <th style="width: 250px">配置路径</th>
-                        <th style="width: 250px">是否通配类型</th>
+                        <th style="width: 5%">ID</th>
+                        <th style="width: 5%">配置文件名</th>
+                        <th style="width: 5%">配置路径</th>
+                        <th style="width: 5%">是否通配类型</th>
                     </tr>
                     <tr v-for="item in items">
-                        <td style="width: 30px">
-                            <input type="checkbox" />
+                        <td style="width: 1%">
+                            <input type="checkbox"v-bind:checked="boxcheck" />
                         </td>
-                        <td style="width: 250px">{{item.txt1}}</td>
-                        <td style="width: 250px">{{item.txt2}}</td>
-                        <td style="width: 250px">{{item.txt3}}</td>
-                        <td style="width: 250px">{{item.txt4}}</td>
+                        <td style="width: 5%">{{item.txt1}}</td>
+                        <td style="width: 5%">{{item.txt2}}</td>
+                        <td style="width: 5%">{{item.txt3}}</td>
+                        <td style="width: 5%">{{item.txt4}}</td>
                     </tr>
                 </table>
+            </div>
+            <div id="bozhon-show-five-part3">
+                    <div id='bozhon-show-five-part3-pagebtn'>
+                        <div id="bozhon-show-five-part3-pagefirst"><img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup"></div>
+                       <div id="bozhon-show-five-part3-pageprev"><img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup"></div>
+                       <div id="bozhon-show-five-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of{{pageNumber}}|</div>
+                       <div id="bozhon-show-five-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
+                       <div id="bozhon-show-five-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
+                       <div id="bozhon-show-five-part3-cue">number:{{pagesize}}</div>
+                    </div>
             </div>
         </div>
         <div id="bozhon-show-six" v-bind:style="{display:displaystr}">
@@ -269,26 +320,36 @@
                 </div>
                 <table id="bozhon-show-six-part2-low2">
                     <tr>
-                        <th style="width: 30px">
-                            <input type="checkbox" />
+                        <th style="width: 1%">
+                            <input type="checkbox" v-model:checked="boxcheck"/>
                         </th>
-                        <th style="width: 200px">ID</th>
-                        <th style="width: 200px">目标UUID</th>
-                        <th style="width: 200px">目标描述</th>
-                        <th style="width: 200px">所属项目</th>
-                        <th style="width: 200px">目标类型</th>
+                        <th style="width: 4%">ID</th>
+                        <th style="width: 4%">目标UUID</th>
+                        <th style="width: 4%">目标描述</th>
+                        <th style="width: 4%">所属项目</th>
+                        <th style="width: 4%">目标类型</th>
                     </tr>
                     <tr v-for="item in items">
-                        <td style="width: 30px">
-                            <input type="checkbox" />
+                        <td style="width: 1%">
+                            <input type="checkbox"v-bind:checked="boxcheck" />
                         </td>
-                        <td style="width: 200px">{{item.txt1}}</td>
-                        <td style="width: 200px">{{item.txt2}}</td>
-                        <td style="width: 200px">{{item.txt3}}</td>
-                        <td style="width: 200px">{{item.txt4}}</td>
-                        <td style="width: 200px">{{item.txt5}}</td>
+                        <td style="width: 4%">{{item.txt1}}</td>
+                        <td style="width: 4%">{{item.txt2}}</td>
+                        <td style="width: 4%">{{item.txt3}}</td>
+                        <td style="width: 4%">{{item.txt4}}</td>
+                        <td style="width: 4%">{{item.txt5}}</td>
                     </tr>
                 </table>
+            </div>
+            <div id="bozhon-show-six-part3">
+                    <div id='bozhon-show-six-part3-pagebtn'>
+                        <div id="bozhon-show-six-part3-pagefirst"><img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup"></div>
+                       <div id="bozhon-show-six-part3-pageprev"><img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup"></div>
+                       <div id="bozhon-show-six-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of{{pageNumber}}|</div>
+                       <div id="bozhon-show-six-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
+                       <div id="bozhon-show-six-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
+                       <div id="bozhon-show-six-part3-cue">number:{{pagesize}}</div>
+                    </div>
             </div>
         </div>
     </div>

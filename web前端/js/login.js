@@ -1,6 +1,4 @@
-var host=location.hostname;
-var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
-localStorage.setItem("Url", ipAddress);
+
 var bozhonloginpage =new Vue({
     el:'#bozhon-login-page',
     data:{
@@ -9,6 +7,9 @@ var bozhonloginpage =new Vue({
     },
     methods:{
         getlogin:function(){
+            var host=location.hostname;
+            var ipAddress = "http://" + host + ":8080/dechang/";
+            localStorage.setItem("Url", ipAddress);
             var name=this.username;
             var psd=this.password;
             $.ajax({

@@ -58,6 +58,7 @@
      border-radius:0px 0px 4px 4px;
      border:1px solid #F1F1F1;
      z-index: 1001;
+     text-align: center;
  }
  #bozhon-head-sanjiao{
      width: 0;
@@ -92,7 +93,7 @@
      height: 30px;
      cursor: pointer;
      font-size: 18px;
-    
+    padding-top: 10px;
  
  }
  #bozhon-head-jump img{
@@ -108,7 +109,7 @@
      height: 30px;
      cursor: pointer;
      font-size: 18px;
-     
+     padding-top: 10px;
  }
  #bozhon-head-exit img{
      width: 15px;
@@ -319,7 +320,7 @@
     margin-left: 5px;
 }
 #bozhon-show-one-part2-low1{
-    width: 1055px;
+    width: 100%;
     position: relative;
     left: 2.5%;
     background-color: #F8B62B;
@@ -357,6 +358,80 @@
 #bozhon-show-one-part2-low2 th{
     border:0.2px solid #E1E1E1;
 }
+#bozhon-show-one-part3{
+    float: left;
+    margin-left: 5px;
+    width: 95%;
+    position: relative;
+    left: 2.5%;
+    top:280px;
+}
+#bozhon-show-one-part3-pagebtn{
+    width: 100%;
+    height: 40px;
+    background-color: #F1F1F1;
+    text-align: center;
+    border:1px solid #E1E1E1;
+}
+#bozhon-show-one-part3-pagefirst{
+    float: left;
+    position: relative;
+    left: 350px;
+    top: 10px;
+}
+#bozhon-show-one-part3-pagefirst img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-one-part3-pageprev{
+    float: left;
+    position: relative;
+    left: 370px;
+    top: 13px;
+}
+#bozhon-show-one-part3-pageprev img{
+    height: 14px;
+    width: 14px;
+}
+#bozhon-show-one-part3-pageinput{
+    float: left;
+    position: relative;
+    left: 380px;
+    top: 10px;
+    color: gray;
+}
+#bozhon-show-one-part3-pageinput input{
+    height: 20px;
+    width: 20px;
+    text-align: center;
+}
+#bozhon-show-one-part3-pagenext{
+    float: left;
+    position: relative;
+    left: 380px;
+    top: 10px;
+}
+#bozhon-show-one-part3-pagenext img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-one-part3-pagelast{
+    float: left;
+    position: relative;
+    left: 390px;
+    top: 10px;
+}
+#bozhon-show-one-part3-pagelast img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-one-part3-cue{
+    float: left;
+    position: relative;
+    left: 700px;
+    top: 10px;
+    color:gray;
+}
 #bozhon-show-two{
     width:100%;
     height:555px;
@@ -364,12 +439,12 @@
 }
 #bozhon-show-two-part1{
     float: left;
-    width: 100%;
+    width: 95%;
     height: 100px;
     background-color: white;
 }
 #bozhon-show-two-part1-low1{
-    width: 95%;
+    width: 100%;
     height: 70px;
     position: relative;
     left: 2.5%;
@@ -508,7 +583,7 @@
     margin-left: 5px;
 }
 #bozhon-show-two-part2-low1{
-    width: 1055px;
+    width: 100%;
     position: relative;
     left: 2.5%;
     background-color: #F8B62B;
@@ -546,6 +621,80 @@
 #bozhon-show-two-part2-low2 th{
     border:0.2px solid #E1E1E1;
 }
+#bozhon-show-two-part3{
+    float: left;
+    margin-left: 5px;
+    width: 95%;
+    position: relative;
+    left: 2.5%;
+    top:280px;
+}
+#bozhon-show-two-part3-pagebtn{
+    width: 100%;
+    height: 40px;
+    background-color: #F1F1F1;
+    text-align: center;
+    border:1px solid #E1E1E1;
+}
+#bozhon-show-two-part3-pagefirst{
+    float: left;
+    position: relative;
+    left: 350px;
+    top: 10px;
+}
+#bozhon-show-two-part3-pagefirst img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-two-part3-pageprev{
+    float: left;
+    position: relative;
+    left: 370px;
+    top: 13px;
+}
+#bozhon-show-two-part3-pageprev img{
+    height: 14px;
+    width: 14px;
+}
+#bozhon-show-two-part3-pageinput{
+    float: left;
+    position: relative;
+    left: 380px;
+    top: 10px;
+    color: gray;
+}
+#bozhon-show-two-part3-pageinput input{
+    height: 20px;
+    width: 20px;
+    text-align: center;
+}
+#bozhon-show-two-part3-pagenext{
+    float: left;
+    position: relative;
+    left: 380px;
+    top: 10px;
+}
+#bozhon-show-two-part3-pagenext img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-two-part3-pagelast{
+    float: left;
+    position: relative;
+    left: 390px;
+    top: 10px;
+}
+#bozhon-show-two-part3-pagelast img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-two-part3-cue{
+    float: left;
+    position: relative;
+    left: 700px;
+    top: 10px;
+    color:gray;
+}
 #bozhon-show-three{
     width:100%;
     height:555px;
@@ -553,12 +702,12 @@
 }
 #bozhon-show-three-part1{
     float: left;
-    width: 100%;
+    width: 95%;
     height: 100px;
     background-color: white;
 }
 #bozhon-show-three-part1-low1{
-    width: 95%;
+    width: 100%;
     height: 70px;
     position: relative;
     left: 2.5%;
@@ -596,7 +745,7 @@
     margin-left: 5px;
 }
 #bozhon-show-three-part2-low1{
-    width: 1055px;
+    width: 100%;
     position: relative;
     left: 2.5%;
     background-color: #F8B62B;
@@ -634,6 +783,80 @@
 #bozhon-show-three-part2-low2 th{
     border:0.2px solid #E1E1E1;
 }
+#bozhon-show-three-part3{
+    float: left;
+    margin-left: 5px;
+    width: 95%;
+    position: relative;
+    left: 2.5%;
+    top:280px;
+}
+#bozhon-show-three-part3-pagebtn{
+    width: 100%;
+    height: 40px;
+    background-color: #F1F1F1;
+    text-align: center;
+    border:1px solid #E1E1E1;
+}
+#bozhon-show-three-part3-pagefirst{
+    float: left;
+    position: relative;
+    left: 350px;
+    top: 10px;
+}
+#bozhon-show-three-part3-pagefirst img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-three-part3-pageprev{
+    float: left;
+    position: relative;
+    left: 370px;
+    top: 13px;
+}
+#bozhon-show-three-part3-pageprev img{
+    height: 14px;
+    width: 14px;
+}
+#bozhon-show-three-part3-pageinput{
+    float: left;
+    position: relative;
+    left: 380px;
+    top: 10px;
+    color: gray;
+}
+#bozhon-show-three-part3-pageinput input{
+    height: 20px;
+    width: 20px;
+    text-align: center;
+}
+#bozhon-show-three-part3-pagenext{
+    float: left;
+    position: relative;
+    left: 380px;
+    top: 10px;
+}
+#bozhon-show-three-part3-pagenext img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-three-part3-pagelast{
+    float: left;
+    position: relative;
+    left: 390px;
+    top: 10px;
+}
+#bozhon-show-three-part3-pagelast img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-three-part3-cue{
+    float: left;
+    position: relative;
+    left: 700px;
+    top: 10px;
+    color:gray;
+}
 #bozhon-show-four{
     width:100%;
     height:555px;
@@ -641,12 +864,12 @@
 }
 #bozhon-show-four-part1{
     float: left;
-    width: 100%;
+    width: 95%;
     height: 100px;
     background-color: white;
 }
 #bozhon-show-four-part1-low1{
-    width: 95%;
+    width: 100%;
     height: 70px;
     position: relative;
     left: 2.5%;
@@ -734,7 +957,7 @@
     margin-left: 5px;
 }
 #bozhon-show-four-part2-low1{
-    width: 1055px;
+    width: 100%;
     position: relative;
     left: 2.5%;
     background-color: #F8B62B;
@@ -772,7 +995,80 @@
 #bozhon-show-four-part2-low2 th{
     border:0.2px solid #E1E1E1;
 }
-
+#bozhon-show-four-part3{
+    float: left;
+    margin-left: 5px;
+    width: 95%;
+    position: relative;
+    left: 2.5%;
+    top:280px;
+}
+#bozhon-show-four-part3-pagebtn{
+    width: 100%;
+    height: 40px;
+    background-color: #F1F1F1;
+    text-align: center;
+    border:1px solid #E1E1E1;
+}
+#bozhon-show-four-part3-pagefirst{
+    float: left;
+    position: relative;
+    left: 350px;
+    top: 10px;
+}
+#bozhon-show-four-part3-pagefirst img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-four-part3-pageprev{
+    float: left;
+    position: relative;
+    left: 370px;
+    top: 13px;
+}
+#bozhon-show-four-part3-pageprev img{
+    height: 14px;
+    width: 14px;
+}
+#bozhon-show-four-part3-pageinput{
+    float: left;
+    position: relative;
+    left: 380px;
+    top: 10px;
+    color: gray;
+}
+#bozhon-show-four-part3-pageinput input{
+    height: 20px;
+    width: 20px;
+    text-align: center;
+}
+#bozhon-show-four-part3-pagenext{
+    float: left;
+    position: relative;
+    left: 380px;
+    top: 10px;
+}
+#bozhon-show-four-part3-pagenext img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-four-part3-pagelast{
+    float: left;
+    position: relative;
+    left: 390px;
+    top: 10px;
+}
+#bozhon-show-four-part3-pagelast img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-four-part3-cue{
+    float: left;
+    position: relative;
+    left: 700px;
+    top: 10px;
+    color:gray;
+}
 #bozhon-show-five{
     width:100%;
     height:555px;
@@ -780,12 +1076,12 @@
 }
 #bozhon-show-five-part1{
     float: left;
-    width: 100%;
+    width: 95%;
     height: 100px;
     background-color: white;
 }
 #bozhon-show-five-part1-low1{
-    width: 95%;
+    width: 100%;
     height: 70px;
     position: relative;
     left: 2.5%;
@@ -891,7 +1187,7 @@
     margin-left: 5px;
 }
 #bozhon-show-five-part2-low1{
-    width: 1055px;
+    width: 100%;
     position: relative;
     left: 2.5%;
     background-color: #F8B62B;
@@ -929,7 +1225,80 @@
 #bozhon-show-five-part2-low2 th{
     border:0.2px solid #E1E1E1;
 }
-
+#bozhon-show-five-part3{
+    float: left;
+    margin-left: 5px;
+    width: 95%;
+    position: relative;
+    left: 2.5%;
+    top:280px;
+}
+#bozhon-show-five-part3-pagebtn{
+    width: 100%;
+    height: 40px;
+    background-color: #F1F1F1;
+    text-align: center;
+    border:1px solid #E1E1E1;
+}
+#bozhon-show-five-part3-pagefirst{
+    float: left;
+    position: relative;
+    left: 350px;
+    top: 10px;
+}
+#bozhon-show-five-part3-pagefirst img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-five-part3-pageprev{
+    float: left;
+    position: relative;
+    left: 370px;
+    top: 13px;
+}
+#bozhon-show-five-part3-pageprev img{
+    height: 14px;
+    width: 14px;
+}
+#bozhon-show-five-part3-pageinput{
+    float: left;
+    position: relative;
+    left: 380px;
+    top: 10px;
+    color: gray;
+}
+#bozhon-show-five-part3-pageinput input{
+    height: 20px;
+    width: 20px;
+    text-align: center;
+}
+#bozhon-show-five-part3-pagenext{
+    float: left;
+    position: relative;
+    left: 380px;
+    top: 10px;
+}
+#bozhon-show-five-part3-pagenext img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-five-part3-pagelast{
+    float: left;
+    position: relative;
+    left: 390px;
+    top: 10px;
+}
+#bozhon-show-five-part3-pagelast img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-five-part3-cue{
+    float: left;
+    position: relative;
+    left: 700px;
+    top: 10px;
+    color:gray;
+}
 #bozhon-show-six{
     width:100%;
     height:555px;
@@ -937,12 +1306,12 @@
 }
 #bozhon-show-six-part1{
     float: left;
-    width: 100%;
+    width: 95%;
     height: 100px;
     background-color: white;
 }
 #bozhon-show-six-part1-low1{
-    width: 95%;
+    width: 100%;
     height: 70px;
     position: relative;
     left: 2.5%;
@@ -1081,7 +1450,7 @@
     margin-left: 5px;
 }
 #bozhon-show-six-part2-low1{
-    width: 1055px;
+    width: 100%;
     position: relative;
     left: 2.5%;
     background-color: #F8B62B;
@@ -1094,7 +1463,7 @@
     top: 10px;
 }
 #bozhon-show-six-part2-low2{
-    widows: 95%;
+    width: 100%;
     position: relative;
     left: 2.5%;
     text-align: center;
@@ -1118,4 +1487,78 @@
 }
 #bozhon-show-six-part2-low2 th{
     border:0.2px solid #E1E1E1;
+}
+#bozhon-show-six-part3{
+    float: left;
+    margin-left: 5px;
+    width: 95%;
+    position: relative;
+    left: 2.5%;
+    top:280px;
+}
+#bozhon-show-six-part3-pagebtn{
+    width: 100%;
+    height: 40px;
+    background-color: #F1F1F1;
+    text-align: center;
+    border:1px solid #E1E1E1;
+}
+#bozhon-show-six-part3-pagefirst{
+    float: left;
+    position: relative;
+    left: 350px;
+    top: 10px;
+}
+#bozhon-show-six-part3-pagefirst img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-six-part3-pageprev{
+    float: left;
+    position: relative;
+    left: 370px;
+    top: 13px;
+}
+#bozhon-show-six-part3-pageprev img{
+    height: 14px;
+    width: 14px;
+}
+#bozhon-show-six-part3-pageinput{
+    float: left;
+    position: relative;
+    left: 380px;
+    top: 10px;
+    color: gray;
+}
+#bozhon-show-six-part3-pageinput input{
+    height: 20px;
+    width: 20px;
+    text-align: center;
+}
+#bozhon-show-six-part3-pagenext{
+    float: left;
+    position: relative;
+    left: 380px;
+    top: 10px;
+}
+#bozhon-show-six-part3-pagenext img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-six-part3-pagelast{
+    float: left;
+    position: relative;
+    left: 390px;
+    top: 10px;
+}
+#bozhon-show-six-part3-pagelast img{
+    height: 20px;
+    width: 20px;
+}
+#bozhon-show-six-part3-cue{
+    float: left;
+    position: relative;
+    left: 700px;
+    top: 10px;
+    color:gray;
 }

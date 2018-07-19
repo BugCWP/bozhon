@@ -1,42 +1,42 @@
 var bozhonheadpage = new Vue({
     el: '#bozhon-head-page',
     data: {
-        logintxt:'账号',
-        displaytxt:'none',
-        username:localStorage.getItem('uName'),
-        jumpshow:true,
-        imgsrc:'../images/iconfont-yonghu.png',
-        userlevel:localStorage.getItem("level"),
-        bordertxt:false,
-        projects:[
+        logintxt: '账号',
+        displaytxt: 'none',
+        username: localStorage.getItem('uName'),
+        jumpshow: true,
+        imgsrc: '../images/iconfont-yonghu.png',
+        userlevel: localStorage.getItem("level"),
+        bordertxt: false,
+        projects: [
             {
-                project:'bozhon',
+                project: 'bozhon',
             },
             {
-                project:'bozhoning',
+                project: 'bozhoning',
             }
         ],
     },
     methods: {
-        headmuneshow:function(){
-            if(bozhonheadpage.displaytxt=='none'){
-               bozhonheadpage.displaytxt='block';
-               bozhonheadpage.bordertxt=true;
-            }else{
-               bozhonheadpage.displaytxt='none';
-              bozhonheadpage.bordertxt=false;
+        headmuneshow: function () {
+            if (bozhonheadpage.displaytxt == 'none') {
+                bozhonheadpage.displaytxt = 'block';
+                bozhonheadpage.bordertxt = true;
+            } else {
+                bozhonheadpage.displaytxt = 'none';
+                bozhonheadpage.bordertxt = false;
             }
         },
-        headmunejumpshow:function(){
-              
+        headmunejumpshow: function () {
+
         },
-        headmunejump:function(){
-            location.href="../html/index.html";
+        headmunejump: function () {
+            location.href = "../html/index.html";
         },
-        headmuneexit:function(){
+        headmuneexit: function () {
             localStorage.clear('uName');
             localStorage.clear('level');
-            location.href="../html/login.html";
+            location.href = "../html/login.html";
         }
     }
 })
@@ -134,7 +134,7 @@ var bozhonmunebox = new Vue({
             {
                 btntxt: '更新事件',
                 imgsrc: '../images/事件配置.png',
-            },    {
+            }, {
                 btntxt: '地区管理',
                 imgsrc: '../images/地区 (1).png',
             },
@@ -211,8 +211,8 @@ var bozhonmunebox = new Vue({
             {
                 btntxt: '更新事件',
                 imgsrc: '../images/事件配置 (1).png',
-            },  
-           {
+            },
+            {
                 btntxt: '地区管理',
                 imgsrc: '../images/地区 (1).png',
             },
@@ -302,7 +302,7 @@ var bozhonmunebox = new Vue({
                 btntxt: '',
                 imgsrc: '../images/目标页面列表 (1).png',
             },
-        ], 
+        ],
         btntxts44: [
             {
                 btntxt: '',
@@ -383,13 +383,13 @@ var bozhonmunebox = new Vue({
         ],
         activecolor: 0,
         boxclasstxt: false,
-        heightsize:100,
-        secondmuneonetxt:false,
-        secondmunetwotxt:false,
-        secondmunethreetxt:false,
-        cityname:'国家',
-        firstcity:'一级城市',
-        secondcity:'二级城市',
+        heightsize: 100,
+        secondmuneonetxt: false,
+        secondmunetwotxt: false,
+        secondmunethreetxt: false,
+        cityname: '国家',
+        firstcity: '一级城市',
+        secondcity: '二级城市',
     },
     methods: {
         isshow: function (index) {
@@ -399,40 +399,40 @@ var bozhonmunebox = new Vue({
                     bozhonshowone.displaystr = 'block';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
-                    bozhonshowfour.displaystr='none';
-                    bozhonshowfive.displaystr='none';
-                    bozhonshowsix.displaystr='none';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonshowfive.displaystr = 'none';
+                    bozhonshowsix.displaystr = 'none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts1;
-                    this.secondmuneonetxt=false;
-                    this.secondmunetwotxt=false;
-                    this.secondmunethreetxt=false;
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = false;
                 } else if (index == 1) {
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'block';
                     bozhonshowthree.displaystr = 'none';
-                    bozhonshowfour.displaystr='none';
-                    bozhonshowfive.displaystr='none';
-                    bozhonshowsix.displaystr='none';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonshowfive.displaystr = 'none';
+                    bozhonshowsix.displaystr = 'none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts2;
-                    this.secondmuneonetxt=false;
-                    this.secondmunetwotxt=false;
-                    this.secondmunethreetxt=false;
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = false;
                 } else if (index == 2) {
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'block';
-                    bozhonshowfour.displaystr='none';
-                    bozhonshowfive.displaystr='none';
-                    bozhonshowsix.displaystr='none';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonshowfive.displaystr = 'none';
+                    bozhonshowsix.displaystr = 'none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts3;
-                    this.secondmuneonetxt=false;
-                    this.secondmunetwotxt=false;
-                    this.secondmunethreetxt=false;
-                }else if (index == 3) {
-                    if(this.heightsize==3){
-                        this.heightsize=100;
-                    }else{
-                        this.heightsize=3;
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = false;
+                } else if (index == 3) {
+                    if (this.heightsize == 3) {
+                        this.heightsize = 100;
+                    } else {
+                        this.heightsize = 3;
                     }
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts11;
                 }
@@ -440,184 +440,184 @@ var bozhonmunebox = new Vue({
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
-                    bozhonshowfour.displaystr='none';
-                    bozhonshowfive.displaystr='block';
-                    bozhonshowsix.displaystr='none';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonshowfive.displaystr = 'block';
+                    bozhonshowsix.displaystr = 'none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts22;
-                    this.secondmuneonetxt=false;
-                    this.secondmunetwotxt=false;
-                    this.secondmunethreetxt=false;
-                }else if (index == 5) {
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = false;
+                } else if (index == 5) {
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
-                    bozhonshowfour.displaystr='none';
-                    bozhonshowfive.displaystr='none';
-                    bozhonshowsix.displaystr='block';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonshowfive.displaystr = 'none';
+                    bozhonshowsix.displaystr = 'block';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts33;
-                    this.secondmuneonetxt=false;
-                    this.secondmunetwotxt=false;
-                    this.secondmunethreetxt=false;
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = false;
                 }
-            }else{
+            } else {
                 if (index == 0) {
                     bozhonshowone.displaystr = 'block';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
-                    bozhonshowfour.displaystr='none';
-                    bozhonshowfive.displaystr='none';
-                    bozhonshowsix.displaystr='none';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonshowfive.displaystr = 'none';
+                    bozhonshowsix.displaystr = 'none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts4;
-                    this.secondmuneonetxt=false;
-                    this.secondmunetwotxt=false;
-                    this.secondmunethreetxt=false;
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = false;
                 } else if (index == 1) {
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'block';
                     bozhonshowthree.displaystr = 'none';
-                    bozhonshowfour.displaystr='none';
-                    bozhonshowfive.displaystr='none';
-                    bozhonshowsix.displaystr='none';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonshowfive.displaystr = 'none';
+                    bozhonshowsix.displaystr = 'none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts5;
-                    this.secondmuneonetxt=false;
-                    this.secondmunetwotxt=false;
-                    this.secondmunethreetxt=false;
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = false;
                 } else if (index == 2) {
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'block';
-                    bozhonshowfour.displaystr='none';
-                    bozhonshowfive.displaystr='none';
-                    bozhonshowsix.displaystr='none';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonshowfive.displaystr = 'none';
+                    bozhonshowsix.displaystr = 'none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts6;
-                    this.secondmuneonetxt=false;
-                    this.secondmunetwotxt=false;
-                    this.secondmunethreetxt=false;
-                }else if (index == 3) {
-                    if(this.heightsize==3){
-                        this.heightsize=100;
-                    }else{
-                        this.heightsize=3;
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = false;
+                } else if (index == 3) {
+                    if (this.heightsize == 3) {
+                        this.heightsize = 100;
+                    } else {
+                        this.heightsize = 3;
                     }
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts44;
-                   
+
                 }
                 else if (index == 4) {
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
-                    bozhonshowfour.displaystr='none';
-                    bozhonshowfive.displaystr='block';
-                    bozhonshowsix.displaystr='none';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonshowfive.displaystr = 'block';
+                    bozhonshowsix.displaystr = 'none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts55;
-                    this.secondmuneonetxt=false;
-                    this.secondmunetwotxt=false;
-                    this.secondmunethreetxt=false;
-                }else if (index == 5) {
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = false;
+                } else if (index == 5) {
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
-                    bozhonshowfour.displaystr='none';
-                    bozhonshowfive.displaystr='none';
-                    bozhonshowsix.displaystr='block';
+                    bozhonshowfour.displaystr = 'none';
+                    bozhonshowfive.displaystr = 'none';
+                    bozhonshowsix.displaystr = 'block';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts66;
-                    this.secondmuneonetxt=false;
-                    this.secondmunetwotxt=false;
-                    this.secondmunethreetxt=false;
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = false;
                 }
             }
 
         },
-        munechange:function(){
-            if(bozhonmunebox.boxclasstxt==true){
-                 bozhonmunebox.boxclasstxt=false;
-                 $("#bozhon-show-box").removeClass("bozhon-show-boxchange");
-                 this.cityname='国家';
-                 this.firstcity='一级城市';
-                 this.secondcity='二级城市';
-                 if(bozhonmunebox.activecolor==0){
-                    bozhonmunebox.btntxts=bozhonmunebox.btntxts1;
-                 }else if(bozhonmunebox.activecolor==1){
-                    bozhonmunebox.btntxts=bozhonmunebox.btntxts2;
-                 }else if(bozhonmunebox.activecolor==2){
-                    bozhonmunebox.btntxts=bozhonmunebox.btntxts3;
-                 }else if(bozhonmunebox.activecolor==3){
-                    bozhonmunebox.btntxts=bozhonmunebox.btntxts11;
-                 }else if(bozhonmunebox.activecolor==4){
-                    bozhonmunebox.btntxts=bozhonmunebox.btntxts22;
-                 }else if(bozhonmunebox.activecolor==5){
-                    bozhonmunebox.btntxts=bozhonmunebox.btntxts33;
-                 }
-            }else{
-                bozhonmunebox.boxclasstxt=true;
-                bozhonmunebox.btntxts=bozhonmunebox.btntxts2;
+        munechange: function () {
+            if (bozhonmunebox.boxclasstxt == true) {
+                bozhonmunebox.boxclasstxt = false;
+                $("#bozhon-show-box").removeClass("bozhon-show-boxchange");
+                this.cityname = '国家';
+                this.firstcity = '一级城市';
+                this.secondcity = '二级城市';
+                if (bozhonmunebox.activecolor == 0) {
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts1;
+                } else if (bozhonmunebox.activecolor == 1) {
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts2;
+                } else if (bozhonmunebox.activecolor == 2) {
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts3;
+                } else if (bozhonmunebox.activecolor == 3) {
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts11;
+                } else if (bozhonmunebox.activecolor == 4) {
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts22;
+                } else if (bozhonmunebox.activecolor == 5) {
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts33;
+                }
+            } else {
+                bozhonmunebox.boxclasstxt = true;
+                bozhonmunebox.btntxts = bozhonmunebox.btntxts2;
                 $("#bozhon-show-box").addClass("bozhon-show-boxchange");
-                this.cityname='';
-                this.firstcity='';
-                this.secondcity='';
-                if(bozhonmunebox.activecolor==0){
-                    bozhonmunebox.btntxts=bozhonmunebox.btntxts4;
-                 }else if(bozhonmunebox.activecolor==1){
-                    bozhonmunebox.btntxts=bozhonmunebox.btntxts5;
-                 }else if(bozhonmunebox.activecolor==2){
-                    bozhonmunebox.btntxts=bozhonmunebox.btntxts6;
-                 }else if(bozhonmunebox.activecolor==3){
-                    bozhonmunebox.btntxts=bozhonmunebox.btntxts44;
-                 }else if(bozhonmunebox.activecolor==4){
-                    bozhonmunebox.btntxts=bozhonmunebox.btntxts55;
-                 }else if(bozhonmunebox.activecolor==5){
-                    bozhonmunebox.btntxts=bozhonmunebox.btntxts66;
-                 }
+                this.cityname = '';
+                this.firstcity = '';
+                this.secondcity = '';
+                if (bozhonmunebox.activecolor == 0) {
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts4;
+                } else if (bozhonmunebox.activecolor == 1) {
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts5;
+                } else if (bozhonmunebox.activecolor == 2) {
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts6;
+                } else if (bozhonmunebox.activecolor == 3) {
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts44;
+                } else if (bozhonmunebox.activecolor == 4) {
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts55;
+                } else if (bozhonmunebox.activecolor == 5) {
+                    bozhonmunebox.btntxts = bozhonmunebox.btntxts66;
+                }
             }
         },
         secondmunechange: function () {
-          
+
         },
-        issecondshow:function(index){
-          this.activecolor=3;
-          bozhonshowone.displaystr = 'none';
-          bozhonshowtwo.displaystr = 'none';
-          bozhonshowthree.displaystr = 'none';
-          bozhonshowfour.displaystr = 'block';
-          bozhonshowfive.displaystr = 'none';
-          bozhonshowsix.displaystr = 'none';
-          if(bozhonmunebox.boxclasstxt==false){
-            bozhonmunebox.btntxts=bozhonmunebox.btntxts11;
-             if(index==1){
-                this.secondmuneonetxt=true;
-                this.secondmunetwotxt=false;
-                this.secondmunethreetxt=false;
-                bozhonshowfour.citylevel='国家';
-             }else if(index==2){
-                this.secondmuneonetxt=false;
-                this.secondmunetwotxt=true;
-                this.secondmunethreetxt=false; 
-                bozhonshowfour.citylevel='一级城市';
-             }else if(index==3){
-                this.secondmuneonetxt=false;
-                this.secondmunetwotxt=false;
-                this.secondmunethreetxt=true;
-                bozhonshowfour.citylevel='二级城市';
-             }
-          }else{
-            bozhonmunebox.btntxts=bozhonmunebox.btntxts44;
-              if(index==1){
-                this.secondmuneonetxt=true;
-                this.secondmunetwotxt=false;
-                this.secondmunethreetxt=false;
-                bozhonshowfour.citylevel='国家';
-             }else if(index==2){
-                this.secondmuneonetxt=false;
-                this.secondmunetwotxt=true;
-                this.secondmunethreetxt=false;
-                bozhonshowfour.citylevel='一级城市';
-             }else if(index==3){
-                this.secondmuneonetxt=false;
-                this.secondmunetwotxt=false;
-                this.secondmunethreetxt=true;
-                bozhonshowfour.citylevel='二级城市';
-             }
-          }
+        issecondshow: function (index) {
+            this.activecolor = 3;
+            bozhonshowone.displaystr = 'none';
+            bozhonshowtwo.displaystr = 'none';
+            bozhonshowthree.displaystr = 'none';
+            bozhonshowfour.displaystr = 'block';
+            bozhonshowfive.displaystr = 'none';
+            bozhonshowsix.displaystr = 'none';
+            if (bozhonmunebox.boxclasstxt == false) {
+                bozhonmunebox.btntxts = bozhonmunebox.btntxts11;
+                if (index == 1) {
+                    this.secondmuneonetxt = true;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = false;
+                    bozhonshowfour.citylevel = '国家';
+                } else if (index == 2) {
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = true;
+                    this.secondmunethreetxt = false;
+                    bozhonshowfour.citylevel = '一级城市';
+                } else if (index == 3) {
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = true;
+                    bozhonshowfour.citylevel = '二级城市';
+                }
+            } else {
+                bozhonmunebox.btntxts = bozhonmunebox.btntxts44;
+                if (index == 1) {
+                    this.secondmuneonetxt = true;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = false;
+                    bozhonshowfour.citylevel = '国家';
+                } else if (index == 2) {
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = true;
+                    this.secondmunethreetxt = false;
+                    bozhonshowfour.citylevel = '一级城市';
+                } else if (index == 3) {
+                    this.secondmuneonetxt = false;
+                    this.secondmunetwotxt = false;
+                    this.secondmunethreetxt = true;
+                    bozhonshowfour.citylevel = '二级城市';
+                }
+            }
         }
     },
 })
@@ -626,32 +626,64 @@ var bozhonshowone = new Vue({
     el: '#bozhon-show-one',
     data: {
         displaystr: 'block',
-        items:[
-            {
-                txt1:'',
-                txt2:'',
-                txt3:'',
-                txt4:'',
-                txt5:'',
+        pagefirstimg: '../images/Previous page.png',
+        pageprevimg: '../images/prev.png',
+        pagenextimg: '../images/next.png',
+        pagelastimg: '../images/next page.png',
+        pagesize: '',
+        pageCode: 1,
+        pageNumber: 4,
+        boxcheck:false,
+        items: [
+            { 
+                txt1: '',
+                txt2: '',
+                txt3: '',
+                txt4: '',
+                txt5: '',
             }
         ]
     },
     methods: {
         //取用户管理表
-       getbozhonshowone:function(){
-           $.ajax({
-               url:localStorage.getItem("Url")+ 'api/getUsersByPage',
-               type:'post',
-               data: '',
-               dataType:"json",
-               succsess:function(data){
-                  
-               },
-               error:function(data){
+        getbozhonshowone: function () {
+            $.ajax({
+                url: localStorage.getItem("Url") + 'api/getUsersByPage',
+                type: 'post',
+                data: '',
+                dataType: "json",
+                succsess: function (data) {
 
-               }
-           })
-       }
+                },
+                error: function (data) {
+
+                }
+            })
+        },
+        pagefirstclickdown: function () {
+            this.pagefirstimg = '../images/Previous page (1).png';
+        },
+        pagefirstclickup: function () {
+            this.pagefirstimg = '../images/Previous page.png';
+        },
+        pageprevclickdown: function () {
+            this.pageprevimg = '../images/prev (1).png';
+        },
+        pageprevclickup: function () {
+            this.pageprevimg = '../images/prev.png';
+        },
+        pagenextclickdown: function () {
+            this.pagenextimg = '../images/next (1).png';
+        },
+        pagenextclickup: function () {
+            this.pagenextimg = '../images/next.png';
+        },
+        pagelastclickdown: function () {
+            this.pagelastimg = '../images/next page (1).png';
+        },
+        pagelastclickup: function () {
+            this.pagelastimg = '../images/next page.png';
+        },
     }
 })
 
@@ -659,89 +691,250 @@ var bozhonshowtwo = new Vue({
     el: '#bozhon-show-two',
     data: {
         displaystr: 'none',
-        items:[
+        pagefirstimg: '../images/Previous page.png',
+        pageprevimg: '../images/prev.png',
+        pagenextimg: '../images/next.png',
+        pagelastimg: '../images/next page.png',
+        pagesize: '',
+        pageCode: 1,
+        pageNumber: 4,
+        boxcheck:false,
+        items: [
             {
-                txt1:'',
-                txt2:'',
-                txt3:'',
-                txt4:'',
-                txt5:'',
-                txt6:'',
-                txt7:'',
-                txt8:'',
-                txt9:'',
-                txt10:'',
+                txt1: '',
+                txt2: '',
+                txt3: '',
+                txt4: '',
+                txt5: '',
+                txt6: '',
+                txt7: '',
+                txt8: '',
+                txt9: '',
+                txt10: '',
             }
         ]
     },
     methods: {
-         
+        pagefirstclickdown: function () {
+            this.pagefirstimg = '../images/Previous page (1).png';
+        },
+        pagefirstclickup: function () {
+            this.pagefirstimg = '../images/Previous page.png';
+        },
+        pageprevclickdown: function () {
+            this.pageprevimg = '../images/prev (1).png';
+        },
+        pageprevclickup: function () {
+            this.pageprevimg = '../images/prev.png';
+        },
+        pagenextclickdown: function () {
+            this.pagenextimg = '../images/next (1).png';
+        },
+        pagenextclickup: function () {
+            this.pagenextimg = '../images/next.png';
+        },
+        pagelastclickdown: function () {
+            this.pagelastimg = '../images/next page (1).png';
+        },
+        pagelastclickup: function () {
+            this.pagelastimg = '../images/next page.png';
+        },
     }
 })
+
 var bozhonshowthree = new Vue({
     el: '#bozhon-show-three',
     data: {
         displaystr: 'none',
-        items:[
+        pagefirstimg: '../images/Previous page.png',
+        pageprevimg: '../images/prev.png',
+        pagenextimg: '../images/next.png',
+        pagelastimg: '../images/next page.png',
+        pagesize: '',
+        pageCode: 1,
+        pageNumber: 4,
+        boxcheck:false,
+        items: [
             {
-                txt1:'',
-                txt2:'',
-                txt3:'',
-                txt4:'',
-                txt5:'',
+                txt1: '',
+                txt2: '',
+                txt3: '',
+                txt4: '',
+                txt5: '',
             }
         ]
     },
     methods: {
-
+        pagefirstclickdown: function () {
+            this.pagefirstimg = '../images/Previous page (1).png';
+        },
+        pagefirstclickup: function () {
+            this.pagefirstimg = '../images/Previous page.png';
+        },
+        pageprevclickdown: function () {
+            this.pageprevimg = '../images/prev (1).png';
+        },
+        pageprevclickup: function () {
+            this.pageprevimg = '../images/prev.png';
+        },
+        pagenextclickdown: function () {
+            this.pagenextimg = '../images/next (1).png';
+        },
+        pagenextclickup: function () {
+            this.pagenextimg = '../images/next.png';
+        },
+        pagelastclickdown: function () {
+            this.pagelastimg = '../images/next page (1).png';
+        },
+        pagelastclickup: function () {
+            this.pagelastimg = '../images/next page.png';
+        },
     }
 })
-var bozhonshowfour=new Vue({
-    el:'#bozhon-show-four',
-    data:{
-        displaystr:'none',
-        tablestr:'1',
-        citylevel:'国家',
-        items:[
+
+var bozhonshowfour = new Vue({
+    el: '#bozhon-show-four',
+    data: {
+        displaystr: 'none',
+        tablestr: '1',
+        citylevel: '国家',
+        pagefirstimg: '../images/Previous page.png',
+        pageprevimg: '../images/prev.png',
+        pagenextimg: '../images/next.png',
+        pagelastimg: '../images/next page.png',
+        pagesize: '',
+        pageCode: 1,
+        pageNumber: 4,
+        boxcheck:false,
+        items: [
             {
-                txt1:'',
-                txt2:'',
+                txt1: '',
+                txt2: '',
             }
         ]
+    },
+    methods: {
+        pagefirstclickdown: function () {
+            this.pagefirstimg = '../images/Previous page (1).png';
+        },
+        pagefirstclickup: function () {
+            this.pagefirstimg = '../images/Previous page.png';
+        },
+        pageprevclickdown: function () {
+            this.pageprevimg = '../images/prev (1).png';
+        },
+        pageprevclickup: function () {
+            this.pageprevimg = '../images/prev.png';
+        },
+        pagenextclickdown: function () {
+            this.pagenextimg = '../images/next (1).png';
+        },
+        pagenextclickup: function () {
+            this.pagenextimg = '../images/next.png';
+        },
+        pagelastclickdown: function () {
+            this.pagelastimg = '../images/next page (1).png';
+        },
+        pagelastclickup: function () {
+            this.pagelastimg = '../images/next page.png';
+        },
     }
 })
 var bozhonshowfive = new Vue({
     el: '#bozhon-show-five',
     data: {
         displaystr: 'none',
-        items:[
+        pagefirstimg: '../images/Previous page.png',
+        pageprevimg: '../images/prev.png',
+        pagenextimg: '../images/next.png',
+        pagelastimg: '../images/next page.png',
+        pagesize: '',
+        pageCode: 1,
+        pageNumber: 4,
+        boxcheck:false,
+        items: [
             {
-                txt1:'',
-                txt2:'',
-                txt3:'',
-                txt4:'',
+                txt1: '',
+                txt2: '',
+                txt3: '',
+                txt4: '',
             }
         ]
     },
     methods: {
-
+        pagefirstclickdown: function () {
+            this.pagefirstimg = '../images/Previous page (1).png';
+        },
+        pagefirstclickup: function () {
+            this.pagefirstimg = '../images/Previous page.png';
+        },
+        pageprevclickdown: function () {
+            this.pageprevimg = '../images/prev (1).png';
+        },
+        pageprevclickup: function () {
+            this.pageprevimg = '../images/prev.png';
+        },
+        pagenextclickdown: function () {
+            this.pagenextimg = '../images/next (1).png';
+        },
+        pagenextclickup: function () {
+            this.pagenextimg = '../images/next.png';
+        },
+        pagelastclickdown: function () {
+            this.pagelastimg = '../images/next page (1).png';
+        },
+        pagelastclickup: function () {
+            this.pagelastimg = '../images/next page.png';
+        },
     }
 })
+
 var bozhonshowsix = new Vue({
     el: '#bozhon-show-six',
     data: {
         displaystr: 'none',
-        items:[
+        pagefirstimg: '../images/Previous page.png',
+        pageprevimg: '../images/prev.png',
+        pagenextimg: '../images/next.png',
+        pagelastimg: '../images/next page.png',
+        pagesize: '',
+        pageCode: 1,
+        pageNumber: 4,
+        boxcheck:false,
+        items: [
             {
-                txt1:'',
-                txt2:'',
-                txt3:'',
-                txt4:'',
-                txt5:'',
+                txt1: '',
+                txt2: '',
+                txt3: '',
+                txt4: '',
+                txt5: '',
             }
         ]
     },
     methods: {
-
+        pagefirstclickdown: function () {
+            this.pagefirstimg = '../images/Previous page (1).png';
+        },
+        pagefirstclickup: function () {
+            this.pagefirstimg = '../images/Previous page.png';
+        },
+        pageprevclickdown: function () {
+            this.pageprevimg = '../images/prev (1).png';
+        },
+        pageprevclickup: function () {
+            this.pageprevimg = '../images/prev.png';
+        },
+        pagenextclickdown: function () {
+            this.pagenextimg = '../images/next (1).png';
+        },
+        pagenextclickup: function () {
+            this.pagenextimg = '../images/next.png';
+        },
+        pagelastclickdown: function () {
+            this.pagelastimg = '../images/next page (1).png';
+        },
+        pagelastclickup: function () {
+            this.pagelastimg = '../images/next page.png';
+        },
     }
 })
