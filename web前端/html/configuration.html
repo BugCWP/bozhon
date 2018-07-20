@@ -57,9 +57,9 @@
                     <span>>>></span>
                     <span>查看</span>
                     <span>用户名：</span>
-                    <input type="text" id="bozhon-show-one-part1-low1-username">
-                    <input type="button" id="bozhon-show-one-part1-low1-select" value="查询">
-                    <input type="button" id="bozhon-show-one-part1-low1-flesh" value="刷新">
+                    <input type="text" id="bozhon-show-one-part1-low1-username" v-model="uname">
+                    <input type="button" id="bozhon-show-one-part1-low1-select" value="查询" v-on:click="getbozhonshowone">
+                    <input type="button" id="bozhon-show-one-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowone">
                 </div>
             </div>
             <div id="bozhon-show-one-part2">
@@ -93,10 +93,10 @@
                     <div id='bozhon-show-one-part3-pagebtn'>
                         <div id="bozhon-show-one-part3-pagefirst"><img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup"></div>
                        <div id="bozhon-show-one-part3-pageprev"><img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup"></div>
-                       <div id="bozhon-show-one-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of{{pageNumber}}|</div>
+                       <div id="bozhon-show-one-part3-pageinput">|Page&nbsp;<input type="text" v-model:value='pageCode' v-on:keyup.enter="getbozhonshowone">&nbsp;of&nbsp;{{pageNumber}}|</div>
                        <div id="bozhon-show-one-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
                        <div id="bozhon-show-one-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
-                       <div id="bozhon-show-one-part3-cue">number:{{pagesize}}</div>
+                       <div id="bozhon-show-one-part3-cue">number:{{listnumber}}</div>
                     </div>
             </div>
         </div>
@@ -154,7 +154,7 @@
                     <div id='bozhon-show-two-part3-pagebtn'>
                         <div id="bozhon-show-two-part3-pagefirst"><img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup"></div>
                        <div id="bozhon-show-two-part3-pageprev"><img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup"></div>
-                       <div id="bozhon-show-two-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of{{pageNumber}}|</div>
+                       <div id="bozhon-show-two-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of&nbsp;{{pageNumber}}|</div>
                        <div id="bozhon-show-two-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
                        <div id="bozhon-show-two-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
                        <div id="bozhon-show-two-part3-cue">number:{{pagesize}}</div>
@@ -200,7 +200,7 @@
                     <div id='bozhon-show-three-part3-pagebtn'>
                         <div id="bozhon-show-three-part3-pagefirst"><img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup"></div>
                        <div id="bozhon-show-three-part3-pageprev"><img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup"></div>
-                       <div id="bozhon-show-three-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of{{pageNumber}}|</div>
+                       <div id="bozhon-show-three-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of&nbsp;{{pageNumber}}|</div>
                        <div id="bozhon-show-three-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
                        <div id="bozhon-show-three-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
                        <div id="bozhon-show-three-part3-cue">number:{{pagesize}}</div>
@@ -214,9 +214,9 @@
                     <span>>>></span>
                     <span>查看</span>
                     <span>关键字:</span>
-                    <input type="text" id="bozhon-show-four-part1-low1-keyword" />
-                    <input type="button" id="bozhon-show-four-part1-low1-select" value="查询" />
-                    <input type="button" id="bozhon-show-four-part1-low1-flesh" value="刷新" />
+                    <input type="text" id="bozhon-show-four-part1-low1-keyword" v-model="cityname"/>
+                    <input type="button" id="bozhon-show-four-part1-low1-select" value="查询" v-on:click="getbozhonshowfour"/>
+                    <input type="button" id="bozhon-show-four-part1-low1-flesh" value="刷新"  v-on:click="getbozhonshowfour"/>
                 </div>
             </div>
             <div id="bozhon-show-four-part2">
@@ -235,8 +235,10 @@
                         <td style="width: 1%">
                             <input type="checkbox"v-bind:checked="boxcheck" />
                         </td>
-                        <td style="width: 10%">{{item.txt1}}</td>
-                        <td style="width: 10%">{{item.txt2}}</td>
+                        <td style="width: 10%" v-if="citylevel=='国家'">{{item.nationId}}</td>
+                        <td style="width: 10%" v-else>{{item.cityId}}</td>
+                        <td style="width: 10%" v-if="citylevel=='国家'">{{item.nationName}}</td>
+                        <td style="width: 10%" v-else>{{item.cityName}}</td>
                     </tr>
                 </table>
             </div>
@@ -244,10 +246,10 @@
                     <div id='bozhon-show-four-part3-pagebtn'>
                         <div id="bozhon-show-four-part3-pagefirst"><img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup"></div>
                        <div id="bozhon-show-four-part3-pageprev"><img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup"></div>
-                       <div id="bozhon-show-four-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of{{pageNumber}}|</div>
+                       <div id="bozhon-show-four-part3-pageinput">|Page&nbsp;<input type="text" v-model:value='pageCode' v-on:keyup.enter="getbozhonshowfour">&nbsp;<of>&nbsp;of&nbsp;{{pagenumber}}</of>|</div>
                        <div id="bozhon-show-four-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
                        <div id="bozhon-show-four-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
-                       <div id="bozhon-show-four-part3-cue">number:{{pagesize}}</div>
+                       <div id="bozhon-show-four-part3-cue">number:{{listnumber}}</div>
                     </div>
             </div>
         </div>
@@ -292,7 +294,7 @@
                     <div id='bozhon-show-five-part3-pagebtn'>
                         <div id="bozhon-show-five-part3-pagefirst"><img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup"></div>
                        <div id="bozhon-show-five-part3-pageprev"><img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup"></div>
-                       <div id="bozhon-show-five-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of{{pageNumber}}|</div>
+                       <div id="bozhon-show-five-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of&nbsp;{{pageNumber}}|</div>
                        <div id="bozhon-show-five-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
                        <div id="bozhon-show-five-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
                        <div id="bozhon-show-five-part3-cue">number:{{pagesize}}</div>
@@ -345,7 +347,7 @@
                     <div id='bozhon-show-six-part3-pagebtn'>
                         <div id="bozhon-show-six-part3-pagefirst"><img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup"></div>
                        <div id="bozhon-show-six-part3-pageprev"><img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup"></div>
-                       <div id="bozhon-show-six-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of{{pageNumber}}|</div>
+                       <div id="bozhon-show-six-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of&nbsp;{{pageNumber}}|</div>
                        <div id="bozhon-show-six-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
                        <div id="bozhon-show-six-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
                        <div id="bozhon-show-six-part3-cue">number:{{pagesize}}</div>

@@ -630,23 +630,108 @@ var bozhonshowone = new Vue({
         pageprevimg: '../images/prev.png',
         pagenextimg: '../images/next.png',
         pagelastimg: '../images/next page.png',
-        pagesize: '',
+        pagesize: 10,
         pageCode: 1,
-        pageNumber: 4,
-        boxcheck:false,
-        items: [
-            { 
-                txt1: '',
-                txt2: '',
-                txt3: '',
-                txt4: '',
-                txt5: '',
-            }
-        ]
+        pageNumber: '',
+        listnumber: 0,
+        uname: '',
+        boxcheck: false,
+        setdata: {
+            page: '',
+            size: '',
+            uName: '',
+        },
+        items: [],
+    },
+    mounted: function () {
+        this.setdata.page = this.pageCode;
+        this.setdata.size = this.pagesize;
+        this.setdata.uName = this.uname;
+        this.getbozhonshowone();
+        this.pageNumber = this.listnumber / this.pagesize;
     },
     methods: {
         //取用户管理表
         getbozhonshowone: function () {
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            localStorage.setItem("Url", ipAddress);
+            var _select = this;
+            $.ajax({
+                url: localStorage.getItem("Url") + 'api/getUsersByPage',
+                type: 'post',
+                data: JSON.stringify(_select.setdata),
+                dataType: "json",
+                succsess: function (json) {
+                    if ("0" == json.result.size) {
+                        alert("当前无符合条件的记录!");
+                    } else {
+                        _select.items = json.result.result.list;
+                        _select.listnumber = json.result.totalItems;
+                    }
+
+                },
+                error: function (data) {
+
+                }
+            })
+        },
+        pagefirstclickdown: function () {
+            this.pagefirstimg = '../images/Previous page (1).png';
+            this.pageCode = 1;
+            this.getbozhonshowone();
+        },
+        pagefirstclickup: function () {
+            this.pagefirstimg = '../images/Previous page.png';
+        },
+        pageprevclickdown: function () {
+            this.pageprevimg = '../images/prev (1).png';
+            if (this.pageCode > 1) {
+                this.pageCode = this.pageCode - 1;
+                this.getbozhonshowone();
+            }
+        },
+        pageprevclickup: function () {
+            this.pageprevimg = '../images/prev.png';
+        },
+        pagenextclickdown: function () {
+            this.pagenextimg = '../images/next (1).png';
+            if (this.pageCode < this.pageNumber) {
+                this.pageCode = this.pageCode + 1;
+                this.getbozhonshowone();
+            }
+        },
+        pagenextclickup: function () {
+            this.pagenextimg = '../images/next.png';
+        },
+        pagelastclickdown: function () {
+            this.pagelastimg = '../images/next page (1).png';
+            this.pageCode = this.pageNumber;
+            this.getbozhonshowone();
+        },
+        pagelastclickup: function () {
+            this.pagelastimg = '../images/next page.png';
+        },
+    }
+})
+
+var bozhonshowtwo = new Vue({
+    el: '#bozhon-show-two',
+    data: {
+        displaystr: 'none',
+        pagefirstimg: '../images/Previous page.png',
+        pageprevimg: '../images/prev.png',
+        pagenextimg: '../images/next.png',
+        pagelastimg: '../images/next page.png',
+        pagesize: '',
+        pageCode: 1,
+        pageNumber: 4,
+        boxcheck: false,
+        items: [],
+    },
+    methods: {
+        getbozhonshowtwo: function () {
+
             $.ajax({
                 url: localStorage.getItem("Url") + 'api/getUsersByPage',
                 type: 'post',
@@ -687,61 +772,6 @@ var bozhonshowone = new Vue({
     }
 })
 
-var bozhonshowtwo = new Vue({
-    el: '#bozhon-show-two',
-    data: {
-        displaystr: 'none',
-        pagefirstimg: '../images/Previous page.png',
-        pageprevimg: '../images/prev.png',
-        pagenextimg: '../images/next.png',
-        pagelastimg: '../images/next page.png',
-        pagesize: '',
-        pageCode: 1,
-        pageNumber: 4,
-        boxcheck:false,
-        items: [
-            {
-                txt1: '',
-                txt2: '',
-                txt3: '',
-                txt4: '',
-                txt5: '',
-                txt6: '',
-                txt7: '',
-                txt8: '',
-                txt9: '',
-                txt10: '',
-            }
-        ]
-    },
-    methods: {
-        pagefirstclickdown: function () {
-            this.pagefirstimg = '../images/Previous page (1).png';
-        },
-        pagefirstclickup: function () {
-            this.pagefirstimg = '../images/Previous page.png';
-        },
-        pageprevclickdown: function () {
-            this.pageprevimg = '../images/prev (1).png';
-        },
-        pageprevclickup: function () {
-            this.pageprevimg = '../images/prev.png';
-        },
-        pagenextclickdown: function () {
-            this.pagenextimg = '../images/next (1).png';
-        },
-        pagenextclickup: function () {
-            this.pagenextimg = '../images/next.png';
-        },
-        pagelastclickdown: function () {
-            this.pagelastimg = '../images/next page (1).png';
-        },
-        pagelastclickup: function () {
-            this.pagelastimg = '../images/next page.png';
-        },
-    }
-})
-
 var bozhonshowthree = new Vue({
     el: '#bozhon-show-three',
     data: {
@@ -753,7 +783,7 @@ var bozhonshowthree = new Vue({
         pagesize: '',
         pageCode: 1,
         pageNumber: 4,
-        boxcheck:false,
+        boxcheck: false,
         items: [
             {
                 txt1: '',
@@ -802,38 +832,129 @@ var bozhonshowfour = new Vue({
         pageprevimg: '../images/prev.png',
         pagenextimg: '../images/next.png',
         pagelastimg: '../images/next page.png',
-        pagesize: '',
+        pagesize: 10,
         pageCode: 1,
-        pageNumber: 4,
-        boxcheck:false,
-        items: [
-            {
-                txt1: '',
-                txt2: '',
-            }
-        ]
+        pagenumber: '',
+        listnumber: 0,
+        cityname: '',
+        boxcheck: false,
+        setdatacity: {
+            page: '',
+            size: '',
+            cityName: '',
+        },
+        setdatanation: {
+            page: '',
+            size: '',
+            nationName: '',
+        },
+        items: [],
+    },
+    mounted: function () {
+        this.setdatacity.page = this.pageCode;
+        this.setdatacity.size = this.pagesize;
+        this.setdatacity.cityName = this.cityname;
+        this.setdatanation.page = this.pageCode;
+        this.setdatanation.size = this.pagesize;
+        this.setdatanation.nationName = this.cityname;
+        this.getbozhonshowfour();
+        this.pagenumber = this.listnumber / this.pagesize;
     },
     methods: {
+        getbozhonshowfour: function () {
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            localStorage.setItem("Url", ipAddress);
+            var _select = this;
+            if (this.citylevel == '国家') {
+                $.ajax({
+                    url: localStorage.getItem("Url") + 'api/getNationByPage',
+                    type: 'post',
+                    data: JSON.stringify(_select.setdatanation),
+                    dataType: "json",
+                    succsess: function (json) {
+                        if ("0" == json.result.size) {
+                            alert("当前无符合条件的记录!");
+                        } else {
+                            _select.items = json.result.result.list;
+                            _select.listnumber = json.result.totalItems;
+                        }
+
+                    },
+                    error: function (data) {
+
+                    }
+                })
+            } else if (this.citylevel == '一级城市') {
+                $.ajax({
+                    url: localStorage.getItem("Url") + 'api/ListProjectByPage',
+                    type: 'post',
+                    data: JSON.stringify(_select.setdata),
+                    dataType: "json",
+                    succsess: function (json) {
+                        if ("0" == json.result.size) {
+                            alert("当前无符合条件的记录!");
+                        } else {
+                            _select.items = json.result.result.list;
+                            _select.listnumber = json.result.totalItems;
+                        }
+                    },
+                    error: function (data) {
+
+                    }
+                })
+            } else if (this.citylevel == '二级城市') {
+                $.ajax({
+                    url: localStorage.getItem("Url") + 'api/ListProjectByPage',
+                    type: 'post',
+                    data: JSON.stringify(_select.setdata),
+                    dataType: "json",
+                    succsess: function (json) {
+                        if ("0" == json.result.size) {
+                            alert("当前无符合条件的记录!");
+                        } else {
+                            _select.items = json.result.result.list;
+                            _select.listnumber = json.result.totalItems;
+                        }
+                    },
+                    error: function (data) {
+
+                    }
+                })
+            }
+        },
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
+            this.pageCode = 1;
+            this.getbozhonshowfour();
         },
         pagefirstclickup: function () {
             this.pagefirstimg = '../images/Previous page.png';
         },
         pageprevclickdown: function () {
             this.pageprevimg = '../images/prev (1).png';
+            if (this.pageCode > 1) {
+                this.pageCode = this.pageCode - 1;
+                this.getbozhonshowfour();
+            }
         },
         pageprevclickup: function () {
             this.pageprevimg = '../images/prev.png';
         },
         pagenextclickdown: function () {
             this.pagenextimg = '../images/next (1).png';
+            if (this.pageCode < this.pageNumber) {
+                this.pageCode = this.pageCode + 1;
+                this.getbozhonshowfour();
+            }
         },
         pagenextclickup: function () {
             this.pagenextimg = '../images/next.png';
         },
         pagelastclickdown: function () {
             this.pagelastimg = '../images/next page (1).png';
+            this.pageCode = this.pagenumber;
+            this.getbozhonshowfour();
         },
         pagelastclickup: function () {
             this.pagelastimg = '../images/next page.png';
@@ -851,7 +972,7 @@ var bozhonshowfive = new Vue({
         pagesize: '',
         pageCode: 1,
         pageNumber: 4,
-        boxcheck:false,
+        boxcheck: false,
         items: [
             {
                 txt1: '',
@@ -900,7 +1021,7 @@ var bozhonshowsix = new Vue({
         pagesize: '',
         pageCode: 1,
         pageNumber: 4,
-        boxcheck:false,
+        boxcheck: false,
         items: [
             {
                 txt1: '',
