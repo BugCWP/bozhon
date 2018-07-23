@@ -723,21 +723,45 @@ var bozhonshowtwo = new Vue({
         pageprevimg: '../images/prev.png',
         pagenextimg: '../images/next.png',
         pagelastimg: '../images/next page.png',
-        pagesize: '',
+        pagesize: 10,
         pageCode: 1,
-        pageNumber: 4,
+        pageNumber: 0,
+        listnumber: '',
         boxcheck: false,
+        projectname: '',//项目名称
         items: [],
+        setdata: {
+            page: '',
+            size: '',
+            projectName: '',
+        },
+        id: [],
+    },
+    mounted: function () {
+        this.setdata.page = this.pageCode;
+        this.setdata.size = this.pagesize;
+        this.setdata.projectName = this.projectname;
+        this.getbozhonshowtwo();
+        this.pageNumber = this.listnumber / this.pagesize;
     },
     methods: {
         getbozhonshowtwo: function () {
-
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            localStorage.setItem("Url", ipAddress);
+            var _select = this;
             $.ajax({
-                url: localStorage.getItem("Url") + 'api/getUsersByPage',
+                url: localStorage.getItem("Url") + 'api/listProjectByPage',
                 type: 'post',
-                data: '',
+                data: JSON.stringify(this.setdata),
                 dataType: "json",
-                succsess: function (data) {
+                succsess: function (json) {
+                    if ("0" == json.result.size) {
+                        alert("当前无符合条件的记录!");
+                    } else {
+                        _select.items = json.result.result.list;
+                        _select.listnumber = json.result.totalItems;
+                    }
 
                 },
                 error: function (data) {
@@ -745,26 +769,65 @@ var bozhonshowtwo = new Vue({
                 }
             })
         },
+        deletebozhonshowtwo: function () {
+            let checkDom = this.$refs.table2.getElementsByClassName("selBtn");
+            let idArray = [];
+            for (var i = 0; i < checkDom.length; i++) {
+                if (checkDom[i].checked) {
+                    idArray.push(checkDom[i].dataset.id);
+                }
+            }
+            this.id = idArray;
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            localStorage.setItem("Url", ipAddress);
+            var _select = this;
+            $.ajax({
+                url: localStorage.getItem("Url") + 'api/delProjects',
+                type: 'post',
+                data: JSON.stringify(this.id),
+                dataType: "json",
+                succsess: function (json) {
+                    this.getbozhonshowtwo();
+                },
+                error: function (msg) {
+                    console.log(msg);
+                }
+            })
+        },
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
+            this.pageCode = 1;
+            this.getbozhonshowtwo();
         },
         pagefirstclickup: function () {
             this.pagefirstimg = '../images/Previous page.png';
+
         },
         pageprevclickdown: function () {
             this.pageprevimg = '../images/prev (1).png';
+            if (this.pageCode > 1) {
+                this.pageCode--;
+                this.getbozhonshowtwo();
+            }
         },
         pageprevclickup: function () {
             this.pageprevimg = '../images/prev.png';
         },
         pagenextclickdown: function () {
             this.pagenextimg = '../images/next (1).png';
+            if (this.pageCode < this.pageNumber) {
+                this.pageCode++;
+                this.getbozhonshowtwo();
+            }
         },
         pagenextclickup: function () {
             this.pagenextimg = '../images/next.png';
         },
         pagelastclickdown: function () {
             this.pagelastimg = '../images/next page (1).png';
+            this.pageCode = this.pageNumber;
+            this.getbozhonshowtwo();
         },
         pagelastclickup: function () {
             this.pagelastimg = '../images/next page.png';
@@ -780,41 +843,83 @@ var bozhonshowthree = new Vue({
         pageprevimg: '../images/prev.png',
         pagenextimg: '../images/next.png',
         pagelastimg: '../images/next page.png',
-        pagesize: '',
+        pagesize: 10,
         pageCode: 1,
         pageNumber: 4,
+        projectname: '',
         boxcheck: false,
-        items: [
-            {
-                txt1: '',
-                txt2: '',
-                txt3: '',
-                txt4: '',
-                txt5: '',
-            }
-        ]
+        listnumber: '',
+        items: [],
+        setdata: {
+            page: '',
+            size: '',
+            projectName: '',
+        },
+    },
+    mounted: function () {
+        this.setdata.page = this.pageCode;
+        this.setdata.size = this.pagesize;
+        this.setdata.projectName = this.projectname;
+        this.getbozhonshowthree();
+        this.pageNumber = this.listnumber / this.pagesize;
     },
     methods: {
+        getbozhonshowthree: function () {
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            localStorage.setItem("Url", ipAddress);
+            var _select = this;
+            $.ajax({
+                url: localStorage.getItem("Url") + 'api/getUpdateEventByPage',
+                type: 'post',
+                data: JSON.stringify(this.setdata),
+                dataType: "json",
+                succsess: function (json) {
+                    if ("0" == json.result.size) {
+                        alert("当前无符合条件的记录!");
+                    } else {
+                        _select.items = json.result.result.list;
+                        _select.listnumber = json.result.totalItems;
+                    }
+
+                },
+                error: function (data) {
+
+                }
+            })
+        },
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
+            this.pageCode = 1;
+            this.getbozhonshowthree();
         },
         pagefirstclickup: function () {
             this.pagefirstimg = '../images/Previous page.png';
         },
         pageprevclickdown: function () {
             this.pageprevimg = '../images/prev (1).png';
+            if (this.pageCode > 1) {
+                this.pageCode--;
+                this.getbozhonshowthree();
+            }
         },
         pageprevclickup: function () {
             this.pageprevimg = '../images/prev.png';
         },
         pagenextclickdown: function () {
             this.pagenextimg = '../images/next (1).png';
+            if (this.pageCode < 1) {
+                this.pageCode++;
+                this.getbozhonshowthree();
+            }
         },
         pagenextclickup: function () {
             this.pagenextimg = '../images/next.png';
         },
         pagelastclickdown: function () {
             this.pagelastimg = '../images/next page (1).png';
+            this.pageCode++;
+            this.getbozhonshowthree();
         },
         pagelastclickup: function () {
             this.pagelastimg = '../images/next page.png';
@@ -887,9 +992,9 @@ var bozhonshowfour = new Vue({
                 })
             } else if (this.citylevel == '一级城市') {
                 $.ajax({
-                    url: localStorage.getItem("Url") + 'api/ListProjectByPage',
+                    url: localStorage.getItem("Url") + 'api/getCityByPage',
                     type: 'post',
-                    data: JSON.stringify(_select.setdata),
+                    data: JSON.stringify(_select.setdatacity),
                     dataType: "json",
                     succsess: function (json) {
                         if ("0" == json.result.size) {
@@ -900,14 +1005,14 @@ var bozhonshowfour = new Vue({
                         }
                     },
                     error: function (data) {
-
+                        
                     }
                 })
             } else if (this.citylevel == '二级城市') {
                 $.ajax({
-                    url: localStorage.getItem("Url") + 'api/ListProjectByPage',
+                    url: localStorage.getItem("Url") + 'api/getProvinceByPage',
                     type: 'post',
-                    data: JSON.stringify(_select.setdata),
+                    data: JSON.stringify(_select.setdatacity),
                     dataType: "json",
                     succsess: function (json) {
                         if ("0" == json.result.size) {
@@ -971,38 +1076,104 @@ var bozhonshowfive = new Vue({
         pagelastimg: '../images/next page.png',
         pagesize: '',
         pageCode: 1,
-        pageNumber: 4,
+        pageNumber: 0,
         boxcheck: false,
-        items: [
-            {
-                txt1: '',
-                txt2: '',
-                txt3: '',
-                txt4: '',
-            }
-        ]
+        listnumber: '',
+        items: [],
+        setdata: {
+            page: '',
+            size: '',
+        },
+        id:[],
+    },
+    mounted: function () {
+        this.setdata.page = this.pageCode;
+        this.setdata.size = this.pagesize;
+        this.getbozhonshowthree();
+        this.pageNumber = this.listnumber / this.pagesize;
     },
     methods: {
+        getbozhonshowfive: function () {
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            localStorage.setItem("Url", ipAddress);
+            var _select = this;
+            $.ajax({
+                url: localStorage.getItem("Url") + 'api/getConfigsByPage',
+                type: 'post',
+                data: JSON.stringify(this.setdata),
+                dataType: "json",
+                succsess: function (json) {
+                    if ("0" == json.result.size) {
+                        alert("当前无符合条件的记录!");
+                    } else {
+                        _select.items = json.result.result.list;
+                        _select.listnumber = json.result.totalItems;
+                    }
+                },
+                error: function (data) {
+
+                },
+            })
+        },
+        deletebozhonshowfive: function () {
+            let checkDom = this.$refs.table5.getElementsByClassName("fivebtn");
+            let idArray = [];
+            for (var i = 0; i < checkDom.length; i++) {
+                if (checkDom[i].checked) {
+                    idArray.push(checkDom[i].dataset.id);
+                }
+            }
+            this.id = idArray;
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            localStorage.setItem("Url", ipAddress);
+            var _select = this;
+            $.ajax({
+                url: localStorage.getItem("Url") + 'api/delConfigs',
+                type: 'post',
+                data: JSON.stringify(this.id),
+                dataType: "json",
+                succsess: function (json) {
+                    this.getbozhonshowsix();
+                },
+                error: function (msg) {
+                    console.log(msg);
+                }
+            })
+        },
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
+            this.pageCode = 1;
+            this.getbozhonshowfive();
         },
         pagefirstclickup: function () {
             this.pagefirstimg = '../images/Previous page.png';
         },
         pageprevclickdown: function () {
             this.pageprevimg = '../images/prev (1).png';
+            if (this.pageCode > 1) {
+                this.pageCode--;
+                this.getbozhonshowfive();
+            }
         },
         pageprevclickup: function () {
             this.pageprevimg = '../images/prev.png';
         },
         pagenextclickdown: function () {
             this.pagenextimg = '../images/next (1).png';
+            if (this.pageCode < pageNumber) {
+                pageCode++;
+                this.getbozhonshowfive();
+            }
         },
         pagenextclickup: function () {
             this.pagenextimg = '../images/next.png';
         },
         pagelastclickdown: function () {
             this.pagelastimg = '../images/next page (1).png';
+            this.pageCode = pageNumber;
+            this.getbozhonshowfive();
         },
         pagelastclickup: function () {
             this.pagelastimg = '../images/next page.png';
@@ -1018,44 +1189,150 @@ var bozhonshowsix = new Vue({
         pageprevimg: '../images/prev.png',
         pagenextimg: '../images/next.png',
         pagelastimg: '../images/next page.png',
-        pagesize: '',
+        pagesize: 10,
         pageCode: 1,
-        pageNumber: 4,
+        pageNumber: 0,
+        listnumber: 0,
         boxcheck: false,
-        items: [
-            {
-                txt1: '',
-                txt2: '',
-                txt3: '',
-                txt4: '',
-                txt5: '',
-            }
-        ]
+        targetdesc: '',
+        items: [],
+        setdata: {
+            page: '',
+            size: '',
+            targetDesc: '',
+        },
+        id:[],
     },
+    mounted: function () {
+        this.setdata.page = this.pageCode;
+        this.setdata.size = this.pagesize;
+        this.setdata.targetDesc=this.targetdesc;
+        this.getbozhonshowthree();
+        this.pageNumber = this.listnumber / this.pagesize;
+    },
+
     methods: {
+        getbozhonshowsix: function () {
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            localStorage.setItem("Url", ipAddress);
+            var _select = this;
+            $.ajax({
+                url: localStorage.getItem("Url") + 'api/listTargetByPage',
+                type: 'post',
+                data: JSON.stringify(this.setdata),
+                dataType: "json",
+                succsess: function (json) {
+                    if ("0" == json.result.size) {
+                        alert("当前无符合条件的记录!");
+                    } else {
+                        _select.items = json.result.result.list;
+                        _select.listnumber = json.result.totalItems;
+                    }
+                },
+                error: function (data) {
+                   
+                },
+            })
+        },
+        deletebozhonshowsix: function () {
+            let checkDom = this.$refs.table6.getElementsByClassName("sixbtn");
+            let idArray = [];
+            for (var i = 0; i < checkDom.length; i++) {
+                if (checkDom[i].checked) {
+                    idArray.push(checkDom[i].dataset.id);
+                }
+            }
+            this.id = idArray;
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            localStorage.setItem("Url", ipAddress);
+            var _select = this;
+            $.ajax({
+                url: localStorage.getItem("Url") + 'api/delConfigs',
+                type: 'post',
+                data: JSON.stringify(this.id),
+                dataType: "json",
+                succsess: function (json) {
+                    this.getbozhonshowsix();
+                },
+                error: function (msg) {
+                    console.log(msg);
+                }
+            })
+        },
+        deletebozhonshowsix:function(){
+            let checkDom=this.$refs.table.getElementsByClassName("fivebtn");
+            let idArray=[];
+            for(var i=0;i<checkDom.length;i++){
+                if(checkDom[i].checked){
+                    idArray.push(checkDom[i].dataset.id);
+                }
+            }
+            this.id=idArray;
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            localStorage.setItem("Url", ipAddress);
+            var _select = this;
+            $.ajax({
+                url: localStorage.getItem("Url") + 'api/delConfigs',
+                type: 'post',
+                data: JSON.stringify(this.id),
+                dataType: "json",
+                succsess: function (json) {
+                    this.getbozhonshowtwo();
+                },
+                error: function (msg) {
+                    console.log(msg);
+                }
+            })
+        },
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
+            this.pageCode = 1;
+            this.getbozhonshowsix();
         },
         pagefirstclickup: function () {
             this.pagefirstimg = '../images/Previous page.png';
+
         },
         pageprevclickdown: function () {
             this.pageprevimg = '../images/prev (1).png';
+            if (this.pageCode > 1) {
+                this.pageCode--;
+                this.getbozhonshowsix();
+            }
         },
         pageprevclickup: function () {
             this.pageprevimg = '../images/prev.png';
         },
         pagenextclickdown: function () {
             this.pagenextimg = '../images/next (1).png';
+            if (this.pageCode < this.pageNumber) {
+                this.pageCode++;
+                this.getbozhonshowsix();
+            }
         },
         pagenextclickup: function () {
             this.pagenextimg = '../images/next.png';
         },
         pagelastclickdown: function () {
             this.pagelastimg = '../images/next page (1).png';
+            this.pageCode = this.pageNumber;
+            this.getbozhonshowsix();
         },
         pagelastclickup: function () {
             this.pagelastimg = '../images/next page.png';
         },
     }
+})
+
+var bozhonshowtwoadd=new Vue({
+    el:'#bozhon-show-two-add',
+    data:{
+          
+    },
+    methods:{
+
+    },
 })

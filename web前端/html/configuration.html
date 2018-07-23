@@ -81,11 +81,11 @@
                         <td style="width: 1%">
                             <input type="checkbox"v-bind:checked="boxcheck" />
                         </td>
-                        <td style="width: 4%">{{item.txt1}}</td>
-                        <td style="width:4%">{{item.txt2}}</td>
-                        <td style="width: 4%">{{item.txt3}}</td>
-                        <td style="width: 4%">{{item.txt4}}</td>
-                        <td style="width: 4%">{{item.txt5}}</td>
+                        <td style="width: 4%">{{item.uId}}</td>
+                        <td style="width:4%">{{item.uName}}</td>
+                        <td style="width: 4%">{{item.uRole}}</td>
+                        <td style="width: 4%">{{item.uLastLoginTime}}</td>
+                        <td style="width: 4%">{{item.uLoginCount}}</td>
                     </tr>
                 </table>
             </div>
@@ -107,19 +107,19 @@
                     <span>>>></span>
                     <span>查看</span>
                     <span>关键字：</span>
-                    <input type="text" id="bozhon-show-two-part1-low1-keyword" />
-                    <input type="button" id="bozhon-show-two-part1-low1-select" value="查询" />
+                    <input type="text" id="bozhon-show-two-part1-low1-keyword" v-model="projectname"/>
+                    <input type="button" id="bozhon-show-two-part1-low1-select" value="查询" v-on:click="getbozhonshowtwo"/>
                     <input type="button" id="bozhon-show-two-part1-low1-add" value="新增" />
                     <input type="button" id="bozhon-show-two-part1-low1-update" value="修改" />
-                    <input type="button" id="bozhon-show-two-part1-low1-delete" value="删除" />
-                    <input type="button" id="bozhon-show-two-part1-low1-flesh" value="刷新" />
+                    <input type="button" id="bozhon-show-two-part1-low1-delete" value="删除" v-on:click="deletebozhonshowtwo" />
+                    <input type="button" id="bozhon-show-two-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowtwo"/>
                 </div>
             </div>
             <div id="bozhon-show-two-part2">
                 <div id="bozhon-show-two-part2-low1">
                     <span>项目列表</span>
                 </div>
-                <table id="bozhon-show-two-part2-low2">
+                <table id="bozhon-show-two-part2-low2" ref="table2">
                     <tr>
                         <th style="width: 1%;">
                             <input type="checkbox" v-model:checked="boxcheck">
@@ -136,16 +136,16 @@
                     </tr>
                     <tr v-for="item in items">
                         <td style="width: 1%;">
-                            <input type="checkbox" v-bind:checked="boxcheck">
+                            <input type="checkbox" class="selBtn" v-bind:checked="boxcheck" :data-id="item.projectId">
                         </td>
-                        <td style="width: 4%;">{{item.txt1}}</td>
-                        <td style="width: 4%;">{{item.txt2}}</td>
-                        <td style="width: 4%;">{{item.txt3}}</td>
-                        <td style="width: 4%;">{{item.txt4}}</td>
-                        <td style="width: 4%;">{{item.txt5}}</td>
-                        <td style="width: 4%;">{{item.txt6}}</td>
-                        <td style="width: 4%;">{{item.txt7}}</td>
-                        <td style="width: 4%;">{{item.txt8}}</td>
+                        <td style="width: 4%;">{{item.projectId}}</td>
+                        <td style="width: 4%;">{{item.projectNation}}</td>
+                        <td style="width: 4%;">{{item.projectProvince}}</td>
+                        <td style="width: 4%;">{{item.projectCity}}</td>
+                        <td style="width: 4%;">{{item.projectName}}</td>
+                        <td style="width: 4%;">{{item.projectDesc}}</td>
+                        <td style="width: 4%;">{{item.projectTypeStr}}</td>
+                        <td style="width: 4%;">{{item.projectConfigVersion}}</td>
                         <!-- <td style="width: 4%;">{{item.txt9}}</td> -->
                     </tr>
                 </table>
@@ -188,11 +188,11 @@
                         <td style="width: 1%">
                             <input type="checkbox"v-bind:checked="boxcheck" />
                         </td>
-                        <td style="width: 4%">{{item.txt1}}</td>
-                        <td style="width: 4%">{{item.txt2}}</td>
-                        <td style="width: 4%">{{item.txt3}}</td>
-                        <td style="width: 4%">{{item.txt4}}</td>
-                        <td style="width: 4%">{{item.txt5}}</td>
+                        <td style="width: 4%">{{item.projectName}}</td>
+                        <td style="width: 4%">{{item.updateResultTime}}</td>
+                        <td style="width: 4%">{{item.updateResultTargetUUID}}</td>
+                        <td style="width: 4%">{{item.updateResult}}</td>
+                        <td style="width: 4%">{{item.updateResultMessage}}</td>
                     </tr>
                 </table>
             </div>
@@ -214,7 +214,7 @@
                     <span>>>></span>
                     <span>查看</span>
                     <span>关键字:</span>
-                    <input type="text" id="bozhon-show-four-part1-low1-keyword" v-model="cityname"/>
+                    <input type="text" id="bozhon-show-four-part1-low1-keyword" v-model="cityname" />
                     <input type="button" id="bozhon-show-four-part1-low1-select" value="查询" v-on:click="getbozhonshowfour"/>
                     <input type="button" id="bozhon-show-four-part1-low1-flesh" value="刷新"  v-on:click="getbozhonshowfour"/>
                 </div>
@@ -261,15 +261,15 @@
                     <span>查看</span>
                     <input type="button" id="bozhon-show-five-part1-low1-add" value="新增" />
                     <input type="button" id="bozhon-show-five-part1-low1-update" value="修改" />
-                    <input type="button" id="bozhon-show-five-part1-low1-delete" value="删除" />
-                    <input type="button" id="bozhon-show-five-part1-low1-flesh" value="刷新" />
+                    <input type="button" id="bozhon-show-five-part1-low1-delete" value="删除" v-on:click="deletebozhonshowfive"/>
+                    <input type="button" id="bozhon-show-five-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowfive"/>
                 </div>
             </div>
             <div id="bozhon-show-five-part2">
                 <div id="bozhon-show-five-part2-low1">
                     <span>配置列表</span>
                 </div>
-                <table id="bozhon-show-five-part2-low2">
+                <table id="bozhon-show-five-part2-low2" ref="table5">
                     <tr>
                         <th style="width: 1%">
                             <input type="checkbox" v-model:checked="boxcheck"/>
@@ -281,12 +281,12 @@
                     </tr>
                     <tr v-for="item in items">
                         <td style="width: 1%">
-                            <input type="checkbox"v-bind:checked="boxcheck" />
+                            <input type="checkbox"v-bind:checked="boxcheck" class="fivebtn" :data-id="item.confId"/>
                         </td>
-                        <td style="width: 5%">{{item.txt1}}</td>
-                        <td style="width: 5%">{{item.txt2}}</td>
-                        <td style="width: 5%">{{item.txt3}}</td>
-                        <td style="width: 5%">{{item.txt4}}</td>
+                        <td style="width: 5%">{{item.confId}}</td>
+                        <td style="width: 5%">{{item.confFileName}}</td>
+                        <td style="width: 5%">{{item.confFilePath}}</td>
+                        <td style="width: 5%">{{item.isWildcard}}</td>
                     </tr>
                 </table>
             </div>
@@ -297,7 +297,7 @@
                        <div id="bozhon-show-five-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of&nbsp;{{pageNumber}}|</div>
                        <div id="bozhon-show-five-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
                        <div id="bozhon-show-five-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
-                       <div id="bozhon-show-five-part3-cue">number:{{pagesize}}</div>
+                       <div id="bozhon-show-five-part3-cue">number:{{listnumber}}</div>
                     </div>
             </div>
         </div>
@@ -308,19 +308,19 @@
                     <span>>>></span>
                     <span>查看</span>
                     <span>关键字：</span>
-                    <input type="text" id="bozhon-show-six-part1-low1-keyword" />
-                    <input type="button" id="bozhon-show-six-part1-low1-select" value="查询" />
+                    <input type="text" id="bozhon-show-six-part1-low1-keyword" v-model="targetdesc"/>
+                    <input type="button" id="bozhon-show-six-part1-low1-select" value="查询" v-on:click="getbozhonshowsix"/>
                     <input type="button" id="bozhon-show-six-part1-low1-add" value="新增" />
                     <input type="button" id="bozhon-show-six-part1-low1-update" value="修改" />
                     <input type="button" id="bozhon-show-six-part1-low1-delete" value="删除" />
-                    <input type="button" id="bozhon-show-six-part1-low1-flesh" value="刷新" />
+                    <input type="button" id="bozhon-show-six-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowsix"/>
                 </div>
             </div>
             <div id="bozhon-show-six-part2">
                 <div id="bozhon-show-six-part2-low1">
                     <span>目标列表</span>
                 </div>
-                <table id="bozhon-show-six-part2-low2">
+                <table id="bozhon-show-six-part2-low2" ref="table6">
                     <tr>
                         <th style="width: 1%">
                             <input type="checkbox" v-model:checked="boxcheck"/>
@@ -333,13 +333,13 @@
                     </tr>
                     <tr v-for="item in items">
                         <td style="width: 1%">
-                            <input type="checkbox"v-bind:checked="boxcheck" />
+                            <input type="checkbox"v-bind:checked="boxcheck" class="sixbtn" :data-id="item.targetId"/>
                         </td>
-                        <td style="width: 4%">{{item.txt1}}</td>
-                        <td style="width: 4%">{{item.txt2}}</td>
-                        <td style="width: 4%">{{item.txt3}}</td>
-                        <td style="width: 4%">{{item.txt4}}</td>
-                        <td style="width: 4%">{{item.txt5}}</td>
+                        <td style="width: 4%">{{item.targetId}}</td>
+                        <td style="width: 4%">{{item.targetUUID}}</td>
+                        <td style="width: 4%">{{item.targetDesc}}</td>
+                        <td style="width: 4%">{{item.targetProject}}</td>
+                        <td style="width: 4%">{{item.targetTypeStr}}</td>
                     </tr>
                 </table>
             </div>
@@ -350,10 +350,29 @@
                        <div id="bozhon-show-six-part3-pageinput">|Page&nbsp;<input type="text" v-bind:value='pageCode'>&nbsp;of&nbsp;{{pageNumber}}|</div>
                        <div id="bozhon-show-six-part3-pagenext"><img v-bind:src="pagenextimg"v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup"></div>
                        <div id="bozhon-show-six-part3-pagelast"><img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup"></div>
-                       <div id="bozhon-show-six-part3-cue">number:{{pagesize}}</div>
+                       <div id="bozhon-show-six-part3-cue">number:{{listnumber}}</div>
                     </div>
             </div>
         </div>
+    </div>
+    <div id="bozhon-show-two-add">
+         <div id="bozhon-show-two-add-box">
+              <div id="bozhon-show-two-add-low1">新建项目</div>
+              <div id="bozhon-show-two-add-low2">项目名称<input type="text"></div>
+              <div id="bozhon-show-two-add-low3">项目描述 <input type="text"></div>
+              <div id="bozhon-show-two-add-low4">
+                  所在城市 
+                  <select>
+                      <option></option>
+                  </select>
+                </div>
+              <div id="bozhon-show-two-add-low5">
+                  项目类别 
+                  <select>
+                      <option></option>
+                  </select>
+              </div>
+         </div>
     </div>
     <script src="../js/configuration.js"></script>
     <script src="../js/configurationjquery.js"></script>
