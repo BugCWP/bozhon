@@ -109,10 +109,11 @@
                     <span>关键字：</span>
                     <input type="text" id="bozhon-show-two-part1-low1-keyword" v-model="projectname"/>
                     <input type="button" id="bozhon-show-two-part1-low1-select" value="查询" v-on:click="getbozhonshowtwo"/>
-                    <input type="button" id="bozhon-show-two-part1-low1-add" value="新增" />
-                    <input type="button" id="bozhon-show-two-part1-low1-update" value="修改" />
+                    <input type="button" id="bozhon-show-two-part1-low1-add" value="新增" v-on:click="openaddpage"/>
+                    <input type="button" id="bozhon-show-two-part1-low1-update" value="修改" v-on:click="openupdatepage"/>
                     <input type="button" id="bozhon-show-two-part1-low1-delete" value="删除" v-on:click="deletebozhonshowtwo" />
                     <input type="button" id="bozhon-show-two-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowtwo"/>
+                    <input type="button" id="bozhon-show-two-part1-low1-change" value="项目配置" />
                 </div>
             </div>
             <div id="bozhon-show-two-part2">
@@ -259,8 +260,8 @@
                     <span>配置管理</span>
                     <span>>>></span>
                     <span>查看</span>
-                    <input type="button" id="bozhon-show-five-part1-low1-add" value="新增" />
-                    <input type="button" id="bozhon-show-five-part1-low1-update" value="修改" />
+                    <input type="button" id="bozhon-show-five-part1-low1-add" value="新增" v-on:click='openaddpage'/>
+                    <input type="button" id="bozhon-show-five-part1-low1-update" value="修改" v-on:click='openupdatepage'/>
                     <input type="button" id="bozhon-show-five-part1-low1-delete" value="删除" v-on:click="deletebozhonshowfive"/>
                     <input type="button" id="bozhon-show-five-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowfive"/>
                 </div>
@@ -355,25 +356,92 @@
             </div>
         </div>
     </div>
-    <div id="bozhon-show-two-add">
+    <div id="bozhon-show-two-add" v-bind:style="{display:displaystr}">
          <div id="bozhon-show-two-add-box">
               <div id="bozhon-show-two-add-low1">新建项目</div>
-              <div id="bozhon-show-two-add-low2">项目名称<input type="text"></div>
-              <div id="bozhon-show-two-add-low3">项目描述 <input type="text"></div>
+              <div id="bozhon-show-two-add-low2">项目名称<input type="text" v-model="projectname"></div>
+              <div id="bozhon-show-two-add-low3">项目描述 <input type="text" v-model="projectdesc"></div>
               <div id="bozhon-show-two-add-low4">
                   所在城市 
-                  <select>
-                      <option></option>
+                  <select v-model="cityname">
+                      <option v-for="city in citys">{{city.cityName}}</option>
                   </select>
-                </div>
+                  <input type="text" v-model="cityname" v-on:input="changecityinput">
+              </div>
               <div id="bozhon-show-two-add-low5">
                   项目类别 
-                  <select>
-                      <option></option>
+                  <select v-model="projecttypestr">
+                      <option>机器人</option>
+                      <option>调度系统</option>
                   </select>
+              </div>
+              <div id="bozhon-show-two-add-low6">
+                  <input type="button" value="保存" v-on:click="saveaddpage">
+                  <input type="button" value="取消" v-on:click="closeaddpage">
               </div>
          </div>
     </div>
+    <div id="bozhon-show-two-update" v-bind:style="{display:displaystr}">
+        <div id="bozhon-show-two-update-box">
+             <div id="bozhon-show-two-update-low1">修改项目</div>
+             <div id="bozhon-show-two-update-low2">项目名称<input type="text" v-model="projectname"></div>
+             <div id="bozhon-show-two-update-low3">项目描述 <input type="text" v-model="projectdesc"></div>
+             <div id="bozhon-show-two-update-low4">
+                 所在城市 
+                 <select v-model="cityname">
+                     <option v-for="city in citys">{{city.cityName}}</option>
+                 </select>
+                 <input type="text" v-model="cityname" v-on:input="changecityinput">
+             </div>
+             <div id="bozhon-show-two-update-low5">
+                 项目类别 
+                 <select v-model="projecttypestr">
+                     <option>机器人</option>
+                     <option>调度系统</option>
+                 </select>
+             </div>
+             <div id="bozhon-show-two-update-low6">
+                 <input type="button" value="保存" v-on:click="saveupdatepage">
+                 <input type="button" value="取消" v-on:click="closeupdatepage">
+             </div>
+        </div>
+   </div>
+   <div id="bozhon-show-five-add" v-bind:style="{display:displaystr}">
+    <div id="bozhon-show-five-add-box">
+         <div id="bozhon-show-five-add-low1">新建配置</div>
+         <div id="bozhon-show-five-add-low2">配置文件<input type="text" v-model="conffilename"></div>
+         <div id="bozhon-show-five-add-low3">配置路径 <input type="text" v-model="conffilepath"></div>
+         <div id="bozhon-show-five-add-low4">
+             是否通配 
+             <select v-model="iswildcard">
+                 <option value="1">是</option>
+                 <option value="0">否</option>
+             </select>
+         </div>
+         <div id="bozhon-show-five-add-low5">
+             <input type="button" value="保存" v-on:click="saveaddpage">
+             <input type="button" value="取消" v-on:click="closeaddpage">
+         </div>
+    </div>
+</div>
+<div id="bozhon-show-five-update" v-bind:style="{display:displaystr}">
+    <div id="bozhon-show-five-update-box">
+         <div id="bozhon-show-five-update-low1">新建配置</div>
+         <div id="bozhon-show-five-update-low2">配置文件<input type="text" v-model="conffilename"></div>
+         <div id="bozhon-show-five-update-low3">配置路径 <input type="text" v-model="conffilepath"></div>
+         <div id="bozhon-show-five-update-low4">
+             是否通配 
+             <select v-model="iswildcard">
+                 <option value="1">是</option>
+                 <option value="0">否</option>
+             </select>
+         </div>
+         <div id="bozhon-show-five-update-low5">
+             <input type="button" value="保存" v-on:click="saveupdatepage">
+             <input type="button" value="取消" v-on:click="closeupdatepage">
+         </div>
+    </div>
+</div>
     <script src="../js/configuration.js"></script>
     <script src="../js/configurationjquery.js"></script>
 </body>
