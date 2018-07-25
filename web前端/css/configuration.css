@@ -2065,3 +2065,290 @@
 #bozhon-show-five-update-low5 input:nth-child(2):active{
     background-color: #928f86;
 }
+#bozhon-show-six-add{
+    position: absolute;
+    z-index: 2000;
+    width: 99.2%;
+    height: 600px;
+    background-color: rgba(0,0,0,0.5);
+}
+#bozhon-show-six-add-box{
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    position: relative;
+    left: 30%;
+    top: 100px;
+    box-shadow: 0 0 10px #000;
+    border-radius: 5px;
+}
+#bozhon-show-six-add-low1{
+    font-size: 27px;
+    font-weight: 700;
+    padding-left: 20px;
+    padding-top: 10px;
+    height: 45px;
+    background-color: #F8B62B;
+    border-radius: 5px 5px 0 0;
+    border-bottom:2px solid #B27306;
+}
+#bozhon-show-six-add-low2{
+    font-size: 18px;
+    font-weight: 600;
+    padding-left: 70px;
+    padding-top: 15px;
+}
+#bozhon-show-six-add-low2 input{
+    font-size: 20px;
+    height: 20px;
+    width: 200px;
+    margin-left: 28px;
+    border-radius: 5px;
+    border:1px solid #928f86;
+}
+#bozhon-show-six-add-low3{
+    font-size: 18px;
+    font-weight: 600;
+    padding-left: 70px;
+    padding-top: 15px;
+}
+#bozhon-show-six-add-low3 input{
+    font-size: 20px;
+    height: 20px;
+    width: 200px;
+    margin-left: 20px;
+    border-radius: 5px;
+    border:1px solid #928f86;
+}
+#bozhon-show-six-add-low4{
+    font-size: 18px;
+    font-weight: 600;
+    padding-left: 70px;
+    padding-top: 15px;
+}
+#bozhon-show-six-add-low4 input:nth-child(1){
+    font-size: 20px;
+    height: 20px;
+    width: 200px;
+    margin-left: 20px;
+    border-radius: 5px;
+    border:1px solid #928f86;
+}
+#bozhon-show-six-add-low4 input:nth-child(2){
+    font-size: 12px;
+    height: 23px;
+    width: 40px;
+    border:none;
+    background-color: #F8B62B;
+    border-radius: 0 5px 5px 0;
+    position: relative;
+    left: -50px;
+    top: -2px;
+    outline: none;
+}
+#bozhon-show-six-add-low4 input:nth-child(2):active{
+    background-color: #B27306;
+}
+#bozhon-show-six-add-low5{
+    margin-left: 290px;
+    position: relative;
+    top:30px;
+}
+#bozhon-show-six-add-low5 input:nth-child(1){
+    height: 30px;
+    width: 60px;
+    background-color: #F8B62B;
+    border-radius: 3px;
+    outline: none;
+    border:none;
+    font-weight: 500;
+}
+#bozhon-show-six-add-low5 input:nth-child(1):active{
+    background-color: #B27306;
+}
+
+#bozhon-show-six-add-low5 input:nth-child(2){
+    height: 30px;
+    width: 60px;
+    background-color: #E1E1E1;
+    border-radius: 3px;
+    outline: none;
+    border:none;
+    font-weight: 500;
+}
+#bozhon-show-six-add-low5 input:nth-child(2):active{
+    background-color: #928f86;
+}
+#bozhon-show-six-add-project{
+    position: absolute;
+    z-index: 2000;
+    width: 99.2%;
+    height: 600px;
+    background-color: rgba(0,0,0,0.5);
+}
+#bozhon-show-six-add-project-box{
+    width: 500px;
+    height: 530px;
+    background-color: white;
+    position: relative;
+    left: 30%;
+    top: 50px;
+    box-shadow: 0 0 10px #000;
+    border-radius: 5px;
+}
+#bozhon-show-six-add-project-low1{
+    font-size: 27px;
+    font-weight: 700;
+    padding-left: 20px;
+    padding-top: 10px;
+    height: 45px;
+    background-color: #F8B62B;
+    border-radius: 5px 5px 0 0;
+    border-bottom:2px solid #B27306;
+}
+#bozhon-show-six-add-project-low1 input:nth-child(1){
+   width:150px;
+   height: 20px;
+   position: relative;
+   left: 150px; 
+   border-radius:5px;
+   border:1px solid #B27306;
+   outline: none;
+}
+#bozhon-show-six-add-project-low1 input:nth-child(2){
+  width: 40px;
+  height: 25px;
+  position: relative;
+  left: 95px;
+  top:0px;
+  background-color: #F8B62B;
+  border:none;
+  border:1px solid #B27306;
+  border-radius: 0 5px 5px 0;
+  outline: none;
+}
+#bozhon-show-six-add-project-low1 input:nth-child(2):active{
+   background-color: #B27306;
+}
+#bozhon-show-six-add-project-low2{
+    width: 90%;
+    height: 370px;
+    position: relative;
+    left: 5%;
+    top:20px;
+    
+}
+#bozhon-show-six-add-project-low2 table{
+    width: 100%;
+    border-collapse: 1px;
+    border-spacing:0;
+}
+#bozhon-show-six-add-project-low2 th{
+    border: 1px solid #E1E1E1;
+    height: 25px;
+}
+#bozhon-show-six-add-project-low2 td{
+    border: 1px solid #E1E1E1;
+    text-align: center;
+}
+#bozhon-show-six-add-project-low2 tr:nth-child(1){
+    background-color: #F1F1F1;
+}
+#bozhon-show-six-add-project-low3{
+    width: 90%;
+    position: relative;
+    height: 30px;
+    background-color: #F1F1F1;
+    left: 5%;
+}
+#bozhon-show-six-add-project-btn{
+    width: 100%;
+    position: relative;
+    top: 5px;
+    text-align: center;
+}
+#bozhon-show-six-add-project-pagefirst{
+    float: left;
+    position: relative;
+    left: 80px;
+}
+#bozhon-show-six-add-project-pagefirst img{
+    width: 20px;
+    height: 20px;
+}
+#bozhon-show-six-add-project-pageprev{
+    float: left;
+    position: relative;
+    left: 80px;
+}
+#bozhon-show-six-add-project-pageprev img{
+    width: 15px;
+    height: 15px;
+    position: relative;
+    top: 2px;
+}
+#bozhon-show-six-add-project-pageinput{
+    float: left;
+    position: relative;
+    left: 80px;
+}
+#bozhon-show-six-add-project-pageinput input{
+    width: 40px;
+}
+#bozhon-show-six-add-project-pagenext{
+    float: left;
+    position: relative;
+    left: 80px;
+}
+
+#bozhon-show-six-add-project-pagenext img{
+    width: 20px;
+    height: 20px;
+}
+#bozhon-show-six-add-project-pagelast{
+    float: left;
+    position: relative;
+    left: 80px;
+}
+
+#bozhon-show-six-add-project-pagelast img{
+    width: 20px;
+    height: 20px;
+}
+#bozhon-show-six-add-project-cue{
+    float: left;
+    position: relative;
+    left: 120px;
+}
+#bozhon-show-six-add-project-low4{
+    position: relative;
+    top: 20px;
+}
+#bozhon-show-six-add-project-low4 input:nth-child(1){
+    height: 30px;
+    width: 60px;
+    background-color: #F8B62B;
+    border-radius: 3px;
+    outline: none;
+    border:none;
+    font-weight: 500;
+    position: relative;
+    left: 300px;
+}
+#bozhon-show-six-add-project-low4 input:nth-child(1):active{
+    background-color: #B27306;
+}
+#bozhon-show-six-add-project-low4 input:nth-child(2){
+    height: 30px;
+    width: 60px;
+    background-color: #E1E1E1;
+    border-radius: 3px;
+    outline: none;
+    border:none;
+    font-weight: 500;
+    position: relative;
+    left: 300px;
+}
+#bozhon-show-six-add-project-low4 input:nth-child(2):active{
+   background-color: #F1F1F1;
+}
