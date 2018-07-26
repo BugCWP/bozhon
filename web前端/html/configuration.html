@@ -588,6 +588,77 @@
             </div>
         </div>
     </div>
+    <div id="bozhon-show-six-update" v-bind:style="{display:displaystr}">
+        <div id="bozhon-show-six-update-box">
+            <div id="bozhon-show-six-update-low1">修改配置目标</div>
+            <div id="bozhon-show-six-update-low2">目标UUID
+                <input type="text" v-model="targetuuid" v-model="items.targetUUID">
+            </div>
+            <div id="bozhon-show-six-update-low3">目标描述&nbsp;
+                <input type="text" v-model="targetdesc" v-model="items.targetDesc">
+            </div>
+            <div id="bozhon-show-six-update-low4">
+                所属项目&nbsp;
+                <input type="text" v-model='targetproject' v-model="items.targetProject">
+                <input type="button" value="选择" v-on:click="openupdateobjectpage">
+            </div>
+            <div id="bozhon-show-six-update-low5">
+                <input type="button" value="保存" v-on:click="saveupdatepage">
+                <input type="button" value="取消" v-on:click="closeupdatepage">
+            </div>
+        </div>
+    </div>
+    <div id="bozhon-show-six-update-project" v-bind:style="{display:displaystr}">
+        <div id="bozhon-show-six-update-project-box">
+            <div id="bozhon-show-six-update-project-low1">项目列表
+                <input type="text" v-model="projectname">
+                <input type="button" value="查询">
+            </div>
+            <div id="bozhon-show-six-update-project-low2">
+                <table ref="sixupdateproject">
+                    <tr>
+                        <th style="width: 1%">
+                            <input type="checkbox">
+                        </th>
+                        <th style="width: 5%">ID</th>
+                        <th style="width: 5%">项目名称</th>
+                        <th style="width: 5%">项目描述</th>
+                    </tr>
+                    <tr v-for="item in items">
+                        <td style="width: 1%">
+                            <input type="checkbox" class="sixupdateprojectbtn" :data-id="item">
+                        </td>
+                        <td style="width: 5%">{{item.projectId}}</td>
+                        <td style="width: 5%">{{item.projectName}}</td>
+                        <td style="width: 5%">{{item.projectDesc}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="bozhon-show-six-update-project-low3">
+                <div id='bozhon-show-six-update-project-btn'>
+                    <div id="bozhon-show-six-update-project-pagefirst">
+                        <img v-bind:src="pagefirstimg" v-on:mousedown="pagefirstclickdown" v-on:mouseup="pagefirstclickup">
+                    </div>
+                    <div id="bozhon-show-six-update-project-pageprev">
+                        <img v-bind:src="pageprevimg" v-on:mousedown="pageprevclickdown" v-on:mouseup="pageprevclickup">
+                    </div>
+                    <div id="bozhon-show-six-update-project-pageinput">|Page&nbsp;
+                        <input type="text" v-bind:value='pageCode'>&nbsp;of&nbsp;{{pagenumber}}|</div>
+                    <div id="bozhon-show-six-update-project-pagenext">
+                        <img v-bind:src="pagenextimg" v-on:mousedown="pagenextclickdown" v-on:mouseup="pagenextclickup">
+                    </div>
+                    <div id="bozhon-show-six-update-project-pagelast">
+                        <img v-bind:src="pagelastimg" v-on:mousedown="pagelastclickdown" v-on:mouseup="pagelastclickup">
+                    </div>
+                    <div id="bozhon-show-six-update-project-cue">number:{{listnumber}}</div>
+                </div>
+            </div>
+            <div id="bozhon-show-six-update-project-low4">
+                <input type="button" value="确定" v-on:click="saveproject"/>
+                <input type="button" value="取消" v-on:click="closeupdatepage" />
+            </div>
+        </div>
+    </div>
     <script src="../js/configuration.js"></script>
     <script src="../js/configurationjquery.js"></script>
 </body>
