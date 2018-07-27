@@ -90,7 +90,7 @@
                     <img src="../images/信号.png" />
                     <span>统计数据</span>
                     <span>|</span>
-                    <img v-bind:src="imgsrc3" v-on:click="isshowpart(index3==3?3:6)" />
+                    <img v-bind:src="imgsrc3" v-on:click="isshowpart(index3==3?3:6)"/>
                 </div>
                 <div id="bozhon-show-one-part4-low2" class="bozhon-show-one-part4-low2class2" :class="{'bozhon-show-one-part4-low2class':lowclasstxt3}">
 
@@ -135,9 +135,11 @@
                         <td style="width: 11%">{{item.type2}}</td>
                         <td style="width: 11%">{{item.type3}}</td>
                         <td style="width: 11%">{{item.type4}}</td>
-                        <td style="width: 11%">{{item.type5}}<input id="bozhon-show-two-part3-btn31" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" /></td>
+                        <td style="width: 11%">{{item.type5}}</td>
                         <td style="width: 11%">{{item.type6}}</td>
-                        <td style="width:11%">{{item.type7}}</td>
+                        <td style="width:11%">{{item.type7}}
+                            <input id="bozhon-show-two-part3-btn31" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
+                        </td>
                         <td style="width: 11%">{{item.type8}}</td>
                         <td style="width: 11%">{{item.type9s}}</td>
                     </tr>
