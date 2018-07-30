@@ -1,4 +1,4 @@
-
+//页面头部功能实现
 var bozhonheadpage = new Vue({
     el: '#bozhon-head-page',
     data: {
@@ -41,7 +41,7 @@ var bozhonheadpage = new Vue({
         }
     }
 })
-
+//菜单栏功能实现
 var bozhonmunebox = new Vue({
     el: '#bozhon-mune-box',
     data: {
@@ -303,7 +303,7 @@ var bozhonmunebox = new Vue({
     }
 })
 
-
+//控制台
 var bozhonshowone = new Vue({
     el: '#bozhon-show-one',
     data: {
@@ -320,6 +320,7 @@ var bozhonshowone = new Vue({
         lowclasstxt3: true,
     },
     methods: {
+        //控制台内容的展开与合拢方法
         isshowpart: function (i) {
             if (i == 1) {
                 this.imgsrc1 = '../images/箭头 (1).png';
@@ -346,10 +347,11 @@ var bozhonshowone = new Vue({
                 this.index3 = '3';
                 this.lowclasstxt3 = false;
             }
-        }
+        },
+
     }
 })
-
+//机器人列表
 var bozhonshowtwo = new Vue({
     el: '#bozhon-show-two',
     data: {
@@ -363,25 +365,13 @@ var bozhonshowtwo = new Vue({
         pageCode: 1,
         pageNumber: 4,
         boxcheck:false,
-        items: [
-            {
-                type1: '',
-                type2: '',
-                type3: '',
-                type4: '',
-                type5: '',
-                type6: '',
-                type7: '',
-                type8: '',
-                type9: '',
-                type10: '',
-            }
-        ]
+        items: [],
     },
     mounted: function () {
         this.getbozhonshowtwo();
     },
     methods: {
+        //获取数据
         getbozhonshowtwo: function () {
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/dechang/";
@@ -399,6 +389,19 @@ var bozhonshowtwo = new Vue({
                 }
             })
         },
+        //删除
+        isDelete:function(){
+
+        },
+        //清错
+        isClearWorry:function(){
+
+        },
+        //清除区域
+        isClearArea:function(){
+          
+        },
+        //分页功能
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
         },
@@ -426,6 +429,7 @@ var bozhonshowtwo = new Vue({
     }
 })
 
+//执行中任务
 var bozhonshowthree = new Vue({
     el: '#bozhon-show-three',
     data: {
@@ -445,20 +449,23 @@ var bozhonshowthree = new Vue({
         this.getbozhonshowthree();
     },
     methods: {
-        isstartandstop: function (value, i) {
-            if (value.startandstop == true) {
-                value.startandstop = false;
-            } else if (value.startandstop == false) {
-                value.startandstop = true;
-            }
-
-        },
+        //删除
         isDelete: function (i) {
 
         },
+        //刷新
         isfresh: function (i) {
 
         },
+        //暂停
+        isstorp:function(){
+
+        },
+        //开始
+        isstart:function(){
+
+        },
+        //获取数据
         getbozhonshowthree: function () {
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/dechang/";
@@ -478,6 +485,7 @@ var bozhonshowthree = new Vue({
                 }
             })
         },
+        //分页功能
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
         },
@@ -504,7 +512,7 @@ var bozhonshowthree = new Vue({
         },
     }
 })
-
+//等待中任务
 var bozhonshowfour = new Vue({
     el: '#bozhon-show-four',
     data: {
@@ -518,20 +526,13 @@ var bozhonshowfour = new Vue({
         pageCode: 1,
         pageNumber: 4,
         boxcheck:false,
-        items: [
-            {
-                type1: '',
-                type2: '',
-                type3: '',
-                type4: '',
-                type5: '',
-            }
-        ]
+        items: [],
     },
     mounted: function () {
         this.getbozhonshowfour();
     },
     methods: {
+        //获取数据
         getbozhonshowfour: function () {
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/dechang/";
@@ -549,6 +550,23 @@ var bozhonshowfour = new Vue({
                 }
             })
         },
+        //删除
+        isDelete:function(){
+
+        },
+        //上移
+        isup:function(){
+
+        },
+        //下移
+        isdown:function(){
+
+        },
+        //置顶
+        istop:function(){
+
+        },
+        //分页功能
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
         },
