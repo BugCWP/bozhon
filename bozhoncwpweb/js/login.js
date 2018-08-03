@@ -5,26 +5,23 @@ var bozhonloginpage = new Vue({
     data: {
         username: '',
         password: '',
-        setdata: {
+        user: {
             uName: "",
             uPassword: "",
         },
     },
     methods: {
         getlogin: function () {
-            document.cookie="cookieName=CSRF-TOKEN";
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             localStorage.setItem("Url", ipAddress);
             var _select = this;
-            this.setdata.uName = this.username;
-            this.setdata.uPassword = this.password;
+            this.user.uName = this.username;
+            this.user.uPassword = this.password;
             $.ajax({
                 url: localStorage.getItem("Url") + "api/session",
-                headers: {
-                    headerName: 'X-CSRF-TOKEN'
-                },
                 type: "get",
+                contentType: "application/json",
                 success: function (data) {
 
                 },
@@ -35,9 +32,7 @@ var bozhonloginpage = new Vue({
                 $.ajax({
                     url: localStorage.getItem("Url") + "api/authenticate",
                     type: "get",
-                    headers: {
-                        headerName: 'X-CSRF-TOKEN'
-                    },
+                    contentType: "application/json",
                     success: function (data) {
 
                     },
@@ -47,18 +42,20 @@ var bozhonloginpage = new Vue({
                 }),
                 $.ajax({
                     url: localStorage.getItem("Url") + "api/login",
+                    // url: "http://localhost:8080/bzdiamond-server/api/login",
                     type: "post",
                     dataType: "json",
-                    headers: {
-                        headerName: 'X-CSRF-TOKEN'
-                    },
-                    data: JSON.stringify(_select.setdata),
+                    contentType: "application/json",
+                    data: JSON.stringify(_select.user),
                     success: function (data) {
-                        // localStorage.setItem("level",data.level);
-                        localStorage.setItem("uName", _select.setdata.uName);
+                        localStorage.setItem("level",data.level);
+                        localStorage.setItem("uName", _select.user.uName);
                         location.href = "../html/index.html";
                     },
                     error: function (data) {
+                        console.log(localStorage.getItem("Url") + "api/login");
+                        console.log( JSON.stringify(_select.user));
+                        console.log(data.responseText);
                         alert("管理员账号或密码错误!");
                     }
                 })
