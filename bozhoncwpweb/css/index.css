@@ -20,12 +20,27 @@
     left: 950px;
 }
 #bozhon-head-select select{
-    width: 150px;
-    height: 30px;
+    width: 180px;
+    padding-top:10px ;
+    padding-bottom: 5px;
+    padding-left: 0;
     border:0px;
-    border-bottom: 1px solid #383635;
-    outline: none;
+    margin:0;
+    line-height:30px;
+    text-indent:1em;
+   
+    box-shadow:1px 1px 2px #ccc;
+    outline:none;
+    font-size: 16px;
 }
+#bozhon-head-select option{
+    width: 100%;
+     border:1px solid #ccc;
+    font-size: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 
 #bozhon-head-login{
    float: left;

@@ -8,11 +8,11 @@
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/lc_switch.js"></script>
     <script src="../js/jquery-nicescroll.js"></script>
-    <script src="../js/jquery-jSelect.js"></script>
+    <!-- <script src="../js/jquery-jSelect.js"></script> -->
     <script src="../js/jquery.cookie.js"></script>
     <link href="../css/index.css" rel="stylesheet" />
     <link href="../css/lc_switch.css" rel="stylesheet"></link>
-    <link href="../css/j-select.css" rel="stylesheet">
+    <!-- <link href="../css/j-select.css" rel="stylesheet"> -->
     <link rel="shortcut icon" href="../images/11.ico"></link>
 </head>
 
@@ -24,7 +24,7 @@
             </a>
         </div>
         <div id="bozhon-head-select" class="form">
-            <select class="select">
+            <select class="select" v-on:change="changeType($event)" v-model="Project">
                 <option v-for="(item,index) in projects" v-bind:value="item.project">{{item.project}}</option>
             </select>
         </div>
@@ -36,7 +36,7 @@
             <div id="bozhon-head-sanjiao"></div>
 
             <div id="bozhon-head-jump" v-if="jumpshow" v-on:click="headmunejump">
-                <img src="../images/设置.png" />配置</div>
+                <img src="../images/设置.png" />配置{{Project}}</div>
             <div id='bozhon-head-exit' v-on:click="headmuneexit">
                 <img src="../images/退出.png">退出</div>
             <div></div>
@@ -124,31 +124,33 @@
                         <th style="width: 30px">
                             <input type="checkbox" v-model:checked="boxcheck" />
                         </th>
-                        <th style="width: 11%">机器人</th>
-                        <th style="width: 11%">在线</th>
-                        <th style="width: 11%">电池电量</th>
-                        <th style="width: 11%">诊断状态</th>
-                        <th style="width: 11%">任务状态</th>
-                        <th style="width: 11%">任务名称</th>
-                        <th style="width: 11%">控制模式</th>
-                        <th style="width: 11%">申请区域</th>
-                        <th style="width: 11%">批复区域</th>
+                        <th style="width: 10%">机器人</th>
+                        <th style="width: 10%">在线</th>
+                        <th style="width: 10%">电池电量</th>
+                        <th style="width: 10%">急停状态</th>
+                        <th style="width: 10%">诊断状态</th>
+                        <th style="width: 10%">任务状态</th>
+                        <th style="width: 10%">任务名称</th>
+                        <th style="width: 10%">控制模式</th>
+                        <th style="width: 10%">申请区域</th>
+                        <th style="width: 10%">批复区域</th>
                     </tr>
                     <tr v-for="item in items">
                         <td style="width: 30px">
                             <input type="checkbox" v-bind:checked="boxcheck" />
                         </td>
-                        <td style="width: 11%">{{item.type1}}</td>
-                        <td style="width: 11%">{{item.type2}}</td>
-                        <td style="width: 11%">{{item.type3}}</td>
-                        <td style="width: 11%">{{item.type4}}</td>
-                        <td style="width: 11%">{{item.type5}}</td>
-                        <td style="width: 11%">{{item.type6}}</td>
-                        <td style="width:11%">{{item.type7}}
+                        <td style="width: 10%">{{item.name}}</td>
+                        <td style="width: 10%">{{item.online}}</td>
+                        <td style="width: 10%">{{item.battery_level}}</td>
+                        <td style="width: 10%">{{item.emergency}}</td>
+                        <td style="width: 10%">{{item.diagnostic_state}}</td>
+                        <td style="width: 10%">{{item.task_state}}</td>
+                        <td style="width: 10%">{{item.task_description}}</td>
+                        <td style="width: 10%">{{item.control_mode}}
                             <input id="bozhon-show-two-part3-btn31" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
                         </td>
-                        <td style="width: 11%">{{item.type8}}</td>
-                        <td style="width: 11%">{{item.type9s}}</td>
+                        <td style="width: 11%">{{item.required_access_area}}</td>
+                        <td style="width: 11%">{{item.approved_access_area}}</td>
                     </tr>
                 </table>
 
@@ -233,12 +235,12 @@
                     </tr>
                     <tr v-for="(item,index) in items">
                         <td style="width: 0.3%">
-                            <input type="checkbox" v-bind:checked="boxcheck" />
+                            <input type="checkbox" v-bind:checked="boxcheck" v-model="item.checked" v-on:click="checkedthing(item,$event)"/>
                         </td>
-                        <td style="width: 4%">{{item.robotName}}</td>
-                        <td style="width: 4%">{{item.robotStatus}}</td>
-                        <td style="width: 4%">{{item.jobName}}</td>
-                        <td style="width: 4%">{{item.time}}</td>
+                        <td style="width: 4%">{{item.robot}}</td>
+                        <td style="width: 4%">{{item.state}}</td>
+                        <td style="width: 4%">{{item.opcode}}</td>
+                        <td style="width: 4%">{{item.stamp}}</td>
                         <td style="width: 4%">{{item.uuid}}</td>
                         <!-- <td style="width: 4%">
                         <img v-on:click="isstartandstop(item,index)" v-bind:src="item.startandstop==true?'../images/暂停.png':'../images/节点-开始.png'"/>
@@ -289,6 +291,7 @@
                         <th style="width: 0.3%">
                             <input type="checkbox" v-model:checked="boxcheck" />
                         </th>
+
                         <th style="width: 4%">时间</th>
                         <th style="width: 4%">UUID</th>
                         <th style="width: 4%">名称</th>
@@ -300,11 +303,12 @@
                         <td style="width: 0.3%">
                             <input type="checkbox" v-bind:checked="boxcheck" />
                         </td>
-                        <td style="width: 4%">{{item.type1}}</td>
-                        <td style="width: 4%">{{item.type2}}</td>
-                        <td style="width: 4%">{{item.type3}}</td>
-                        <td style="width: 4%">{{item.type4}}</td>
-                        <td style="width: 4%">{{item.type5}}</td>
+
+                        <td style="width: 4%">{{item.stamp}}</td>
+                        <td style="width: 4%">{{item.uuid}}</td>
+                        <td style="width: 4%">{{item.opcode}}</td>
+                        <td style="width: 4%">{{item.state}}</td>
+                        <td style="width: 4%">{{item.level}}</td>
                         <!-- <td style="width: 10%">
                             <img src="../images/上移.png"/>
                             <img src="../images/下移.png"/>
@@ -347,7 +351,32 @@
     <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script> -->
     <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script> -->
     <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script> -->
-    <script type="text/javascript">
+    <script type="text/javascript">  
+        var items = [{"data":1,"label":"测试"}];
+        var RobotType = function () {
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8090/";
+            var setdata = {
+                Project: bozhonheadpage.Project
+            };
+            alert(setdata);
+            $.ajax({
+                url: ipAddress + 'api/GetRobotTypeList',
+                type: 'post',
+                data: JSON.stringify(setdata),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data.DataStamp);
+                    console.log(data.ResponseInfo);
+                    console.log(data.ResultInfo);
+                    items = data.RobotTypeList;
+                },
+                error: function (msg) {
+                    console.log("饼状图信息获取失败");
+                }
+            })
+        }
         var dom = document.getElementById("bozhon-show-on-part3-container");
         var myChart = echarts.init(dom);
         var app = {};
@@ -401,7 +430,7 @@
             var legendData = [];
             var seriesData = [];
             var selected = {};
-            for (var i = 0; i < 50; i++) {
+            for (var i = 0; i < count; i++) {
                 // name = Math.random() > 0.65
                 //     ? makeWord(4, 1) + '·' + makeWord(3, 0)
                 //     : makeWord(2, 1);

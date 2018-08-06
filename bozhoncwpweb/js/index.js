@@ -9,6 +9,7 @@ var bozhonheadpage = new Vue({
         jumpshow: true,
         imgsrc: '../images/iconfont-yonghu.png',
         bordertxt: false,
+        Project:"",//工程配置文件名
         projects: [
             {
                 project: 'bozhon',
@@ -18,7 +19,13 @@ var bozhonheadpage = new Vue({
             }
         ],
     },
+    mounted:function(){
+       
+    },
     methods: {
+        changeType:function(event){
+            console.log(this.Project);
+        },
         headmuneshow: function () {
             if (bozhonheadpage.displaytxt == 'none') {
                 bozhonheadpage.displaytxt = 'block';
@@ -226,6 +233,7 @@ var bozhonmunebox = new Vue({
                     bozhonshowthree.displaystr = 'none';
                     bozhonshowfour.displaystr = 'none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts3;
+                    bozhonshowtwo.getbozhonshowtwo();
 
                 } else if (index == 2) {
                     bozhonshowone.displaystr = 'none';
@@ -233,12 +241,14 @@ var bozhonmunebox = new Vue({
                     bozhonshowthree.displaystr = 'block';
                     bozhonshowfour.displaystr = 'none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts4;
+                    bozhonshowthree.getbozhonshowthree();
                 } else if (index == 3) {
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
                     bozhonshowfour.displaystr = 'block';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts5;
+                    bozhonshowfour.getbozhonshowfour();
                 }
             } else {
                 if (index == 0) {
@@ -253,6 +263,7 @@ var bozhonmunebox = new Vue({
                     bozhonshowthree.displaystr = 'none';
                     bozhonshowfour.displaystr = 'none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts6;
+                    bozhonshowtwo.getbozhonshowtwo();
 
                 } else if (index == 2) {
                     bozhonshowone.displaystr = 'none';
@@ -260,12 +271,14 @@ var bozhonmunebox = new Vue({
                     bozhonshowthree.displaystr = 'block';
                     bozhonshowfour.displaystr = 'none';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts7;
+                    bozhonshowthree.getbozhonshowthree();
                 } else if (index == 3) {
                     bozhonshowone.displaystr = 'none';
                     bozhonshowtwo.displaystr = 'none';
                     bozhonshowthree.displaystr = 'none';
                     bozhonshowfour.displaystr = 'block';
                     bozhonmunebox.btntxts = bozhonmunebox.btntxts8;
+                    bozhonshowfour.getbozhonshowfour();
                 }
             }
 
@@ -365,27 +378,44 @@ var bozhonshowtwo = new Vue({
         pageCode: 1,
         pageNumber: 4,
         boxcheck:false,
+        setdata:{
+            Project:''
+        },
         items: [],
     },
     mounted: function () {
-        this.getbozhonshowtwo();
+        
     },
     methods: {
         //获取数据
         getbozhonshowtwo: function () {
+            this.setdata.Project=bozhonheadpage.Project;
             var host = location.hostname;
-            var ipAddress = "http://" + host + ":8080/dechang/";
-            localStorage.setItem("Url", ipAddress);
+            var ipAddress = "http://" + host + ":8090/";
+            // localStorage.setItem("Url", ipAddress);
+            var _select=this;
             $.ajax({
-                url: localStorage.getItem("Url") + 'api/',
+                url: ipAddress + 'api/GetRobotStatusList',
                 type: 'post',
-                data: '',
+                data:JSON.stringify(_select.setdata),
                 dataType: "json",
-                succsess: function (json) {
-
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data.DataStamp);
+                    if(data.ResponseStatus==0){
+                        console.log(data.ResponseInfo);
+                    }else{
+                        alert(data.ResponseInfo);
+                    }
+                    if(data.Result==0){
+                        console.log(data.ResultInfo);
+                    }else{
+                        alert(data.ResultInfo);
+                    }
+                   _select.items=data.RobotStatusList;
                 },
-                error: function (data) {
-
+                error: function (msg) {
+                    alert("机器人列表获取失败");
                 }
             })
         },
@@ -443,10 +473,16 @@ var bozhonshowthree = new Vue({
         pageCode: 1,
         pageNumber: 4,
         boxcheck:false,
-        items: [],
+        uuidlist:[],
+        checkednumber:0,
+        setdata:{
+            FleetJobID:'',
+            Project:'',
+        },
+        items: [{robot:1,state:2,opcode:3,stamp:4,uuid:5}],
     },
     mounted: function () {
-        this.getbozhonshowthree();
+        
     },
     methods: {
         //删除
@@ -459,29 +495,90 @@ var bozhonshowthree = new Vue({
         },
         //暂停
         isstorp:function(){
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8090/";
+            var _select = this;
+            if(this.checkednumber==1){
+                $.ajax({
+                    url: ipAddress + 'api/PauseRunningJob',
+                    type: 'post',
+                    data: JSON.stringify(_select.setdata),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data) {
+                        console.log(data.DataStamp);
+                        if (data.ResponseStatus == 0) {
+                            console.log(data.ResponseInfo);
+                        } else {
+                            alert("后台错误" + data.ResponseInfo);
+                        }
+                        if (data.Result == 0) {
+                            console.log(data.ResultInfo);
+                        } else {
+                            alert("后台错误" + data.ResultInfo);
+                        }
 
+                    },
+                    error: function (msg) {
+                        alert("暂停任务失败");
+                    }
+                })
+            }else if(this.checkednumber==0){
+                alert("请选中一个需要暂停的任务");
+            }else{
+                alert("请不要多选");
+            }
         },
         //开始
         isstart:function(){
 
         },
+        //选中事件
+        checkedthing:function(item,event){
+            if(event.target.checked){
+               this.uuidlist.push(item.uuid);
+               this.checkednumber++;
+            //    console.log(this.uuidlist,this.checkednumber);
+            }else{
+              var list=new Array();
+              for(var i in this.uuidlist){
+                  if(this.uuidlist[i]!=item.uuid){
+                     list.push(this.uuidlist[i]);
+                  }
+              }
+              this.uuidlist=list;
+              this.checkednumber--;
+            //   console.log(this.uuidlist,this.checkednumber);
+            }
+        },
         //获取数据
         getbozhonshowthree: function () {
+            this.setdata.Project=bozhonheadpage.Project;
             var host = location.hostname;
-            var ipAddress = "http://" + host + ":8080/dechang/";
-            localStorage.setItem("Url", ipAddress);
+            var ipAddress = "http://" + host + ":8090/";
             var _select = this;
             $.ajax({
-                url: localStorage.getItem("Url") + 'api/robotWorkingServlet',
+                url: ipAddress + 'api/GetUndergoingJobStatusList',
                 type: 'post',
-                data: '',
+                data: JSON.stringify(_select.setdata),
                 dataType: "json",
-                succsess: function (json) {
-
-
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data.DataStamp);
+                    if(data.ResponseStatus==0){
+                        console.log(data.ResponseInfo);
+                    }else{
+                        alert(data.ResponseInfo);
+                    }
+                    if(data.Result==0){
+                        console.log(data.ResultInfo);
+                    }else{
+                        alert(data.ResultInfo);
+                    }
+                    _select.items=data.UndergoingJobsSta;
                 },
-                error: function (data) {
-                    _select.items = [{ robotName: 1, robotStatus: 1, jobName: 1, time: 1, uuid: 1, startandstop: true }];
+                error: function (msg) {
+                    alert("执行中任务列表获取失败");
                 }
             })
         },
@@ -526,27 +623,43 @@ var bozhonshowfour = new Vue({
         pageCode: 1,
         pageNumber: 4,
         boxcheck:false,
+        setdata:{
+            Project:'',
+        },
         items: [],
     },
     mounted: function () {
-        this.getbozhonshowfour();
+       
     },
     methods: {
         //获取数据
         getbozhonshowfour: function () {
+            this.setdata.Project=bozhonheadpage.Project;
             var host = location.hostname;
-            var ipAddress = "http://" + host + ":8080/dechang/";
-            localStorage.setItem("Url", ipAddress);
+            var ipAddress = "http://" + host + ":8090/";
+            var _select=this;
             $.ajax({
-                url: localStorage.getItem("Url") + 'api/',
+                url: ipAddress + 'api/GetRemainningJobStatusList',
                 type: 'post',
-                data: '',
+                data: JSON.stringify(_select.setdata),
                 dataType: "json",
-                succsess: function (json) {
-
+                contentType:"application/json",
+                success: function (data) {
+                    console.log(data.DataStamp);
+                    if(data.ResponseStatus==0){
+                        console.log(data.ResponseInfo);
+                    }else{
+                        alert(data.ResponseInfo);
+                    }
+                    if(data.Result==0){
+                        console.log(data.ResultInfo);
+                    }else{
+                        alert(data.ResultInfo);
+                    }
+                    _select.items=data.RemainningJobsStatusList;
                 },
-                error: function (data) {
-
+                error: function (msg) {
+                    alert("等待中任务列表获取失败");
                 }
             })
         },

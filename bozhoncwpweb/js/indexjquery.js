@@ -20,7 +20,7 @@ $(function(){
 		console.log('field is unchecked');
 	});
 
-	$(".select").jSelect();
+	// $(".select").jSelect();
 })
 
 
