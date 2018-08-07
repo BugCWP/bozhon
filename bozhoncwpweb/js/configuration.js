@@ -40,7 +40,7 @@ var bozhonheadpage = new Vue({
         }
     }
 })
-
+//目录栏
 var bozhonmunebox = new Vue({
     el: '#bozhon-mune-box',
     data: {
@@ -662,7 +662,6 @@ var bozhonshowone = new Vue({
     },
     mounted: function () {
         this.getbozhonshowone();
-
     },
     methods: {
         //取用户管理表
@@ -699,7 +698,7 @@ var bozhonshowone = new Vue({
                     }
                 },
                 error: function (data) {
-                    alert("访问用户列表失败");
+                    console.log("访问用户列表失败");
                     _select.items = [];
                 }
             })
@@ -757,6 +756,10 @@ var bozhonshowtwo = new Vue({
         pagenumber: 0,
         listnumber: '',
         boxcheck: false,
+        checkednumber: 0,
+        btndisabledone: true,
+        btndisabledsome: true,
+        idlist: {},
         projectname: '',//项目名称
         items: [],
         selectnumber: 0,
@@ -765,7 +768,11 @@ var bozhonshowtwo = new Vue({
             size: '',
             projectName: '',
         },
+        reqdele: {
+            ids: '',
+        },
         id: [],
+        additem:[],
     },
     mounted: function () {
 
@@ -801,32 +808,33 @@ var bozhonshowtwo = new Vue({
 
                 },
                 error: function (data) {
-                    alert("获取项目列表失败");
+                    console.log("获取项目列表失败");
                     _select.items = [];
                 }
             })
         },
+        //删除功能
         deletebozhonshowtwo: function () {
-            var checkDom = this.$refs.table2.getElementsByClassName("selBtn");
-            var idArray = [];
-            this.selectnumber = 0;
-            for (var i = 0; i < checkDom.length; i++) {
-                if (checkDom[i].checked) {
-                    idArray.push(checkDom[i].dataset.id);
-                    this.selectnumber++;
-                }
-            }
-            this.id = idArray;
+            // var checkDom = this.$refs.table2.getElementsByClassName("selBtn");
+            // var idArray = [];
+            // this.selectnumber = 0;
+            // for (var i = 0; i < checkDom.length; i++) {
+            //     if (checkDom[i].checked) {
+            //         idArray.push(checkDom[i].dataset.id);
+            //         this.selectnumber++;
+            //     }
+            // }
+            // this.id = idArray;
+            this.reqdele.ids = this.idlist;
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
-            localStorage.setItem("Url", ipAddress);
             var _select = this;
-            if (this.selectnumber > 0) {
+            if (this.checkednumber > 0) {
                 alert("确认要删除？");
                 $.ajax({
-                    url: localStorage.getItem("Url") + 'api/delProjects',
+                    url: ipAddress + 'api/delProjects',
                     type: 'post',
-                    data: JSON.stringify(this.id),
+                    data: JSON.stringify(_select.reqdele),
                     dataType: "json",
                     contentType: "application/json",
                     success: function (json) {
@@ -841,6 +849,48 @@ var bozhonshowtwo = new Vue({
             }
 
         },
+        //选中事件
+        checkedthing: function (item, event) {
+            this.idlist=new Array();
+            this.additem=new Array();
+            if (event.target.checked) {
+                this.idlist.push(item.projectId);
+                this.additem.push(item);
+                this.checkednumber++;
+                if (this.checkednumber == 1) {
+                    this.btndisabledsome = false;
+                    this.btndisabledone = false;
+                } else if (this.checkednumber > 1) {
+                    this.btndisabledone = true;
+                }
+                console.log(this.idlist, this.checkednumber);
+            } else {
+                var list1 = new Array();
+                for (var i in this.idlist) {
+                    if (this.idlist[i] != item.projectId) {
+                        list1.push(this.idlist[i]);
+                    }
+                }
+                this.idlist = list1;
+                var list2 = new Array();
+                for (var i in this.additem) {
+                    if (this.additem[i] != item) {
+                        list1.push(this.additem[i]);
+                    }
+                }
+                this.additem = list2;
+                this.checkednumber--;
+                if (this.checkednumber == 1) {
+                    this.btndisabledone = false;
+                }
+                if (this.checkednumber < 1) {
+                    this.btndisabled = true;
+                    this.btndisabledone = true;
+                }
+                console.log(this.idlist, this.checkednumber);
+            }
+        },
+        //分页功能
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
             this.pageCode = 1;
@@ -878,21 +928,24 @@ var bozhonshowtwo = new Vue({
         pagelastclickup: function () {
             this.pagelastimg = '../images/next page.png';
         },
+        //打开新增框
         openaddpage: function () {
             bozhonshowtwoadd.displaystr = 'block';
             bozhonshowtwoadd.selectcity();
         },
+        //打开修改框
         openupdatepage: function () {
-            var checkDom = this.$refs.table2.getElementsByClassName("selBtn");
-            var idArray = [];
-            this.selectnumber = 0;
-            for (var i = 0; i < checkDom.length; i++) {
-                if (checkDom[i].checked) {
-                    idArray.push(checkDom[i].dataset.id);
-                    this.selectnumber++;
-                }
-            }
-            if (this.selectnumber == 1) {
+            // var checkDom = this.$refs.table2.getElementsByClassName("selBtn");
+            // var idArray = [];
+            // this.selectnumber = 0;
+            // for (var i = 0; i < checkDom.length; i++) {
+            //     if (checkDom[i].checked) {
+            //         idArray.push(checkDom[i].dataset.id);
+            //         this.selectnumber++;
+            //     }
+            // }
+            if (this.checkednumber == 1) {
+                bozhonshowtwoupdate.projectname=this.additem[0].projectName;//写到这里
                 bozhonshowtwoupdate.displaystr = 'block';
             } else {
                 alert("请选择一项要修改的数据");
@@ -957,7 +1010,7 @@ var bozhonshowthree = new Vue({
 
                 },
                 error: function (data) {
-                    alert("获取更新事件失败");
+                    console.log("获取更新事件失败");
                     _select.items = [];
                 }
             })
@@ -1067,7 +1120,7 @@ var bozhonshowfour = new Vue({
                         }
                     },
                     error: function (data) {
-                        alert("获取国家失败");
+                        console.log("获取国家失败");
                         _select.items = [];
                     }
                 })
@@ -1091,7 +1144,7 @@ var bozhonshowfour = new Vue({
                         }
                     },
                     error: function (data) {
-                        alert("获取一级城市失败");
+                        console.log("获取一级城市失败");
                         _select.items = [];
                     }
                 })
@@ -1116,7 +1169,7 @@ var bozhonshowfour = new Vue({
                         }
                     },
                     error: function (data) {
-                        alert("获取二级城市失败");
+                        console.log("获取二级城市失败");
                         _select.items = [];
                     }
                 })
@@ -1183,6 +1236,13 @@ var bozhonshowfive = new Vue({
             size: '',
         },
         id: [],
+        checkednumber: 0,
+        btndisabledone: true,
+        btndisabledsome: true,
+        idlist: {},
+        reqdele: {
+            ids: '',
+        }
     },
     mounted: function () {
         // this.req.page = this.pageCode;
@@ -1216,31 +1276,32 @@ var bozhonshowfive = new Vue({
                     }
                 },
                 error: function (data) {
-                    alert("获取管理配置失败");
+                    console.log("获取管理配置失败");
                     _select.items = [];
                 },
             })
         },
         deletebozhonshowfive: function () {
-            var checkDom = this.$refs.table5.getElementsByClassName("fivebtn");
-            var idArray = [];
-            this.selectnumber = 0;
-            for (var i = 0; i < checkDom.length; i++) {
-                if (checkDom[i].checked) {
-                    idArray.push(checkDom[i].dataset.id);
-                    this.selectnumber++;
-                }
-            }
-            this.id = idArray;
+            // var checkDom = this.$refs.table5.getElementsByClassName("fivebtn");
+            // var idArray = [];
+            // this.selectnumber = 0;
+            // for (var i = 0; i < checkDom.length; i++) {
+            //     if (checkDom[i].checked) {
+            //         idArray.push(checkDom[i].dataset.id);
+            //         this.selectnumber++;
+            //     }
+            // }
+            // this.id = idArray;
+            this.reqdele.ids=this.idlist;
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
-            localStorage.setItem("Url", ipAddress);
+            // localStorage.setItem("Url", ipAddress);
             var _select = this;
-            if (this.selectnumber > 0) {
+            if (this.checkednumber > 0) {
                 $.ajax({
-                    url: localStorage.getItem("Url") + 'api/delConfigs',
+                    url: ipAddress + 'api/delConfigs',
                     type: 'post',
-                    data: JSON.stringify(this.id),
+                    data: JSON.stringify(_select.reqdele),
                     dataType: "json",
                     contentType: "application/json",
                     success: function (json) {
@@ -1255,6 +1316,39 @@ var bozhonshowfive = new Vue({
             }
 
         },
+        //选中事件
+        checkedthing: function (item, event) {
+            this.idlist=new Array();
+            if (event.target.checked) {
+                this.idlist.push(item.confId);
+                this.checkednumber++;
+                if (this.checkednumber == 1) {
+                    this.btndisabledsome = false;
+                    this.btndisabledone = false;
+                } else if (this.checkednumber > 1) {
+                    this.btndisabledone = true;
+                }
+                console.log(this.idlist, this.checkednumber);
+            } else {
+                var list1 = new Array();
+                for (var i in this.idlist) {
+                    if (this.idlist[i] != item.confId) {
+                        list1.push(this.idlist[i]);
+                    }
+                }
+                this.idlist = list1;
+                this.checkednumber--;
+                if (this.checkednumber == 1) {
+                    this.btndisabledone = false;
+                }
+                if (this.checkednumber < 1) {
+                    this.btndisabled = true;
+                    this.btndisabledone = true;
+                }
+                console.log(this.idlist, this.checkednumber);
+            }
+        },
+        //分页功能
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
             this.pageCode = 1;
@@ -1291,20 +1385,22 @@ var bozhonshowfive = new Vue({
         pagelastclickup: function () {
             this.pagelastimg = '../images/next page.png';
         },
+        //打开新增窗口
         openaddpage: function () {
             bozhonshowfiveadd.displaystr = 'block';
         },
+        //打开修改窗口
         openupdatepage: function () {
-            var checkDom = this.$refs.table5.getElementsByClassName("fivebtn");
-            var idArray = [];
-            this.selectnumber = 0;
-            for (var i = 0; i < checkDom.length; i++) {
-                if (checkDom[i].checked) {
-                    idArray.push(checkDom[i].dataset.id);
-                    this.selectnumber++;
-                }
-            }
-            if (this.selectnumber == 1) {
+            // var checkDom = this.$refs.table5.getElementsByClassName("fivebtn");
+            // var idArray = [];
+            // this.selectnumber = 0;
+            // for (var i = 0; i < checkDom.length; i++) {
+            //     if (checkDom[i].checked) {
+            //         idArray.push(checkDom[i].dataset.id);
+            //         this.selectnumber++;
+            //     }
+            // }
+            if (this.checkednumber == 1) {
                 bozhonshowfiveupdate.displaystr = 'block';
             } else {
                 alert("请选择一项要修改的数据");
@@ -1338,6 +1434,13 @@ var bozhonshowsix = new Vue({
         },
         id: [],
         idupdate: [],
+        checkednumber: 0,
+        btndisabledone: true,
+        btndisabledsome: true,
+        idlist: {},
+        reqdele: {
+            ids: '',
+        }
     },
     mounted: function () {
         // this.req.page = this.pageCode;
@@ -1374,38 +1477,78 @@ var bozhonshowsix = new Vue({
                     }
                 },
                 error: function (data) {
-                    alert("目标管理无法获取");
+                    console.log("目标管理无法获取");
                     _select.items = [];
                 },
             })
         },
+        //删除功能
         deletebozhonshowsix: function () {
-            var checkDom = this.$refs.table6.getElementsByClassName("sixbtn");
-            var idArray = [];
-            for (var i = 0; i < checkDom.length; i++) {
-                if (checkDom[i].checked) {
-                    idArray.push(checkDom[i].dataset.id);
-                }
-            }
-            this.id = idArray;
+            // var checkDom = this.$refs.table6.getElementsByClassName("sixbtn");
+            // var idArray = [];
+            // for (var i = 0; i < checkDom.length; i++) {
+            //     if (checkDom[i].checked) {
+            //         idArray.push(checkDom[i].dataset.id);
+            //     }
+            // }
+            // this.id = idArray;
+            this.reqdele.ids=this.idlist;
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
-            localStorage.setItem("Url", ipAddress);
+            // localStorage.setItem("Url", ipAddress);
             var _select = this;
-            $.ajax({
-                url: localStorage.getItem("Url") + 'api/delTargets',
-                type: 'post',
-                data: JSON.stringify(_select.id),
-                dataType: "json",
-                contentType: "application/json",
-                success: function (json) {
-                    _select.getbozhonshowsix();
-                },
-                error: function (msg) {
-                    console.log(msg);
-                }
-            })
+            if(this.checkednumber>0){
+                alert("确认删除？");
+                $.ajax({
+                    url: ipAddress + 'api/delTargets',
+                    type: 'post',
+                    data: JSON.stringify(_select.reqdele),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (json) {
+                        _select.getbozhonshowsix();
+                    },
+                    error: function (msg) {
+                        console.log(msg);
+                    }
+                })
+            }else{
+                console.log("请选择一个删除对象");
+            }
         },
+        //选中事件
+        checkedthing: function (item, event) {
+            this.idlist=new Array();
+            if (event.target.checked) {
+                this.idlist.push(item.targetId);
+                this.checkednumber++;
+                if (this.checkednumber == 1) {
+                    this.btndisabledsome = false;
+                    this.btndisabledone = false;
+                } else if (this.checkednumber > 1) {
+                    this.btndisabledone = true;
+                }
+                console.log(this.idlist, this.checkednumber);
+            } else {
+                var list1 = new Array();
+                for (var i in this.idlist) {
+                    if (this.idlist[i] != item.targetId) {
+                        list1.push(this.idlist[i]);
+                    }
+                }
+                this.idlist = list1;
+                this.checkednumber--;
+                if (this.checkednumber == 1) {
+                    this.btndisabledone = false;
+                }
+                if (this.checkednumber < 1) {
+                    this.btndisabled = true;
+                    this.btndisabledone = true;
+                }
+                console.log(this.idlist, this.checkednumber);
+            }
+        },
+        //分页功能
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
             this.pageCode = 1;
@@ -1443,22 +1586,23 @@ var bozhonshowsix = new Vue({
         pagelastclickup: function () {
             this.pagelastimg = '../images/next page.png';
         },
+        //打开新增窗口
         openaddpage: function () {
             bozhonshowsixadd.displaystr = 'block';
         },
+        //打开修改窗口
         openupdatepage: function () {
-
-            var checkDom = this.$refs.table6.getElementsByClassName("sixbtn");
-            var idArray = [];
-            this.selectnumber = 0;
-            for (var i = 0; i < checkDom.length; i++) {
-                if (checkDom[i].checked) {
-                    idArray.push(checkDom[i].dataset.id);
-                    this.selectnumber++;
-                }
-            }
-            this.idupdate = idArray;
-            if (this.selectnumber == 1) {
+            // var checkDom = this.$refs.table6.getElementsByClassName("sixbtn");
+            // var idArray = [];
+            // this.selectnumber = 0;
+            // for (var i = 0; i < checkDom.length; i++) {
+            //     if (checkDom[i].checked) {
+            //         idArray.push(checkDom[i].dataset.id);
+            //         this.selectnumber++;
+            //     }
+            // }
+            // this.idupdate = idArray;
+            if (this.checkednumber == 1) {
                 var host = location.hostname;
                 var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
                 localStorage.setItem("Url", ipAddress);
@@ -1494,6 +1638,7 @@ var bozhonshowtwoadd = new Vue({
         cityname: '',
         projecttypestr: '',
         projectdesc: '',
+        projectname:'',
         listnumber: '',
         setdatacity: {
             page: '',
@@ -1533,7 +1678,7 @@ var bozhonshowtwoadd = new Vue({
                     _select.listnumber = json.result.result.totalItems;
                 },
                 error: function (data) {
-
+                    console.log("查询城市失败");
                 }
             })
         },
@@ -1586,6 +1731,7 @@ var bozhonshowtwoupdate = new Vue({
         displaystr: 'none',
         citys: [],
         cityname: '',
+        projectname:'',
         projecttypestr: '',
         projectdesc: '',
         listnumber: '',
@@ -1602,10 +1748,7 @@ var bozhonshowtwoupdate = new Vue({
         },
     },
     mounted: function () {
-        if (bozhonshowtwo.selectnumber == 1) {
-            projectname = bozhonshowtwo.items[0].projectName;
-            projectdesc = bozhonshowtwo.items[0].projectDesc;
-        }
+    
     },
     methods: {
         selectcity: function () {

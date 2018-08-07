@@ -85,7 +85,7 @@
                     </tr>
                     <tr v-for="item in items">
                         <td style="width: 1%">
-                            <input type="checkbox" v-bind:checked="boxcheck" />
+                            <input type="checkbox" v-bind:checked="boxcheck"  />
                         </td>
                         <td style="width: 4%">{{item.uId}}</td>
                         <td style="width:4%">{{item.uName}}</td>
@@ -126,8 +126,8 @@
                     <input type="text" id="bozhon-show-two-part1-low1-keyword" v-model="projectname" />
                     <input type="button" id="bozhon-show-two-part1-low1-select" value="查询" v-on:click="getbozhonshowtwo" />
                     <input type="button" id="bozhon-show-two-part1-low1-add" value="新增" v-on:click="openaddpage" />
-                    <input type="button" id="bozhon-show-two-part1-low1-update" value="修改" v-on:click="openupdatepage" />
-                    <input type="button" id="bozhon-show-two-part1-low1-delete" value="删除" v-on:click="deletebozhonshowtwo" />
+                    <input type="button" id="bozhon-show-two-part1-low1-update" value="修改" v-on:click="openupdatepage" v-bind:disabled='btndisabledone'/>
+                    <input type="button" id="bozhon-show-two-part1-low1-delete" value="删除" v-on:click="deletebozhonshowtwo" v-bind:disabled='btndisabledsome'/>
                     <input type="button" id="bozhon-show-two-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowtwo" />
                     <input type="button" id="bozhon-show-two-part1-low1-change" value="项目配置" />
                 </div>
@@ -153,7 +153,7 @@
                     </tr>
                     <tr v-for="item in items">
                         <td style="width: 1%;">
-                            <input type="checkbox" class="selBtn" v-bind:checked="boxcheck" :data-id="item.projectId">
+                            <input type="checkbox" class="selBtn" v-bind:checked="boxcheck" v-on:click="checkedthing(item,$event)">
                         </td>
                         <td style="width: 4%;">{{item.projectId}}</td>
                         <td style="width: 4%;">{{item.projectNation}}</td>
@@ -308,8 +308,8 @@
                     <span>>>></span>
                     <span>查看</span>
                     <input type="button" id="bozhon-show-five-part1-low1-add" value="新增" v-on:click='openaddpage' />
-                    <input type="button" id="bozhon-show-five-part1-low1-update" value="修改" v-on:click='openupdatepage' />
-                    <input type="button" id="bozhon-show-five-part1-low1-delete" value="删除" v-on:click="deletebozhonshowfive" />
+                    <input type="button" id="bozhon-show-five-part1-low1-update" value="修改" v-on:click='openupdatepage' v-bind:disabled='btndisabledone'/>
+                    <input type="button" id="bozhon-show-five-part1-low1-delete" value="删除" v-on:click="deletebozhonshowfive" v-bind:disabled='btndisabledsome'/>
                     <input type="button" id="bozhon-show-five-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowfive" />
                 </div>
             </div>
@@ -329,7 +329,7 @@
                     </tr>
                     <tr v-for="item in items">
                         <td style="width: 1%">
-                            <input type="checkbox" v-bind:checked="boxcheck" class="fivebtn" :data-id="item.confId" />
+                            <input type="checkbox" v-bind:checked="boxcheck" class="fivebtn" v-on:click="checkedthing(item,$event)" />
                         </td>
                         <td style="width: 5%">{{item.confId}}</td>
                         <td style="width: 5%">{{item.confFileName}}</td>
@@ -369,8 +369,8 @@
                     <input type="text" id="bozhon-show-six-part1-low1-keyword" v-model="targetdesc" />
                     <input type="button" id="bozhon-show-six-part1-low1-select" value="查询" v-on:click="getbozhonshowsix" />
                     <input type="button" id="bozhon-show-six-part1-low1-add" value="新增" v-on:click="openaddpage" />
-                    <input type="button" id="bozhon-show-six-part1-low1-update" value="修改" v-on:click="openupdatepage" />
-                    <input type="button" id="bozhon-show-six-part1-low1-delete" value="删除" />
+                    <input type="button" id="bozhon-show-six-part1-low1-update" value="修改" v-on:click="openupdatepage"  v-bind:disabled='btndisabledone'/>
+                    <input type="button" id="bozhon-show-six-part1-low1-delete" value="删除" v-on:click="deletebozhonshowsix"  v-bind:disabled='btndisabledsome'/>
                     <input type="button" id="bozhon-show-six-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowsix" />
                 </div>
             </div>
@@ -391,7 +391,7 @@
                     </tr>
                     <tr v-for="item in items">
                         <td style="width: 1%">
-                            <input type="checkbox" v-bind:checked="boxcheck" class="sixbtn" :data-id="item.targetId" />
+                            <input type="checkbox" v-bind:checked="boxcheck" class="sixbtn" v-on:click="checkedthing(item,$event)" />
                         </td>
                         <td style="width: 4%">{{item.targetId}}</td>
                         <td style="width: 4%">{{item.targetUUID}}</td>

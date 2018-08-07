@@ -10,10 +10,12 @@
     <script src="../js/jquery-nicescroll.js"></script>
     <!-- <script src="../js/jquery-jSelect.js"></script> -->
     <script src="../js/jquery.cookie.js"></script>
+    <script src="../js/jquery.shCircleLoader.js"></script>
     <link href="../css/index.css" rel="stylesheet" />
     <link href="../css/lc_switch.css" rel="stylesheet"></link>
     <!-- <link href="../css/j-select.css" rel="stylesheet"> -->
     <link rel="shortcut icon" href="../images/11.ico"></link>
+    <link rel="stylesheet" href="../css/jquery.shCircleLoader.css">
 </head>
 
 <body>
@@ -110,9 +112,9 @@
                     <span>机器人列表</span>
                     <span>>>></span>
                     <span>查看</span>
-                    <input type="button" id="bozhon-show-three-part1-low1-add" value="清错" v-on:click="isClearWorry" />
-                    <input type="button" id="bozhon-show-three-part1-low1-update" value="删除任务" v-on:click="isDelete" />
-                    <input type="button" id="bozhon-show-three-part1-low1-delete" value="清除区域" v-on:click="isClearArea" />
+                    <input type="button" id="bozhon-show-three-part1-low1-add" value="清错" v-on:click="isClearWorry" v-bind:disabled='btndisabled'/>
+                    <input type="button" id="bozhon-show-three-part1-low1-update" value="删除任务" v-on:click="isDelete" v-bind:disabled='btndisabled'/>
+                    <input type="button" id="bozhon-show-three-part1-low1-delete" value="清除区域" v-on:click="isClearArea" v-bind:disabled='btndisabled'/>
                 </div>
             </div>
             <div id="bozhon-show-two-part2">
@@ -137,7 +139,7 @@
                     </tr>
                     <tr v-for="item in items">
                         <td style="width: 30px">
-                            <input type="checkbox" v-bind:checked="boxcheck" />
+                            <input type="checkbox" v-on:click="checkedthing(item,$event)"/>
                         </td>
                         <td style="width: 10%">{{item.name}}</td>
                         <td style="width: 10%">{{item.online}}</td>
@@ -147,13 +149,13 @@
                         <td style="width: 10%">{{item.task_state}}</td>
                         <td style="width: 10%">{{item.task_description}}</td>
                         <td style="width: 10%">{{item.control_mode}}
-                            <input id="bozhon-show-two-part3-btn31" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
+                        <input id="bozhon-show-two-part3-btn31" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
                         </td>
                         <td style="width: 11%">{{item.required_access_area}}</td>
                         <td style="width: 11%">{{item.approved_access_area}}</td>
                     </tr>
                 </table>
-
+                <div id="bozhon-show-two-sch" style="position: absolute;left:450px;top:250px;height:150px;width:150px" v-bind:style="{display:schdisplaytxt}"></div>
             </div>
             <div id="bozhon-show-two-part3">
                 <div id='bozhon-show-two-part3-pagebtn'>
@@ -211,9 +213,9 @@
                     <span>任务列表</span>
                     <span>>>></span>
                     <span>查看</span>
-                    <input type="button" id="bozhon-show-three-part1-low1-add" value="暂停" v-on:click="isstorp" />
-                    <input type="button" id="bozhon-show-three-part1-low1-update" value="继续" v-on:click="isstart" />
-                    <input type="button" id="bozhon-show-three-part1-low1-delete" value="删除" v-on:click="isDelete" />
+                    <input type="button" id="bozhon-show-three-part1-low1-add" value="暂停" v-on:click="isstorp" v-bind:disabled='btndisabled'/>
+                    <input type="button" id="bozhon-show-three-part1-low1-update" value="继续" v-on:click="isstart" v-bind:disabled='btndisabled'/>
+                    <input type="button" id="bozhon-show-three-part1-low1-delete" value="删除" v-on:click="isDelete" v-bind:disabled='btndisabled'/>
                     <input type="button" id="bozhon-show-three-part1-low1-flesh" value="刷新" v-on:click="isfresh" />
                 </div>
             </div>
@@ -235,7 +237,7 @@
                     </tr>
                     <tr v-for="(item,index) in items">
                         <td style="width: 0.3%">
-                            <input type="checkbox" v-bind:checked="boxcheck" v-model="item.checked" v-on:click="checkedthing(item,$event)"/>
+                            <input type="checkbox"   v-on:click="checkedthing(item,$event)"/>
                         </td>
                         <td style="width: 4%">{{item.robot}}</td>
                         <td style="width: 4%">{{item.state}}</td>
@@ -249,6 +251,7 @@
                         </td> -->
                     </tr>
                 </table>
+                <div id="bozhon-show-three-sch" style="position: absolute;left:450px;top:250px;height:150px;width:150px" v-bind:style="{display:schdisplaytxt}"></div>
             </div>
             <div id="bozhon-show-three-part3">
                 <div id='bozhon-show-three-part3-pagebtn'>
@@ -276,10 +279,10 @@
                     <span>任务列表</span>
                     <span>>>></span>
                     <span>查看</span>
-                    <input type="button" id="bozhon-show-four-part1-low1-add" value="下移" v-on:click="isdown" />
-                    <input type="button" id="bozhon-show-four-part1-low1-update" value="上移" v-on:click="isup" />
-                    <input type="button" id="bozhon-show-four-part1-low1-delete" value="置顶" v-on:click="istop" />
-                    <input type="button" id="bozhon-show-four-part1-low1-flesh" value="删除" v-on:click="isDelete" />
+                    <input type="button" id="bozhon-show-four-part1-low1-add" value="下移" v-on:click="isdown" v-bind:disabled='movedisabled'/>
+                    <input type="button" id="bozhon-show-four-part1-low1-update" value="上移" v-on:click="isup" v-bind:disabled='movedisabled'/>
+                    <input type="button" id="bozhon-show-four-part1-low1-delete" value="置顶" v-on:click="istop" v-bind:disabled='movedisabled'/>
+                    <input type="button" id="bozhon-show-four-part1-low1-flesh" value="删除" v-on:click="isDelete" v-bind:disabled='deletedisabled'/>
                 </div>
             </div>
             <div id="bozhon-show-four-part2">
@@ -301,7 +304,7 @@
                     </tr>
                     <tr v-for="item in items">
                         <td style="width: 0.3%">
-                            <input type="checkbox" v-bind:checked="boxcheck" />
+                            <input type="checkbox"  v-on:click="checkedthing(item,$event)"/>
                         </td>
 
                         <td style="width: 4%">{{item.stamp}}</td>
@@ -317,6 +320,7 @@
                         </td> -->
                     </tr>
                 </table>
+                <div id="bozhon-show-four-sch" style="position: absolute;left:450px;top:250px;height:150px;width:150px" v-bind:style="{display:schdisplaytxt}"></div>
             </div>
             <div id="bozhon-show-four-part3">
                 <div id='bozhon-show-four-part3-pagebtn'>
