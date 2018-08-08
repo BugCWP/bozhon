@@ -26,7 +26,7 @@
             </a>
         </div>
         <div id="bozhon-head-select" class="form">
-            <select class="select" v-on:change="changeType($event)" v-model="Project">
+            <select class="select" v-on:change="changeType($event)" v-model="Project" id="projectselect">
                 <option v-for="(item,index) in projects" v-bind:value="item.project">{{item.project}}</option>
             </select>
         </div>
@@ -112,9 +112,12 @@
                     <span>机器人列表</span>
                     <span>>>></span>
                     <span>查看</span>
-                    <input type="button" id="bozhon-show-three-part1-low1-add" value="清错" v-on:click="isClearWorry" v-bind:disabled='btndisabled'/>
-                    <input type="button" id="bozhon-show-three-part1-low1-update" value="删除任务" v-on:click="isDelete" v-bind:disabled='btndisabled'/>
-                    <input type="button" id="bozhon-show-three-part1-low1-delete" value="清除区域" v-on:click="isClearArea" v-bind:disabled='btndisabled'/>
+                    <input type="button" id="bozhon-show-three-part1-low1-add" value="清错" v-on:click="isClearWorry" v-bind:disabled='btndisabled'
+                    />
+                    <input type="button" id="bozhon-show-three-part1-low1-update" value="删除任务" v-on:click="isDelete" v-bind:disabled='btndisabled'
+                    />
+                    <input type="button" id="bozhon-show-three-part1-low1-delete" value="清除区域" v-on:click="isClearArea" v-bind:disabled='btndisabled'
+                    />
                 </div>
             </div>
             <div id="bozhon-show-two-part2">
@@ -139,7 +142,7 @@
                     </tr>
                     <tr v-for="item in items">
                         <td style="width: 30px">
-                            <input type="checkbox" v-on:click="checkedthing(item,$event)"/>
+                            <input type="checkbox" v-on:click="checkedthing(item,$event)" />
                         </td>
                         <td style="width: 10%">{{item.name}}</td>
                         <td style="width: 10%">{{item.online}}</td>
@@ -149,7 +152,7 @@
                         <td style="width: 10%">{{item.task_state}}</td>
                         <td style="width: 10%">{{item.task_description}}</td>
                         <td style="width: 10%">{{item.control_mode}}
-                        <input id="bozhon-show-two-part3-btn31" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
+                            <input id="bozhon-show-two-part3-btn31" type="checkbox" name="check-1" value="4" class="lcs_check" autocomplete="off" />
                         </td>
                         <td style="width: 11%">{{item.required_access_area}}</td>
                         <td style="width: 11%">{{item.approved_access_area}}</td>
@@ -213,9 +216,12 @@
                     <span>任务列表</span>
                     <span>>>></span>
                     <span>查看</span>
-                    <input type="button" id="bozhon-show-three-part1-low1-add" value="暂停" v-on:click="isstorp" v-bind:disabled='btndisabled'/>
-                    <input type="button" id="bozhon-show-three-part1-low1-update" value="继续" v-on:click="isstart" v-bind:disabled='btndisabled'/>
-                    <input type="button" id="bozhon-show-three-part1-low1-delete" value="删除" v-on:click="isDelete" v-bind:disabled='btndisabled'/>
+                    <input type="button" id="bozhon-show-three-part1-low1-add" value="暂停" v-on:click="isstorp" v-bind:disabled='btndisabled'
+                    />
+                    <input type="button" id="bozhon-show-three-part1-low1-update" value="继续" v-on:click="isstart" v-bind:disabled='btndisabled'
+                    />
+                    <input type="button" id="bozhon-show-three-part1-low1-delete" value="删除" v-on:click="isDelete" v-bind:disabled='btndisabled'
+                    />
                     <input type="button" id="bozhon-show-three-part1-low1-flesh" value="刷新" v-on:click="isfresh" />
                 </div>
             </div>
@@ -237,7 +243,7 @@
                     </tr>
                     <tr v-for="(item,index) in items">
                         <td style="width: 0.3%">
-                            <input type="checkbox"   v-on:click="checkedthing(item,$event)"/>
+                            <input type="checkbox" v-on:click="checkedthing(item,$event)" />
                         </td>
                         <td style="width: 4%">{{item.robot}}</td>
                         <td style="width: 4%">{{item.state}}</td>
@@ -279,10 +285,13 @@
                     <span>任务列表</span>
                     <span>>>></span>
                     <span>查看</span>
-                    <input type="button" id="bozhon-show-four-part1-low1-add" value="下移" v-on:click="isdown" v-bind:disabled='movedisabled'/>
-                    <input type="button" id="bozhon-show-four-part1-low1-update" value="上移" v-on:click="isup" v-bind:disabled='movedisabled'/>
-                    <input type="button" id="bozhon-show-four-part1-low1-delete" value="置顶" v-on:click="istop" v-bind:disabled='movedisabled'/>
-                    <input type="button" id="bozhon-show-four-part1-low1-flesh" value="删除" v-on:click="isDelete" v-bind:disabled='deletedisabled'/>
+                    <input type="button" id="bozhon-show-four-part1-low1-add" value="下移" v-on:click="isdown" v-bind:disabled='movedisabled' />
+                    <input type="button" id="bozhon-show-four-part1-low1-update" value="上移" v-on:click="isup" v-bind:disabled='movedisabled'
+                    />
+                    <input type="button" id="bozhon-show-four-part1-low1-delete" value="置顶" v-on:click="istop" v-bind:disabled='movedisabled'
+                    />
+                    <input type="button" id="bozhon-show-four-part1-low1-flesh" value="删除" v-on:click="isDelete" v-bind:disabled='deletedisabled'
+                    />
                 </div>
             </div>
             <div id="bozhon-show-four-part2">
@@ -304,7 +313,7 @@
                     </tr>
                     <tr v-for="item in items">
                         <td style="width: 0.3%">
-                            <input type="checkbox"  v-on:click="checkedthing(item,$event)"/>
+                            <input type="checkbox" v-on:click="checkedthing(item,$event)" />
                         </td>
 
                         <td style="width: 4%">{{item.stamp}}</td>
@@ -356,14 +365,18 @@
     <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script> -->
     <!-- <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script> -->
     <script type="text/javascript">  
-        var items = [{"data":1,"label":"测试"}];
+        var items = [{ "data": 1, "label": "测试" }];
         var RobotType = function () {
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8090/";
+
+            var myselect = document.getElementById("projectselect");
+            var index = myselect.selectedIndex;
+            var mytext = myselect.value;
             var setdata = {
-                Project: bozhonheadpage.Project
+                Project: mytext,
             };
-            alert(setdata);
+            console.log(setdata);
             $.ajax({
                 url: ipAddress + 'api/GetRobotTypeList',
                 type: 'post',
@@ -371,9 +384,9 @@
                 dataType: "json",
                 contentType: "application/json",
                 success: function (data) {
-                    console.log(data.DataStamp);
-                    console.log(data.ResponseInfo);
-                    console.log(data.ResultInfo);
+                    console.log("DataStamp:" + data.DataStamp);
+                    console.log("ResponseInfo:" + data.ResponseInfo);
+                    console.log("ResultInfo:" + data.ResultInfo);
                     items = data.RobotTypeList;
                 },
                 error: function (msg) {
@@ -381,56 +394,106 @@
                 }
             })
         }
-        var dom = document.getElementById("bozhon-show-on-part3-container");
-        var myChart = echarts.init(dom);
+        var dombing = document.getElementById("bozhon-show-on-part3-container");
+        var myChartbing1 = echarts.init(dombing);
         var app = {};
         option = null;
-        var data = genData(50);
-
-        option = {
-            title: {
-                text: '机器人种类数量统计',
-                subtext: '博众机器人',
-                x: 'center'
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            legend: {
-                type: 'scroll',
-                orient: 'vertical',
-                right: 10,
-                top: 20,
-                bottom: 20,
-                data: data.legendData,
-
-                selected: data.selected
-            },
-            series: [
-                {
-                    name: '机器名',
-                    type: 'pie',
-                    radius: '55%',
-                    center: ['40%', '50%'],
-                    data: data.seriesData,
-                    itemStyle: {
-                        emphasis: {
-                            shadowBlur: 10,
-                            shadowOffsetX: 0,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+        function xunhuan() {
+            var data = genData(50);
+            option = {
+                title: {
+                    text: '机器人种类数量统计',
+                    subtext: '博众机器人',
+                    x: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    type: 'scroll',
+                    orient: 'vertical',
+                    right: 10,
+                    top: 20,
+                    bottom: 20,
+                    data: data.legendData,
+                    selected: data.selected
+                },
+                series: [
+                    {
+                        name: '机器名',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['40%', '50%'],
+                        data: data.seriesData,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
                         }
                     }
-                }
-            ]
-        };
+                ]
+            };
+            if (option && typeof option === "object") {
+                myChartbing1.setOption(option, true);
+            }
+            setTimeout("xunhuan()", 1000);
+        }
+        // var data = genData(50);
+
+        // option = {
+        //     title: {
+        //         text: '机器人种类数量统计',
+        //         subtext: '博众机器人',
+        //         x: 'center'
+        //     },
+        //     tooltip: {
+        //         trigger: 'item',
+        //         formatter: "{a} <br/>{b} : {c} ({d}%)"
+        //     },
+        //     legend: {
+        //         type: 'scroll',
+        //         orient: 'vertical',
+        //         right: 10,
+        //         top: 20,
+        //         bottom: 20,
+        //         data: data.legendData,
+
+        //         selected: data.selected
+        //     },
+        //     series: [
+        //         {
+        //             name: '机器名',
+        //             type: 'pie',
+        //             radius: '55%',
+        //             center: ['40%', '50%'],
+        //             data: data.seriesData,
+        //             itemStyle: {
+        //                 emphasis: {
+        //                     shadowBlur: 10,
+        //                     shadowOffsetX: 0,
+        //                     shadowColor: 'rgba(0, 0, 0, 0.5)'
+        //                 }
+        //             }
+        //         }
+        //     ]
+        // };
         function genData(count) {
-            var nameList = [
-                "bozhon机器人", "小博", "next小车", "楼宇递送", "咖啡机器人"
-            ];
-            var numberlist = [
-                "11", "22", "33", "44", "33"
-            ];
+            RobotType();
+            // var nameList = [
+            //     "bozhon机器人", "小博", "next小车", "楼宇递送", "咖啡机器人"
+            // ];
+            // var numberlist = [
+            //     "11", "22", "33", "44", "33"
+            // ];
+            var nameList = new Array();
+            var numberlist = new Array();
+            for (var i in items) {
+                nameList.push(items[i].label);
+                numberlist.push(items[i].data);
+            }
             var legendData = [];
             var seriesData = [];
             var selected = {};
@@ -463,18 +526,47 @@
             // }
         }
         ;
-        if (option && typeof option === "object") {
-            myChart.setOption(option, true);
-        }
+        // if (option && typeof option === "object") {
+        //     myChart.setOption(option, true);
+        // }
+        xunhuan();
     </script>
-    <!-- 条状图 -->
+    <!-- 条状图 ：这个显示效果的接口缺失-->
     <script type="text/javascript">
+        var items = [];
+        function tiaozhuangtu() {
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8090/";
+            var myselect = document.getElementById("projectselect");
+            var index = myselect.selectedIndex;
+            var mytext = myselect.value;
+            var setdata = {
+                Project: mytext,
+            };
+            console.log(setdata);
+            $.ajax({
+                url: ipAddress + 'api/GetRobotTypeList',
+                type: 'post',
+                data: JSON.stringify(setdata),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    console.log("DataStamp:" + data.DataStamp);
+                    console.log("ResponseInfo:" + data.ResponseInfo);
+                    console.log("ResultInfo:" + data.ResultInfo);
+                    items = data.RobotTypeList;
+                },
+                error: function (msg) {
+                    console.log("条图信息获取失败");
+                }
+            })
+        }
         var dom = document.getElementById("bozhon-show-on-part4-low2-container");
-        var myChart = echarts.init(dom);
+        var myCharttiao2 = echarts.init(dom);
         var app = {};
         option = null;
         app.title = "机器人任务表";
-
+         
         option = {
             tooltip: {
                 trigger: 'axis',
@@ -548,239 +640,371 @@
         };
         ;
         if (option && typeof option === "object") {
-            myChart.setOption(option, true);
+            myCharttiao2.setOption(option, true);
         }
     </script>
     <!-- 环形图 -->
     <script type="text/javascript">
-        var dom = document.getElementById("bozhon-show-one-part2-low2-box4-container");
-        var myChart = echarts.init(dom);
+        var itemhuan1 = 0;
+        function robotcount() {
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8090/";
+            var myselect = document.getElementById("projectselect");
+            var index = myselect.selectedIndex;
+            var mytext = myselect.value;
+            var setdata = {
+                Project: mytext,
+            };
+            console.log(setdata);
+            $.ajax({
+                url: ipAddress + 'api/GetGeneralStatus',
+                type: 'post',
+                data: JSON.stringify(setdata),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    console.log("DataStamp:" + data.DataStamp);
+                    console.log("ResponseInfo:" + data.ResponseInfo);
+                    console.log("ResultInfo:" + data.ResultInfo);
+                    itemhuan1 = data.GeneralStatus.robot_count;
+                },
+                error: function (msg) {
+                    console.log("环形图信息获取失败");
+                }
+            })
+        }
+        var domhuan1 = document.getElementById("bozhon-show-one-part2-low2-box4-container");
+        var myCharthuan1 = echarts.init(domhuan1);
         var app = {};
         option = null;
         app.title = '环形图';
-
-        option = {
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b}: {c} ({d}%)"
-            },
-            legend: {
-                orient: 'vertical',
-                x: 'right',
-                data: ['进行中任务']
-            },
-            series: [
-                {
-                    name: '进行中任务',
-                    type: 'pie',
-                    radius: ['50%', '70%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'center',
-                            textStyle: {
-                                fontSize: '20',
-                                fontWeight: 'bold'
+        function findrobotcount() {
+            robotcount();
+            option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'right',
+                    data: ['机器人总数']
+                },
+                series: [
+                    {
+                        name: '机器人总数',
+                        type: 'pie',
+                        radius: ['50%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'center',
+                                textStyle: {
+                                    fontSize: '20',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '25',
+                                    fontWeight: 'bold'
+                                }
                             }
                         },
-                        emphasis: {
-                            show: true,
-                            textStyle: {
-                                fontSize: '25',
-                                fontWeight: 'bold'
+                        labelLine: {
+                            normal: {
+                                show: false
                             }
-                        }
-                    },
-                    labelLine: {
-                        normal: {
-                            show: false
-                        }
-                    },
-                    data: [
-                        { value: 30, name: '30' },
-                        { value: 70, name: ' ' },
-                    ]
-                }
-            ]
-        };
-        ;
-        if (option && typeof option === "object") {
-            myChart.setOption(option, true);
+                        },
+                        data: [
+                            { value: itemhuan1, name: itemhuan1 + "台" },
+                            { value: 100 - itemhuan1, name: '' },
+                        ]
+                    }
+                ]
+            };
+            ;
+            if (option && typeof option === "object") {
+                myCharthuan1.setOption(option, true);
+            }
+            setTimeout("findrobotcount()", 1000);
         }
+        findrobotcount();
     </script>
     <script type="text/javascript">
-        var dom = document.getElementById("bozhon-show-one-part2-low2-box5-container");
-        var myChart = echarts.init(dom);
+        var itemhuan2 = 0;
+        function unilizationratio() {
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8090/";
+            var myselect = document.getElementById("projectselect");
+            var index = myselect.selectedIndex;
+            var mytext = myselect.value;
+            var setdata = {
+                Project: mytext,
+            };
+            console.log(setdata);
+            $.ajax({
+                url: ipAddress + 'api/GetGeneralStatus',
+                type: 'post',
+                data: JSON.stringify(setdata),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    console.log("DataStamp:" + data.DataStamp);
+                    console.log("ResponseInfo:" + data.ResponseInfo);
+                    console.log("ResultInfo:" + data.ResultInfo);
+                    itemhuan2 = data.GeneralStatus.unilization_ratio;
+                },
+                error: function (msg) {
+                    console.log("环形图信息获取失败");
+                }
+            })
+        }
+        var domhuan2 = document.getElementById("bozhon-show-one-part2-low2-box5-container");
+        var myCharthuan2 = echarts.init(domhuan2);
         var app = {};
         option = null;
         app.title = '环形图';
-
-        option = {
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b}: {c} ({d}%)"
-            },
-            legend: {
-                orient: 'vertical',
-                x: 'right',
-                data: ['排队中任务']
-            },
-            series: [
-                {
-                    name: '排队中任务',
-                    type: 'pie',
-                    radius: ['50%', '70%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'center',
-                            textStyle: {
-                                fontSize: '20',
-                                fontWeight: 'bold'
+        function getunilizationratio() {
+            unilizationratio();
+            option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'right',
+                    data: ['机器人使用率']
+                },
+                series: [
+                    {
+                        name: '机器人使用率',
+                        type: 'pie',
+                        radius: ['50%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'center',
+                                textStyle: {
+                                    fontSize: '20',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '25',
+                                    fontWeight: 'bold'
+                                }
                             }
                         },
-                        emphasis: {
-                            show: true,
-                            textStyle: {
-                                fontSize: '25',
-                                fontWeight: 'bold'
+                        labelLine: {
+                            normal: {
+                                show: false
                             }
-                        }
-                    },
-                    labelLine: {
-                        normal: {
-                            show: false
-                        }
-                    },
-                    data: [
-                        { value: 25, name: '25' },
-                        { value: 75, name: ' ' },
-                    ]
-                }
-            ]
-        };
-        ;
-        if (option && typeof option === "object") {
-            myChart.setOption(option, true);
+                        },
+                        data: [
+                            { value: itemhuan2, name: itemhuan2 + "%" },
+                            { value: 100 - itemhuan2, name: ' ' },
+                        ]
+                    }
+                ]
+            };
+            ;
+            if (option && typeof option === "object") {
+                myCharthuan2.setOption(option, true);
+            }
+            setTimeout("getunilizationratio()", 1000);
         }
+        getunilizationratio();
     </script>
     <script type="text/javascript">
-        var dom = document.getElementById("bozhon-show-one-part2-low2-box6-container");
-        var myChart = echarts.init(dom);
+        var itemhuan3 = 0;
+        function vacancyratio() {
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8090/";
+            var myselect = document.getElementById("projectselect");
+            var index = myselect.selectedIndex;
+            var mytext = myselect.value;
+            var setdata = {
+                Project: mytext,
+            };
+            console.log(setdata);
+            $.ajax({
+                url: ipAddress + 'api/GetGeneralStatus',
+                type: 'post',
+                data: JSON.stringify(setdata),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    console.log("DataStamp:" + data.DataStamp);
+                    console.log("ResponseInfo:" + data.ResponseInfo);
+                    console.log("ResultInfo:" + data.ResultInfo);
+                    itemhuan3 = data.GeneralStatus.vacancy_ratio;
+                },
+                error: function (msg) {
+                    console.log("机器人空闲率获取失败");
+                }
+            })
+        }
+        var domhuan3 = document.getElementById("bozhon-show-one-part2-low2-box6-container");
+        var myCharthuan3 = echarts.init(domhuan3);
         var app = {};
         option = null;
-        app.title = '机器人使用率';
-
-        option = {
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b}: {c} ({d}%)"
-            },
-            legend: {
-                orient: 'vertical',
-                x: 'right',
-                data: ['机器人使用率']
-            },
-            series: [
-                {
-                    name: '机器人使用率',
-                    type: 'pie',
-                    radius: ['50%', '70%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'center',
-                            textStyle: {
-                                fontSize: '20',
-                                fontWeight: 'bold'
+        app.title = '环形图';
+        function getvacancyratio() {
+            vacancyratio();
+            option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'right',
+                    data: ['机器人空闲率']
+                },
+                series: [
+                    {
+                        name: '机器人空闲率',
+                        type: 'pie',
+                        radius: ['50%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'center',
+                                textStyle: {
+                                    fontSize: '20',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '25',
+                                    fontWeight: 'bold'
+                                }
                             }
                         },
-                        emphasis: {
-                            show: true,
-                            textStyle: {
-                                fontSize: '25',
-                                fontWeight: 'bold'
+                        labelLine: {
+                            normal: {
+                                show: false
                             }
-                        }
-                    },
-                    labelLine: {
-                        normal: {
-                            show: false
-                        }
-                    },
-                    data: [
-                        { value: 25, name: '25' },
-                        { value: 75, name: ' ' },
-                    ]
-                }
-            ]
-        };
-        ;
-        if (option && typeof option === "object") {
-            myChart.setOption(option, true);
+                        },
+                        data: [
+                            { value: itemhuan3, name: itemhuan3 + "%" },
+                            { value: 100 - itemhuan3, name: ' ' },
+                        ]
+                    }
+                ]
+            };
+            ;
+            if (option && typeof option === "object") {
+                myCharthuan3.setOption(option, true);
+            }
+            setTimeout("getvacancyratio()", 1000);
         }
+        getvacancyratio();
     </script>
     <!-- 条形图 -->
     <script type="text/javascript">
-        var dom = document.getElementById("bozhon-show-one-part2-low2-box1-container");
-        var myChart = echarts.init(dom);
+        var itemtiao1 = 0;
+        var itemtiao2 = 0;
+        var itemtiao3 = 0;
+        function jobcount() {
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8090/";
+            var myselect = document.getElementById("projectselect");
+            var index = myselect.selectedIndex;
+            var mytext = myselect.value;
+            var setdata = {
+                Project: mytext,
+            };
+            console.log(setdata);
+            $.ajax({
+                url: ipAddress + 'api/GetGeneralStatus',
+                type: 'post',
+                data: JSON.stringify(setdata),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    console.log("DataStamp:" + data.DataStamp);
+                    console.log("ResponseInfo:" + data.ResponseInfo);
+                    console.log("ResultInfo:" + data.ResultInfo);
+                    itemtiao1 = data.GeneralStatus.remaining_job_count;
+                    itemtiao2 = data.GeneralStatus.total_jobs_count;
+                    itemtiao3 = data.GeneralStatus.accumulated_job_count;
+                },
+                error: function (msg) {
+                    console.log("机器人空闲率获取失败");
+                }
+            })
+        }
+        var domtiao = document.getElementById("bozhon-show-one-part2-low2-box1-container");
+        var myCharttiao1 = echarts.init(domtiao);
         var app = {};
         option = null;
         app.title = '博众机器人';
-
-        option = {
-            title: {
-                text: '博众机器人',
-                subtext: '数据来自博众'
-            },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'shadow'
-                }
-            },
-            legend: {
-                data: ['机器人总数', '当前任务总数', '历史累计请求']
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: {
-                type: 'value',
-                boundaryGap: [0, 0.01]
-            },
-            yAxis: {
-                type: 'category',
-                data: ['博众机器人']
-            },
-            series: [
-                {
-                    name: '机器人总数',
-                    type: 'bar',
-                    data: [10]
+        function getjobcount() {
+            jobcount();
+            option = {
+                title: {
+                    text: '博众机器人',
+                    subtext: '数据来自博众'
                 },
-                {
-                    name: '当前任务总数',
-                    type: 'bar',
-                    data: [12]
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
                 },
-                {
-                    name: '历史累计请求',
-                    type: 'bar',
-                    data: [100]
-                }
-            ]
-        };
-        ;
-        if (option && typeof option === "object") {
-            myChart.setOption(option, true);
+                legend: {
+                    data: ['等待中任务总数', '任务总数', '历史任务总数']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value',
+                    boundaryGap: [0, 0.01]
+                },
+                yAxis: {
+                    type: 'category',
+                    data: ['博众机器人']
+                },
+                series: [
+                    {
+                        name: '等待中任务总数',
+                        type: 'bar',
+                        data: [itemtiao1]
+                    },
+                    {
+                        name: '任务总数',
+                        type: 'bar',
+                        data: [itemtiao2]
+                    },
+                    {
+                        name: '历史任务总数',
+                        type: 'bar',
+                        data: [itemtiao3]
+                    }
+                ]
+            };
+            ;
+            if (option && typeof option === "object") {
+                myCharttiao1.setOption(option, true);
+            }
+            setTimeout("getjobcount()", 1000);
         }
+        getjobcount()
     </script>
 </body>
 
