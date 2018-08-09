@@ -1594,10 +1594,10 @@
     color:gray;
 }
 #bozhon-show-two-add{
-    position: absolute;
+    position: fixed;
     z-index: 2000;
     width: 99.2%;
-    height: 600px;
+    height: 700px;
     background-color: rgba(0,0,0,0.5);
 }
 #bozhon-show-two-add-box{
@@ -1728,10 +1728,10 @@
     background-color: #928f86;
 }
 #bozhon-show-two-update{
-    position: absolute;
+    position: fixed;
     z-index: 2000;
     width: 99.2%;
-    height: 600px;
+    height: 750px;
     background-color: rgba(0,0,0,0.5);
 }
 #bozhon-show-two-update-box{
@@ -1862,10 +1862,10 @@
     background-color: #928f86;
 }
 #bozhon-show-five-add{
-    position: absolute;
+    position: fixed;
     z-index: 2000;
     width: 99.2%;
-    height: 600px;
+    height: 750px;
     background-color: rgba(0,0,0,0.5);
 }
 #bozhon-show-five-add-box{
@@ -1971,10 +1971,10 @@
     background-color: #928f86;
 }
 #bozhon-show-five-update{
-    position: absolute;
+    position: fixed;
     z-index: 2000;
     width: 99.2%;
-    height: 600px;
+    height: 750px;
     background-color: rgba(0,0,0,0.5);
 }
 #bozhon-show-five-update-box{
@@ -2080,10 +2080,10 @@
     background-color: #928f86;
 }
 #bozhon-show-six-add{
-    position: absolute;
+    position: fixed;
     z-index: 2000;
     width: 99.2%;
-    height: 600px;
+    height: 750px;
     background-color: rgba(0,0,0,0.5);
 }
 #bozhon-show-six-add-box{
@@ -2194,10 +2194,10 @@
     background-color: #928f86;
 }
 #bozhon-show-six-add-project{
-    position: absolute;
+    position: fixed;
     z-index: 2000;
     width: 99.2%;
-    height: 600px;
+    height: 750px;
     background-color: rgba(0,0,0,0.5);
 }
 #bozhon-show-six-add-project-box{
@@ -2367,10 +2367,10 @@
    background-color: #F1F1F1;
 }
 #bozhon-show-six-update{
-    position: absolute;
+    position: fixed;
     z-index: 2000;
     width: 99.2%;
-    height: 600px;
+    height: 750px;
     background-color: rgba(0,0,0,0.5);
 }
 #bozhon-show-six-update-box{
@@ -2481,10 +2481,10 @@
     background-color: #928f86;
 }
 #bozhon-show-six-update-project{
-    position: absolute;
+    position: fixed;
     z-index: 2000;
     width: 99.2%;
-    height: 600px;
+    height: 750px;
     background-color: rgba(0,0,0,0.5);
 }
 #bozhon-show-six-update-project-box{
@@ -2657,10 +2657,10 @@
 
 
 #bozhon-show-two-newprojectConfigVersion{
-    position: absolute;
+    position: fixed;
     z-index: 2000;
     width: 99.2%;
-    height: 600px;
+    height: 750px;
     background-color: rgba(0,0,0,0.5);
 }
 #bozhon-show-two-newprojectConfigVersion-box{
@@ -2847,10 +2847,10 @@
 
 
 #bozhon-show-two-add-newprojectConfigVersion{
-    position: absolute;
+    position: fixed;
     z-index: 2000;
     width: 99.2%;
-    height: 600px;
+    height: 750px;
     background-color: rgba(0,0,0,0.5);
 }
 #bozhon-show-two-add-newprojectConfigVersion-box{

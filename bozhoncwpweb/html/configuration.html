@@ -611,14 +611,14 @@
         <div id="bozhon-show-six-update-box">
             <div id="bozhon-show-six-update-low1">修改配置目标</div>
             <div id="bozhon-show-six-update-low2">目标UUID
-                <input type="text" v-model="targetuuid" v-model="items.targetUUID">
+                <input type="text"  v-model="items.targetUUID">
             </div>
             <div id="bozhon-show-six-update-low3">目标描述&nbsp;
-                <input type="text" v-model="targetdesc" v-model="items.targetDesc">
+                <input type="text"  v-model="items.targetDesc">
             </div>
             <div id="bozhon-show-six-update-low4">
                 所属项目&nbsp;
-                <input type="text" v-model='targetproject' v-model="items.targetProject">
+                <input type="text"  v-model="items.targetProject">
                 <input type="button" value="选择" v-on:click="openupdateobjectpage">
             </div>
             <div id="bozhon-show-six-update-low5">
@@ -699,9 +699,10 @@
                         <td style="width: 1%">
                             <input type="checkbox" v-on:click="checkedthing(item,$event)">
                         </td>
-                        <td style="width: 5%">{{item.projectId}}</td>
-                        <td style="width: 5%">{{item.projectName}}</td>
-                        <td style="width: 5%">{{item.projectDesc}}</td>
+                        <td style="width: 5%">{{item.configFileId}}</td>
+                        <td style="width: 5%">{{item.configFileVersion}}</td>
+                        <td style="width: 5%">{{item.configFileDesc}}</td>
+                        <td style="width: 5%">{{item.configCreateTime}}</td>
                     </tr>
                 </table>
                 <div id="bozhon-show-two-newprojectConfigVersion-sch" style="position: absolute;left:140px;top:120px;height:150px;width:150px"
@@ -737,14 +738,14 @@
         <div id="bozhon-show-two-add-newprojectConfigVersion-box">
             <div id="bozhon-show-two-add-newprojectConfigVersion-low1">新建配置文件</div>
             <div id="bozhon-show-two-add-newprojectConfigVersion-low2">配置描述&nbsp;&nbsp;&nbsp;
-                <input type="text" v-model="targetuuid" v-model="items.targetUUID">
+                <input type="text" v-model="configFileid">
             </div>
             <div id="bozhon-show-two-add-newprojectConfigVersion-low3">配置版本号&nbsp;&nbsp;
-                <input type="text" v-model="targetdesc" v-model="items.targetDesc" placeholder="必须填">
+                <input type="text" v-model="configFileversion" placeholder="必须填">
             </div>
             <div id="bozhon-show-two-add-newprojectConfigVersion-low4">
                 上传配置文件
-                <input type="file" v-model='targetproject' v-model="items.targetProject">
+                <input type="file" v-on:change="fileup($event)">
             </div>
             <div id="bozhon-show-two-add-newprojectConfigVersion-low5">
                 <input type="button" value="保存" v-on:click="savepage">
