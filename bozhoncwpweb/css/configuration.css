@@ -28,7 +28,7 @@
     margin:0;
     line-height:30px;
     text-indent:1em;
-   
+    background-color: white;
     box-shadow:1px 1px 2px #ccc;
     outline:none;
     font-size: 16px;
@@ -376,9 +376,9 @@
     float: left;
     margin-left: 5px;
     width: 95%;
-    position: relative;
+    position: absolute;;
     left: 2.5%;
-    top:280px;
+    top:510px;
 }
 #bozhon-show-one-part3-pagebtn{
     width: 100%;
@@ -656,9 +656,9 @@
     float: left;
     margin-left: 5px;
     width: 95%;
-    position: relative;
+    position: absolute;
     left: 2.5%;
-    top:280px;
+    top:510px;
 }
 #bozhon-show-two-part3-pagebtn{
     width: 100%;
@@ -818,9 +818,9 @@
     float: left;
     margin-left: 5px;
     width: 95%;
-    position: relative;
+    position: absolute;
     left: 2.5%;
-    top:280px;
+    top:510px;
 }
 #bozhon-show-three-part3-pagebtn{
     width: 100%;
@@ -1030,9 +1030,9 @@
     float: left;
     margin-left: 5px;
     width: 95%;
-    position: relative;
+    position: absolute;
     left: 2.5%;
-    top:280px;
+    top:510px;
 }
 #bozhon-show-four-part3-pagebtn{
     width: 100%;
@@ -1260,9 +1260,9 @@
     float: left;
     margin-left: 5px;
     width: 95%;
-    position: relative;
+    position: absolute;
     left: 2.5%;
-    top:280px;
+    top:510px;
 }
 #bozhon-show-five-part3-pagebtn{
     width: 100%;
@@ -1523,9 +1523,9 @@
     float: left;
     margin-left: 5px;
     width: 95%;
-    position: relative;
+    position: absolute;
     left: 2.5%;
-    top:280px;
+    top:510px;
 }
 #bozhon-show-six-part3-pagebtn{
     width: 100%;
@@ -1661,6 +1661,7 @@
     margin-left: 20px;
     border-radius: 5px;
     border:1px solid #928f86;
+    background-color: white;
 }
 #bozhon-show-two-add-low4 input{
     font-size: 20px;
@@ -1677,7 +1678,7 @@
     font-weight: 600;
     padding-left: 70px;
     position: relative;
-    top: -10px;
+    top: 10px;
 }
 #bozhon-show-two-add-low5 select{
     font-size: 20px;
@@ -1686,6 +1687,7 @@
     margin-left: 20px;
     border-radius: 5px;
     border:1px solid  #928f86;
+    background-color:white;
 }
 #bozhon-show-two-add-low5 input{
     font-size: 20px;
@@ -1700,7 +1702,7 @@
 #bozhon-show-two-add-low6{
     margin-left: 290px;
     position: relative;
-    top: 10px;
+    top: 30px;
 }
 #bozhon-show-two-add-low6 input:nth-child(1){
     height: 30px;
@@ -1795,6 +1797,7 @@
     margin-left: 20px;
     border-radius: 5px;
     border:1px solid #928f86;
+    background-color:white;
 }
 #bozhon-show-two-update-low4 input{
     font-size: 20px;
@@ -1811,7 +1814,7 @@
     font-weight: 600;
     padding-left: 70px;
     position: relative;
-    top: -10px;
+    top: 10px;
 }
 #bozhon-show-two-update-low5 select{
     font-size: 20px;
@@ -1820,6 +1823,7 @@
     margin-left: 20px;
     border-radius: 5px;
     border:1px solid  #928f86;
+    background-color:white;
 }
 #bozhon-show-two-update-low5 input{
     font-size: 20px;
@@ -1834,7 +1838,7 @@
 #bozhon-show-two-update-low6{
     margin-left: 290px;
     position: relative;
-    top: 10px;
+    top: 30px;
 }
 #bozhon-show-two-update-low6 input:nth-child(1){
     height: 30px;
@@ -1929,6 +1933,7 @@
     margin-left: 20px;
     border-radius: 5px;
     border:1px solid #928f86;
+    background-color:white;
 }
 #bozhon-show-five-add-low4 input{
     font-size: 20px;
@@ -2038,6 +2043,7 @@
     margin-left: 20px;
     border-radius: 5px;
     border:1px solid #928f86;
+    background-color:white;
 }
 #bozhon-show-five-update-low4 input{
     font-size: 20px;
@@ -2156,7 +2162,7 @@
     background-color: #F8B62B;
     border-radius: 0 5px 5px 0;
     position: relative;
-    left: -50px;
+    left: -45px;
     top: -2px;
     outline: none;
 }
@@ -2231,10 +2237,10 @@
 }
 #bozhon-show-six-add-project-low1 input:nth-child(2){
   width: 40px;
-  height: 25px;
+  height: 24px;
   position: relative;
-  left: 95px;
-  top:0px;
+  left: 105px;
+  top:2px;
   background-color: #F8B62B;
   border:none;
   border:1px solid #B27306;
@@ -2443,7 +2449,7 @@
     background-color: #F8B62B;
     border-radius: 0 5px 5px 0;
     position: relative;
-    left: -50px;
+    left: -45px;
     top: -2px;
     outline: none;
 }
@@ -2518,10 +2524,10 @@
 }
 #bozhon-show-six-update-project-low1 input:nth-child(2){
   width: 40px;
-  height: 25px;
+  height: 24px;
   position: relative;
-  left: 95px;
-  top:0px;
+  left: 105px;
+  top:2px;
   background-color: #F8B62B;
   border:none;
   border:1px solid #B27306;

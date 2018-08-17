@@ -652,7 +652,7 @@ var bozhonshowone = new Vue({
         pagenumber: 0,
         listnumber: 0,
         uname: '',
-        boxcheck: false,
+        boxcheck: [false, false, false, false, false, false, false, false, false, false],
         req: {
             page: '',
             size: '',
@@ -694,7 +694,13 @@ var bozhonshowone = new Vue({
                         _select.items = [];
                         _select.items = json.result.result.list;
                         _select.listnumber = json.result.result.totalItems;
-                        _select.pagenumber = _select.listnumber / _select.pagesize + 1;
+                        if(_select.listnumber>_select.pagesize){
+                            _select.pagenumber = _select.listnumber /_select.pagesize + 1;
+                            document.writeln(_select.pagenumber>>0);
+                        }else{
+                            _select.pagenumber=1;
+                        }
+                       
                     }
                 },
                 error: function (data) {
@@ -703,9 +709,15 @@ var bozhonshowone = new Vue({
                 }
             })
         },
+        //刷新
+        flashpage: function () {
+            this.uname = '';
+            this.getbozhonshowone();
+        },
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
             this.pageCode = 1;
+            this.boxcheck = [false, false, false, false, false, false, false, false, false, false];
             this.getbozhonshowone();
         },
         pagefirstclickup: function () {
@@ -755,7 +767,7 @@ var bozhonshowtwo = new Vue({
         pageCode: 1,
         pagenumber: 0,
         listnumber: '',
-        boxcheck: false,
+        boxcheck: [false, false, false, false, false, false, false, false, false, false],
         checkednumber: 0,
         btndisabledone: true,
         btndisabledsome: true,
@@ -772,10 +784,11 @@ var bozhonshowtwo = new Vue({
             ids: '',
         },
         id: [],
-        additem:[],
+        additem: [],
     },
     mounted: function () {
-
+        this.idlist = new Array();
+        this.additem = new Array();
     },
     methods: {
         getbozhonshowtwo: function () {
@@ -785,10 +798,9 @@ var bozhonshowtwo = new Vue({
             this.req.projectName = this.projectname;
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
-            localStorage.setItem("Url", ipAddress);
             var _select = this;
             $.ajax({
-                url: localStorage.getItem("Url") + 'api/listProjectByPage',
+                url: ipAddress + 'api/listProjectByPage',
                 type: 'post',
                 data: JSON.stringify(this.req),
                 dataType: "json",
@@ -803,7 +815,12 @@ var bozhonshowtwo = new Vue({
                         _select.items = [];
                         _select.items = json.result.result.list;
                         _select.listnumber = json.result.result.totalItems;
-                        _select.pagenumber = _select.listnumber / _select.pagesize + 1;
+                        if(_select.listnumber>_select.pagesize){
+                            _select.pagenumber = _select.listnumber /_select.pagesize + 1;
+                            document.writeln(_select.pagenumber>>0);
+                        }else{
+                            _select.pagenumber=1;
+                        }
                     }
 
                 },
@@ -813,37 +830,42 @@ var bozhonshowtwo = new Vue({
                 }
             })
         },
+        //刷新
+        flashpage: function () {
+            this.projectname = '';
+            this.additem = new Array();
+            this.idlist = new Array();
+            this.checkednumber=0;
+            this.boxcheck = [false, false, false, false, false, false, false, false, false, false];
+            this.getbozhonshowtwo();
+        },
         //删除功能
         deletebozhonshowtwo: function () {
-            // var checkDom = this.$refs.table2.getElementsByClassName("selBtn");
-            // var idArray = [];
-            // this.selectnumber = 0;
-            // for (var i = 0; i < checkDom.length; i++) {
-            //     if (checkDom[i].checked) {
-            //         idArray.push(checkDom[i].dataset.id);
-            //         this.selectnumber++;
-            //     }
-            // }
-            // this.id = idArray;
             this.reqdele.ids = this.idlist;
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             var _select = this;
             if (this.checkednumber > 0) {
-                alert("确认要删除？");
-                $.ajax({
-                    url: ipAddress + 'api/delProjects',
-                    type: 'post',
-                    data: JSON.stringify(_select.reqdele),
-                    dataType: "json",
-                    contentType: "application/json",
-                    success: function (json) {
-                        _select.getbozhonshowtwo();
-                    },
-                    error: function (msg) {
-                        console.log(msg);
-                    }
-                })
+                var deletestr = confirm("确认要删除？");
+                if (deletestr) {
+                    $.ajax({
+                        url: ipAddress + 'api/delProjects',
+                        type: 'post',
+                        data: JSON.stringify(_select.reqdele),
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function (json) {
+                            _select.getbozhonshowtwo();
+                            _select.checkednumber = 0;
+                            _select.additem = new Array();
+                            _select.idlist = new Array();
+                            _select.boxcheck = [false, false, false, false, false, false, false, false, false, false];
+                        },
+                        error: function (msg) {
+                            console.log(msg);
+                        }
+                    })
+                }
             } else {
                 alert("请选中要删除的数据");
             }
@@ -851,8 +873,6 @@ var bozhonshowtwo = new Vue({
         },
         //选中事件
         checkedthing: function (item, event) {
-            this.idlist=new Array();
-            this.additem=new Array();
             if (event.target.checked) {
                 this.idlist.push(item.projectId);
                 this.additem.push(item);
@@ -935,29 +955,27 @@ var bozhonshowtwo = new Vue({
         },
         //打开修改框
         openupdatepage: function () {
-            // var checkDom = this.$refs.table2.getElementsByClassName("selBtn");
-            // var idArray = [];
-            // this.selectnumber = 0;
-            // for (var i = 0; i < checkDom.length; i++) {
-            //     if (checkDom[i].checked) {
-            //         idArray.push(checkDom[i].dataset.id);
-            //         this.selectnumber++;
-            //     }
-            // }
-            if (this.checkednumber == 1) {
-                bozhonshowtwoupdate.projectname=this.additem[0].projectName;
-                bozhonshowtwoupdate.projectdesc=this.additem[0].projectDesc;
-                bozhonshowtwoupdate.displaystr = 'block';
-            } else {
-                alert("请选择一项要修改的数据");
-            }
+            bozhonshowtwoupdate.projectname = this.additem[0].projectName;
+            bozhonshowtwoupdate.projectdesc = this.additem[0].projectDesc;
+            bozhonshowtwoupdate.nationid = this.additem[0].nationId;
+            bozhonshowtwoupdate.projectConfVersion = this.additem[0].projectConfVersion;
+            bozhonshowtwoupdate.projectid = this.additem[0].projectId;
+            bozhonshowtwoupdate.projectnation = this.additem[0].projectNation;
+            bozhonshowtwoupdate.projectprovince = this.additem[0].projectProvince;
+            bozhonshowtwoupdate.projecttype = this.additem[0].projectType;
+            bozhonshowtwoupdate.projecttypestr = this.additem[0].projectTypeStr;
+            bozhonshowtwoupdate.projectcity = this.additem[0].projectCity;
+            bozhonshowtwoupdate.provinceid = this.additem[0].provinceId;
+            bozhonshowtwoupdate.cityid = this.additem[0].cityId;
+            bozhonshowtwoupdate.displaystr = 'block';
+            bozhonshowtwoupdate.selectcity();
         },
-        openpeizhipage:function(){
-            if(this.checkednumber==1){
-                bozhonshowtwonewprojectConfigVersion.projectId=this.additem[0].projectId;
+        openpeizhipage: function () {
+            if (this.checkednumber == 1) {
+                bozhonshowtwonewprojectConfigVersion.projectId = this.additem[0].projectId;
                 bozhonshowtwonewprojectConfigVersion.getprojectConfigVersion();
-                bozhonshowtwonewprojectConfigVersion.displaystr="block";
-            }else{
+                bozhonshowtwonewprojectConfigVersion.displaystr = "block";
+            } else {
                 alert("请选择一项数据");
             }
         }
@@ -977,7 +995,7 @@ var bozhonshowthree = new Vue({
         pageCode: 1,
         pagenumber: 0,
         projectname: '',
-        boxcheck: false,
+        boxcheck: [false, false, false, false, false, false, false, false, false, false],
         listnumber: '',
         items: [],
         req: {
@@ -1015,7 +1033,12 @@ var bozhonshowthree = new Vue({
                         _select.items = [];
                         _select.items = json.result.result.list;
                         _select.listnumber = json.result.result.totalItems;
-                        _select.pagenumber = _select.listnumber / _select.pagesize + 1;
+                        if(_select.listnumber>_select.pagesize){
+                            _select.pagenumber = _select.listnumber /_select.pagesize + 1;
+                            document.writeln(_select.pagenumber>>0);
+                        }else{
+                            _select.pagenumber=1;
+                        }
                     }
 
                 },
@@ -1080,7 +1103,7 @@ var bozhonshowfour = new Vue({
         pagenumber: 0,
         listnumber: 0,
         cityname: '',
-        boxcheck: false,
+        boxcheck: [false, false, false, false, false, false, false, false, false, false],
         setdatacity: {
             page: '',
             size: '',
@@ -1090,6 +1113,11 @@ var bozhonshowfour = new Vue({
             page: '',
             size: '',
             nationName: '',
+        },
+        setdataprovince: {
+            page: '',
+            size: '',
+            provinceName: '',
         },
         items: [],
     },
@@ -1105,13 +1133,15 @@ var bozhonshowfour = new Vue({
             this.setdatanation.page = this.pageCode;
             this.setdatanation.size = this.pagesize;
             this.setdatanation.nationName = this.cityname;
+            this.setdataprovince.page = this.pageCode;
+            this.setdataprovince.size = this.pagesize;
+            this.setdataprovince.provinceName = this.cityname;
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
-            localStorage.setItem("Url", ipAddress);
             var _select = this;
             if (this.citylevel == '国家') {
                 $.ajax({
-                    url: localStorage.getItem("Url") + 'api/getNationByPage',
+                    url: ipAddress + 'api/getNationByPage',
                     type: 'post',
                     data: JSON.stringify(_select.setdatanation),
                     dataType: "json",
@@ -1122,11 +1152,16 @@ var bozhonshowfour = new Vue({
                             alert("当前无符合条件的记录!");
                             _select.items = [];
                         } else {
-                            _select.schdisplaytxt = "block";
+                            _select.schdisplaytxt = "none";
                             _select.items = [];
                             _select.items = json.result.result.list;
                             _select.listnumber = json.result.result.totalItems;
-                            _select.pageNumber = _select.listnumber / _select.pagesize + 1;
+                            if(_select.listnumber>_select.pagesize){
+                                _select.pagenumber = _select.listnumber /_select.pagesize + 1;
+                                document.writeln(_select.pagenumber>>0);
+                            }else{
+                                _select.pagenumber=1;
+                            }
                         }
                     },
                     error: function (data) {
@@ -1134,33 +1169,9 @@ var bozhonshowfour = new Vue({
                         _select.items = [];
                     }
                 })
-            } else if (this.citylevel == '一级城市') {
-                $.ajax({
-                    url: localStorage.getItem("Url") + 'api/getCityByPage',
-                    type: 'post',
-                    data: JSON.stringify(_select.setdatacity),
-                    dataType: "json",
-                    contentType: "application/json",
-                    success: function (json) {
-                        if ("0" == json.result.result.size) {
-                            alert("当前无符合条件的记录!");
-                            _select.items = [];
-                        } else {
-                            _select.schdisplaytxt = "block";
-                            console.log("获取到一级城市");
-                            _select.items = [];
-                            _select.items = json.result.result.list;
-                            _select.listnumber = json.result.result.totalItems;
-                        }
-                    },
-                    error: function (data) {
-                        console.log("获取一级城市失败");
-                        _select.items = [];
-                    }
-                })
             } else if (this.citylevel == '二级城市') {
                 $.ajax({
-                    url: localStorage.getItem("Url") + 'api/getProvinceByPage',
+                    url: ipAddress + 'api/getCityByPage',
                     type: 'post',
                     data: JSON.stringify(_select.setdatacity),
                     dataType: "json",
@@ -1170,12 +1181,16 @@ var bozhonshowfour = new Vue({
                             alert("当前无符合条件的记录!");
                             _select.items = [];
                         } else {
-                            _select.schdisplaytxt = "block";
+                            _select.schdisplaytxt = "none";
                             console.log("获取到二级城市");
                             _select.items = [];
                             _select.items = json.result.result.list;
-                            _select.listnumber = json.result.result.totalItems;
-                            _select.pagenumber = _select.listnumber / _select.pagesize + 1;
+                            if(_select.listnumber>_select.pagesize){
+                                _select.pagenumber = _select.listnumber /_select.pagesize + 1;
+                                document.writeln(_select.pagenumber>>0);
+                            }else{
+                                _select.pagenumber=1;
+                            }
                         }
                     },
                     error: function (data) {
@@ -1183,7 +1198,43 @@ var bozhonshowfour = new Vue({
                         _select.items = [];
                     }
                 })
+            } else if (this.citylevel == '一级城市') {
+                $.ajax({
+                    url: ipAddress + 'api/getProvinceByPage',
+                    type: 'post',
+                    data: JSON.stringify(_select.setdataprovince),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (json) {
+                        if ("0" == json.result.result.size) {
+                            alert("当前无符合条件的记录!");
+                            _select.items = [];
+                        } else {
+                            _select.schdisplaytxt = "none";
+                            console.log("获取到一级城市");
+                            _select.items = [];
+                            _select.items = json.result.result.list;
+                            _select.listnumber = json.result.result.totalItems;
+                            if(_select.listnumber>_select.pagesize){
+                                _select.pagenumber = _select.listnumber /_select.pagesize + 1;
+                                document.writeln(_select.pagenumber>>0);
+                            }else{
+                                _select.pagenumber=1;
+                            }
+                        }
+                    },
+                    error: function (data) {
+                        console.log("获取一级城市失败");
+                        _select.items = [];
+                    }
+                })
             }
+        },
+        //刷新
+        flashpage: function () {
+            this.cityname = '';
+            this.boxcheck = [false, false, false, false, false, false, false, false, false, false];
+            this.getbozhonshowfour();
         },
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
@@ -1237,7 +1288,7 @@ var bozhonshowfive = new Vue({
         pagesize: 10,
         pageCode: 1,
         pagenumber: 0,
-        boxcheck: false,
+        boxcheck: [false, false, false, false, false, false, false, false, false, false],
         listnumber: '',
         selectnumber: 0,
         items: [],
@@ -1253,11 +1304,14 @@ var bozhonshowfive = new Vue({
         reqdele: {
             ids: '',
         },
-        additem:[],
+        additem: [],
     },
     mounted: function () {
         // this.req.page = this.pageCode;
         // this.req.size = this.pagesize;
+        this.checkednumber=0;
+        this.idlist = new Array();
+        this.additem = new Array();
     },
     methods: {
         getbozhonshowfive: function () {
@@ -1283,7 +1337,12 @@ var bozhonshowfive = new Vue({
                         _select.items = [];
                         _select.items = json.result.result.list;
                         _select.listnumber = json.result.result.totalItems;
-                        _select.pagenumber = _select.listnumber / _select.pagesize + 1;
+                        if(_select.listnumber>_select.pagesize){
+                            _select.pagenumber = _select.listnumber /_select.pagesize + 1;
+                            document.writeln(_select.pagenumber>>0);
+                        }else{
+                            _select.pagenumber=1;
+                        }
                     }
                 },
                 error: function (data) {
@@ -1292,36 +1351,40 @@ var bozhonshowfive = new Vue({
                 },
             })
         },
+        //刷新
+        flashpage: function () {
+            this.idlist = new Array();
+            this.additem = new Array();
+            this.boxcheck = [false, false, false, false, false, false, false, false, false, false];
+            this.getbozhonshowfive();
+        },
         deletebozhonshowfive: function () {
-            // var checkDom = this.$refs.table5.getElementsByClassName("fivebtn");
-            // var idArray = [];
-            // this.selectnumber = 0;
-            // for (var i = 0; i < checkDom.length; i++) {
-            //     if (checkDom[i].checked) {
-            //         idArray.push(checkDom[i].dataset.id);
-            //         this.selectnumber++;
-            //     }
-            // }
-            // this.id = idArray;
-            this.reqdele.ids=this.idlist;
+            this.reqdele.ids = this.idlist;
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             // localStorage.setItem("Url", ipAddress);
             var _select = this;
             if (this.checkednumber > 0) {
-                $.ajax({
-                    url: ipAddress + 'api/delConfigs',
-                    type: 'post',
-                    data: JSON.stringify(_select.reqdele),
-                    dataType: "json",
-                    contentType: "application/json",
-                    success: function (json) {
-                        _select.getbozhonshowsix();
-                    },
-                    error: function (msg) {
-                        console.log(msg);
-                    }
-                })
+                var deletestr = confirm("确认要删除？");
+                if (deletestr) {
+                    $.ajax({
+                        url: ipAddress + 'api/delConfigs',
+                        type: 'post',
+                        data: JSON.stringify(_select.reqdele),
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function (json) {
+                            _select.getbozhonshowfive();
+                            _select.checkednumber = 0;
+                            _select.idlist = new Array();
+                            _select.additem = new Array();
+                            _select.boxcheck = [false, false, false, false, false, false, false, false, false, false];
+                        },
+                        error: function (msg) {
+                            console.log(msg);
+                        }
+                    })
+                }
             } else {
                 alert("请选择删除的数据");
             }
@@ -1329,8 +1392,6 @@ var bozhonshowfive = new Vue({
         },
         //选中事件
         checkedthing: function (item, event) {
-            this.idlist=new Array();
-            this.additem=new Array();
             if (event.target.checked) {
                 this.idlist.push(item.confId);
                 this.additem.push(item);
@@ -1411,23 +1472,11 @@ var bozhonshowfive = new Vue({
         },
         //打开修改窗口
         openupdatepage: function () {
-            // var checkDom = this.$refs.table5.getElementsByClassName("fivebtn");
-            // var idArray = [];
-            // this.selectnumber = 0;
-            // for (var i = 0; i < checkDom.length; i++) {
-            //     if (checkDom[i].checked) {
-            //         idArray.push(checkDom[i].dataset.id);
-            //         this.selectnumber++;
-            //     }
-            // }
-            if (this.checkednumber == 1) {
-                bozhonshowfiveupdate.conffilename=additem[0].confFileName;
-                bozhonshowfiveupdate.conffilepath=additem[0].conffilepath;
-                bozhonshowfiveupdate.displaystr = 'block';
-            } else {
-                alert("请选择一项要修改的数据");
-            }
-
+            bozhonshowfiveupdate.conffilename = this.additem[0].confFileName;
+            bozhonshowfiveupdate.conffilepath = this.additem[0].confFilePath;
+            bozhonshowfiveupdate.iswildcard = this.additem[0].isWildcard;
+            bozhonshowfiveupdate.confid = this.additem[0].confId;
+            bozhonshowfiveupdate.displaystr = 'block';
         },
     }
 })
@@ -1445,7 +1494,7 @@ var bozhonshowsix = new Vue({
         pageCode: 1,
         pagenumber: 0,
         listnumber: 0,
-        boxcheck: false,
+        boxcheck: [false, false, false, false, false, false, false, false, false, false],
         targetdesc: '',
         items: [],
         selectnumber: 0,
@@ -1462,12 +1511,16 @@ var bozhonshowsix = new Vue({
         idlist: {},
         reqdele: {
             ids: '',
-        }
+        },
+        updateitem: {},
     },
     mounted: function () {
         // this.req.page = this.pageCode;
         // this.req.size = this.pagesize;
         // this.req.targetDesc = this.targetdesc;
+        this.checkednumber=0;
+        this.idlist = new Array();
+        this.updateitem = new Array();
     },
 
     methods: {
@@ -1495,7 +1548,12 @@ var bozhonshowsix = new Vue({
                         _select.items = [];
                         _select.items = json.result.result.list;
                         _select.listnumber = json.result.result.totalItems;
-                        _select.pagenumber = _select.listnumber / _select.pagesize + 1;
+                        if(_select.listnumber>_select.pagesize){
+                            _select.pagenumber = _select.listnumber /_select.pagesize + 1;
+                            document.writeln(_select.pagenumber>>0);
+                        }else{
+                            _select.pagenumber=1;
+                        }
                     }
                 },
                 error: function (data) {
@@ -1504,45 +1562,51 @@ var bozhonshowsix = new Vue({
                 },
             })
         },
+        //刷新
+        flashpage: function () {
+            this.projectdesc = '';
+            this.idlist = new Array();
+            this.updateitem = new Array();
+            this.boxcheck = [false, false, false, false, false, false, false, false, false, false];
+            this.getbozhonshowsix();
+        },
         //删除功能
         deletebozhonshowsix: function () {
-            // var checkDom = this.$refs.table6.getElementsByClassName("sixbtn");
-            // var idArray = [];
-            // for (var i = 0; i < checkDom.length; i++) {
-            //     if (checkDom[i].checked) {
-            //         idArray.push(checkDom[i].dataset.id);
-            //     }
-            // }
-            // this.id = idArray;
-            this.reqdele.ids=this.idlist;
+            this.reqdele.ids = this.idlist;
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             // localStorage.setItem("Url", ipAddress);
             var _select = this;
-            if(this.checkednumber>0){
-                alert("确认删除？");
-                $.ajax({
-                    url: ipAddress + 'api/delTargets',
-                    type: 'post',
-                    data: JSON.stringify(_select.reqdele),
-                    dataType: "json",
-                    contentType: "application/json",
-                    success: function (json) {
-                        _select.getbozhonshowsix();
-                    },
-                    error: function (msg) {
-                        console.log(msg);
-                    }
-                })
-            }else{
+            if (this.checkednumber > 0) {
+                var deletestr = confirm("确认要删除？");
+                if (deletestr) {
+                    $.ajax({
+                        url: ipAddress + 'api/delTargets',
+                        type: 'post',
+                        data: JSON.stringify(_select.reqdele),
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function (json) {
+                            _select.getbozhonshowsix();
+                            _select.checkednumber = 0;
+                            _select.idlist = new Array();
+                            _select.updateitem = new Array();
+                            _select.boxcheck = [false, false, false, false, false, false, false, false, false, false];
+                        },
+                        error: function (msg) {
+                            console.log(msg);
+                        }
+                    })
+                }
+            } else {
                 console.log("请选择一个删除对象");
             }
         },
         //选中事件
         checkedthing: function (item, event) {
-            this.idlist=new Array();
             if (event.target.checked) {
                 this.idlist.push(item.targetId);
+                this.updateitem.push(item);
                 this.checkednumber++;
                 if (this.checkednumber == 1) {
                     this.btndisabledsome = false;
@@ -1559,6 +1623,13 @@ var bozhonshowsix = new Vue({
                     }
                 }
                 this.idlist = list1;
+                var list2 = new Array();
+                for (var i in this.idlist) {
+                    if (this.updateitem[i] != item) {
+                        list2.push(this.updateitem[i]);
+                    }
+                }
+                this.updateitem = list2;
                 this.checkednumber--;
                 if (this.checkednumber == 1) {
                     this.btndisabledone = false;
@@ -1614,42 +1685,17 @@ var bozhonshowsix = new Vue({
         },
         //打开修改窗口
         openupdatepage: function () {
-            // var checkDom = this.$refs.table6.getElementsByClassName("sixbtn");
-            // var idArray = [];
-            // this.selectnumber = 0;
-            // for (var i = 0; i < checkDom.length; i++) {
-            //     if (checkDom[i].checked) {
-            //         idArray.push(checkDom[i].dataset.id);
-            //         this.selectnumber++;
-            //     }
-            // }
-            // this.idupdate = idArray;
-            if (this.checkednumber == 1) {
-                var host = location.hostname;
-                var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
-                // localStorage.setItem("Url", ipAddress);
-                var _select = this;
-                var _bozhonshowsixupdate = bozhonshowsixupdate;
-                $.ajax({
-                    url: ipAddress + 'api/target' + _select.idupdate,
-                    type: 'post',
-                    data: '',
-                    dataType: "json",
-                    contentType: "application/json",
-                    success: function (json) {
-                        _bozhonshowsixupdate.targetuuid = json.result.target.targetUUID;
-                        _bozhonshowsixupdate.targetdesc = json.result.target.targetDesc;
-                        _bozhonshowsixupdate.targetproject = json.result.target.targetProject;
-                        bozhonshowsixupdate.displaystr = 'block';
-                    },
-                    error: function (msg) {
-                        console.log(msg);
-                    }
-                })
-            } else {
-                alert("请选择一个修改项");
-            }
-
+            bozhonshowsixupdate.displaystr = 'block';
+            bozhonshowsixupdate.targetuuid = this.updateitem[0].targetUUID;
+            bozhonshowsixupdate.targetdesc = this.updateitem[0].targetDesc;
+            bozhonshowsixupdate.targetproject = this.updateitem[0].targetProject;
+            bozhonshowsixupdate.targetprojectid = this.updateitem[0].targetProjectId;
+            bozhonshowsixupdate.targetid = this.updateitem[0].targetId;
+            bozhonshowsixupdate.targetTypestr = this.updateitem[0].targetTypeStr;
+            bozhonshowsixupdate.targetType = this.updateitem[0].targetType;
+            bozhonshowsixupdate.configfileurl = this.updateitem[0].configFileUrl;
+            bozhonshowsixupdate.needupdate = this.updateitem[0].needUpdate;
+            bozhonshowsixupdate.projectConfVersion = this.updateitem[0].projectConfVersion;
         },
     }
 })
@@ -1662,17 +1708,19 @@ var bozhonshowtwoadd = new Vue({
         cityname: '',
         projecttypestr: '',
         projectdesc: '',
-        projectname:'',
+        projectname: '',
+        cityid: '',
         listnumber: '',
         setdatacity: {
-            page: '',
-            size: '',
+            page: 1,
+            size: 100,
             cityName: '',
         },
         setdataproject: {
+            cityId: '',
             projectName: '',
             projectDesc: '',
-            projectTypeStr: '',
+            projectType: '',
             projectCity: '',
         },
     },
@@ -1689,10 +1737,9 @@ var bozhonshowtwoadd = new Vue({
         selectcity: function () {
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
-            localStorage.setItem("Url", ipAddress);
             var _select = this;
             $.ajax({
-                url: localStorage.getItem("Url") + 'api/getCityByPage',
+                url: ipAddress + 'api/getCityByPage',
                 type: 'post',
                 data: JSON.stringify(_select.setdatacity),
                 dataType: "json",
@@ -1709,26 +1756,27 @@ var bozhonshowtwoadd = new Vue({
         saveaddpage: function () {
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
-            localStorage.setItem("Url", ipAddress);
             var _select = this;
             this.setdataproject.projectName = this.projectname;
             this.setdataproject.projectDesc = this.projectdesc;
-            this.setdataproject.projectTypeStr = this.projecttypestr;
+            this.setdataproject.projectType = this.projecttypestr;
             this.setdataproject.projectCity = this.cityname;
+            this.setdataproject.cityId = this.cityid;
             if (this.setdataproject.projectName == "" || this.setdataproject.projectName == null) {
                 alert("请输入项目名称");
             }
             else if (this.setdataproject.projectDesc == "" || this.setdataproject.projectDesc == null) {
                 alert("请输入项目描述");
             }
-            else if (this.setdataproject.projectTypeStr == "" || this.setdataproject.projectTypeStr == null) {
-                alert("请选择所在城市");
+            else if (this.setdataproject.projectType == "" || this.setdataproject.projectType == null) {
+                alert("请选择项目类别");
             }
             else if (this.setdataproject.projectCity == "" || this.setdataproject.projectCity == null) {
-                alert("请选择项目类别");
+                alert("请选择所在城市");
             } else {
+                console.log(this.setdataproject);
                 $.ajax({
-                    url: localStorage.getItem("Url") + 'api/project',
+                    url: ipAddress + 'api/project',
                     type: 'post',
                     data: JSON.stringify(_select.setdataproject),
                     dataType: "json",
@@ -1755,33 +1803,50 @@ var bozhonshowtwoupdate = new Vue({
         displaystr: 'none',
         citys: [],
         cityname: '',
-        projectname:'',
+        projectname: '',
         projecttypestr: '',
         projectdesc: '',
+        cityid: '',
         listnumber: '',
+        nationid: '',
+        projectid: '',
+        projectConfVersion: '',
+        projectnation: '',
+        projectprovince: '',
+        projecttype: '',
+        projectcity: '',
+        provinceid: '',
         setdatacity: {
-            page: '',
-            size: '',
+            page: 1,
+            size: 300,
             cityName: '',
         },
         setdataproject: {
+            cityId: '',
+            nationId: '',
+            projectConfVersion: '',
+            projectId: '',
+            projectNation: '',
+            projectProvince: '',
+            projectTypeStr: '',
             projectName: '',
             projectDesc: '',
-            projectTypeStr: '',
+            projectType: '',
             projectCity: '',
+            provinceId: '',
         },
+        city:{},
     },
     mounted: function () {
-    
+
     },
     methods: {
         selectcity: function () {
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
-            localStorage.setItem("Url", ipAddress);
             var _select = this;
             $.ajax({
-                url: localStorage.getItem("Url") + 'api/getCityByPage',
+                url: ipAddress + 'api/getCityByPage',
                 type: 'post',
                 data: JSON.stringify(_select.setdatacity),
                 dataType: "json",
@@ -1801,40 +1866,63 @@ var bozhonshowtwoupdate = new Vue({
         changecityinput: function () {
             this.selectcity();
         },
+        // changecity: function (city) {
+        //     this.projectcity = city.cityName;
+        //     this.cityid = city.cityId;
+        //     this.nationid = city.nationId;
+        //     this.provinceid = city.provinceId;
+        //     alert(11111);
+        // },
         saveupdatepage: function () {
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             // localStorage.setItem("Url", ipAddress);
             var _select = this;
+            if (this.projecttype == 1) {
+                this.projecttypestr = "机器人";
+            } else if (this.projecttype == 2) {
+                this.projecttypestr = "调度系统";
+            }
+            this.projectcity = city.cityName;
+            this.cityid = city.cityId;
+            this.nationid = city.nationId;
+            this.provinceid = city.provinceId;
             this.setdataproject.projectName = this.projectname;
             this.setdataproject.projectDesc = this.projectdesc;
+            this.setdataproject.projectType = this.projecttype;
+            this.setdataproject.projectCity = this.projectcity;
+            this.setdataproject.cityId = this.cityid;
+            this.setdataproject.nationId = this.nationid;
+            this.setdataproject.projectConfVersion = this.projectConfVersion;
+            this.setdataproject.projectId = this.projectid;
+            this.setdataproject.projectNation = this.projectnation;
+            this.setdataproject.projectProvince = this.projectprovince;
             this.setdataproject.projectTypeStr = this.projecttypestr;
-            this.setdataproject.projectCity = this.cityname;
+            this.setdataproject.provinceId = this.provinceid;
             if (this.setdataproject.projectName == "" || this.setdataproject.projectName == null) {
                 alert("请输入项目名称");
             }
             else if (this.setdataproject.projectDesc == "" || this.setdataproject.projectDesc == null) {
                 alert("请输入项目描述");
             }
-            else if (this.setdataproject.projectTypeStr == "" || this.setdataproject.projectTypeStr == null) {
-                alert("请选择所在城市");
+            else if (this.setdataproject.projectType == "" || this.setdataproject.projectType == null) {
+                alert("请选择项目类别");
             }
             else if (this.setdataproject.projectCity == "" || this.setdataproject.projectCity == null) {
-                alert("请选择项目类别");
+                alert("请选择所在城市");
             } else {
                 $.ajax({
                     url: ipAddress + 'api/project',
-                    type: 'post',
+                    type: 'put',
                     data: JSON.stringify(_select.setdataproject),
                     dataType: "json",
                     contentType: "application/json",
                     success: function (json) {
                         bozhonshowtwo.getbozhonshowtwo();
                         _select.displaystr = 'none';
-
                     },
                     error: function (data) {
-                        alert("添加失败");
+                        alert("修改失败");
                     }
                 })
             }
@@ -1878,7 +1966,7 @@ var bozhonshowfiveadd = new Vue({
                 alert("请选择是否通配！");
             } else {
                 $.ajax({
-                    url: ipAddress+ 'api/config',
+                    url: ipAddress + 'api/config',
                     type: 'post',
                     data: JSON.stringify(_select.setdataconf),
                     dataType: "json",
@@ -1904,10 +1992,12 @@ var bozhonshowfiveupdate = new Vue({
         conffilename: '',
         conffilepath: '',
         iswildcard: '',
+        confid: '',
         setdataconf: {
             confFileName: '',
             confFilePath: '',
             isWildcard: '',
+            confId: '',
         },
     },
     mounted: {
@@ -1925,6 +2015,7 @@ var bozhonshowfiveupdate = new Vue({
             this.setdataconf.confFileName = this.conffilename;
             this.setdataconf.confFilePath = this.conffilepath;
             this.setdataconf.isWildcard = this.iswildcard;
+            this.setdataconf.confId = this.confid;
             if (this.setdataconf.confFileName == '' || this.setdataconf.confFileName == null) {
                 alert("请输入配置文件！");
             } else if (this.setdataconf.confFilePath == '' || this.setdataconf.confFilePath == null) {
@@ -1933,17 +2024,18 @@ var bozhonshowfiveupdate = new Vue({
                 alert("请选择是否通配！");
             } else {
                 $.ajax({
-                    url:ipAddress+ 'api/config',
-                    type: 'post',
+                    url: ipAddress + 'api/config',
+                    type: 'put',
                     data: JSON.stringify(_select.setdataconf),
                     dataType: "json",
                     contentType: "application/json",
                     success: function (json) {
                         bozhonshowfive.getbozhonshowfive();
+
                         _select.displaystr = 'none';
                     },
                     error: function (data) {
-                        alert("添加失败");
+                        alert("修改失败");
                     }
                 })
             }
@@ -1959,11 +2051,15 @@ var bozhonshowsixadd = new Vue({
         targetdesc: '',
         targetuuid: '',
         targetproject: '',
-        additem:{},
+        targetprojectid: '',
+        targettype: '',
+        additem: {},
         setdatatarget: {
             targetUUID: '',
             targetDesc: '',
             targetProject: '',
+            targetProjectId: '',
+            targetType: '',
         },
     },
     methods: {
@@ -1981,7 +2077,9 @@ var bozhonshowsixadd = new Vue({
             var _select = this;
             this.setdatatarget.targetUUID = this.targetuuid;
             this.setdatatarget.targetDesc = this.targetdesc;
-            this.setdatatarget.targetProject = this.additem[0].targetproject;
+            this.setdatatarget.targetProject = this.targetproject;
+            this.setdatatarget.targetProjectId = this.targetprojectid;
+            this.setdatatarget.targetType = this.targettype;
             if (this.setdatatarget.targetUUID == null || this.setdatatarget.targetUUID == "") {
                 alert("请输入配置目标UUID！");
             } else if (this.setdatatarget.targetProject == null || this.setdatatarget.targetProject == "") {
@@ -2017,35 +2115,40 @@ var bozhonshowsixaddproject = new Vue({
         pagelastimg: '../images/next page.png',
         projectname: '',
         pagenumber: '',
-        pagecode: '',
+        pagecode: 1,
         pagesize: 10,
         listnumber: '',
         selectnumber: 0,
+        boxcheck: [false, false, false, false, false, false, false, false, false, false],
         items: [],
         setdata: {
-            pageNo: '',
-            pageSize: '',
+            page: '',
+            size: '',
             projectName: '',
         },
         id: [],
-        additem:{},
-        checkednumber:0,
-        btndisabled:true,
+        additem: {},
+        checkednumber: 0,
+        btndisabled: true,
     },
     mounted: function () {
+        this.additem = new Array();
     },
     methods: {
         closeaddpage: function () {
             this.displaystr = "none";
         },
         getobject: function () {
+            this.additem = new Array();
+            this.checkednumber = 0;
+            this.boxcheck = [false, false, false, false, false, false, false, false, false, false];
             this.schdisplaytxt = "block";
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             // localStorage.setItem("Url", ipAddress);
             var _select = this;
-            this.setdata.pageNo = this.pagecode;
-            this.setdata.pageSize = this.pagesize;
+            this.setdata.page = this.pagecode;
+            this.setdata.size = this.pagesize;
             this.setdata.projectName = this.projectname;
             $.ajax({
                 url: ipAddress + 'api/listProjectByPage',
@@ -2058,7 +2161,12 @@ var bozhonshowsixaddproject = new Vue({
                     _select.items = [];
                     _select.items = json.result.result.list;
                     _select.listnumber = json.result.result.totalItems;
-                    _select.pagenumber = _select.listnumber / _select.pagesize + 1;
+                    if(_select.listnumber>_select.pagesize){
+                        _select.pagenumber = _select.listnumber /_select.pagesize + 1;
+                        document.writeln(_select.pagenumber>>0);
+                    }else{
+                        _select.pagenumber=1;
+                    }
                 },
                 error: function (data) {
                     console.log("未取到项目列表");
@@ -2066,9 +2174,8 @@ var bozhonshowsixaddproject = new Vue({
                 }
             })
         },
-         //选中事件
-         checkedthing: function (item, event) {
-            this.additem=new Array();
+        //选中事件
+        checkedthing: function (item, event) {
             if (event.target.checked) {
                 this.additem.push(item);
                 this.checkednumber++;
@@ -2099,7 +2206,7 @@ var bozhonshowsixaddproject = new Vue({
         //分页功能
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
-            this.pageCode = 1;
+            this.pagecode = 1;
             this.getobject();
         },
         pagefirstclickup: function () {
@@ -2107,8 +2214,8 @@ var bozhonshowsixaddproject = new Vue({
         },
         pageprevclickdown: function () {
             this.pageprevimg = '../images/prev (1).png';
-            if (this.pageCode > 1) {
-                this.pageCode--;
+            if (this.pagecode > 1) {
+                this.pagecode--;
                 this.getobject();
             }
         },
@@ -2117,8 +2224,8 @@ var bozhonshowsixaddproject = new Vue({
         },
         pagenextclickdown: function () {
             this.pagenextimg = '../images/next (1).png';
-            if (this.pageCode < this.pagenumber) {
-                this.pageCode++;
+            if (this.pagecode < this.pagenumber) {
+                this.pagecode++;
                 this.getobject();
             }
         },
@@ -2127,29 +2234,20 @@ var bozhonshowsixaddproject = new Vue({
         },
         pagelastclickdown: function () {
             this.pagelastimg = '../images/next page (1).png';
-            this.pageCode = this.pagenumber;
+            this.pagecode = this.pagenumber;
             this.getobject();
         },
         pagelastclickup: function () {
             this.pagelastimg = '../images/next page.png';
         },
         saveproject: function () {
-            // let checkDom = this.$refs.sixaddproject.getElementsByClassName("sixaddprojectbtn");
-            // let idArray = [];
-            // this.selectnumber = 0;
-            // for (var i = 0; i < checkDom.length; i++) {
-            //     if (checkDom[i].checked) {
-            //         idArray.push(checkDom[i].dataset.id);
-            //         this.selectnumber++;
-            //     }
-            // }
-            // this.id = idArray;
-            if (this.selectnumber == 1) {
-                bozhonshowsixadd.additem= this.additem;
-                this.displaystr = "none";
-            } else {
-                alert("请选择一种配置所属项目！");
-            }
+            bozhonshowsixadd.targettype = this.additem[0].projectType;
+            bozhonshowsixadd.targetprojectid = this.additem[0].projectId;
+            bozhonshowsixadd.targetproject = this.additem[0].projectName;
+            this.displaystr = "none";
+            this.additem = new Array();
+            this.checkednumber = 0;
+            this.boxcheck = [false, false, false, false, false, false, false, false, false, false];
         },
     },
 })
@@ -2162,11 +2260,26 @@ var bozhonshowsixupdate = new Vue({
         targetuuid: '',
         targetdesc: '',
         targetproject: '',
+        targetid: '',
+        targetprojectid: '',
+        targetTypestr: '',
+        targetType: '',
+        configfileurl: '',
+        needupdate: '',
+        projectConfVersion: '',
         setdatatarget: {
+            configFileUrl: '',
+            needUpdate: '',
+            projectConfVersion: '',
+            targetTypeStr: '',
+            targetId: '',
             targetUUID: '',
             targetDesc: '',
             targetProject: '',
+            targetProjectId: '',
+            targetType: '',
         },
+        additem: [],
         items: {
             targetUUID: '',
             targetDesc: '',
@@ -2179,16 +2292,23 @@ var bozhonshowsixupdate = new Vue({
         },
         openupdateobjectpage: function () {
             bozhonshowsixupdateproject.displaystr = 'block';
-            bozhonshowsixaddproject.getobject();
+            bozhonshowsixupdateproject.getobject();
         },
         saveupdatepage: function () {
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             // localStorage.setItem("Url", ipAddress);
             var _select = this;
-            this.setdatatarget.targetUUID = this.items.targetUUID;
-            this.setdatatarget.targetDesc = this.items.targetDesc;
-            this.setdatatarget.targetProject = this.items.targetProject;
+            this.setdatatarget.targetUUID = this.targetuuid;
+            this.setdatatarget.targetDesc = this.targetdesc;
+            this.setdatatarget.targetProject = this.targetproject;
+            this.setdatatarget.targetProjectId = this.targetprojectid;
+            this.setdatatarget.targetType = this.targetType;
+            this.setdatatarget.targetId = this.targetid;
+            this.setdatatarget.targetTypestr = this.targetTypeStr;
+            this.setdatatarget.configFileUrl = this.configfileurl;
+            this.setdatatarget.needUpdate = this.needupdate;
+            this.setdatatarget.projectConfVersion = this.projectConfVersion;
             if (this.setdatatarget.targetUUID == null || this.setdatatarget.targetUUID == "") {
                 alert("请输入配置目标UUID！");
             } else if (this.setdatatarget.targetProject == null || this.setdatatarget.targetProject == "") {
@@ -2196,7 +2316,7 @@ var bozhonshowsixupdate = new Vue({
             } else {
                 $.ajax({
                     url: ipAddress + 'api/target',
-                    type: 'post',
+                    type: 'put',
                     data: JSON.stringify(_select.setdatatarget),
                     dataType: "json",
                     contentType: "application/json",
@@ -2224,33 +2344,37 @@ var bozhonshowsixupdateproject = new Vue({
         pagelastimg: '../images/next page.png',
         projectname: '',
         pagenumber: 0,
-        pagecode: '',
+        pagecode: 1,
         pagesize: 10,
         listnumber: '',
         selectnumber: 0,
+        boxcheck: [false, false, false, false, false, false, false, false, false, false],
         items: [],
         setdata: {
-            pageNo: '',
-            pageSize: '',
+            page: '',
+            size: '',
             projectName: '',
         },
         id: [],
-        additem:[],
-        checkednumber:0,
-        btndisabled:true,
+        additem: [],
+        checkednumber: 0,
+        btndisabled: true,
     },
     mounted: function () {
-
+        this.additem = new Array();
     },
     methods: {
         getobject: function () {
+            this.additem = new Array();
+            this.checkednumber = 0;
+            this.boxcheck = [false, false, false, false, false, false, false, false, false, false];
             this.schdisplaytxt = "block";
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             //localStorage.setItem("Url", ipAddress);
             var _select = this;
-            this.setdata.pageNo = this.pagecode;
-            this.setdata.pageSize = this.pagesize;
+            this.setdata.page = this.pagecode;
+            this.setdata.size = this.pagesize;
             this.setdata.projectName = this.projectname;
             $.ajax({
                 url: ipAddress + 'api/listProjectByPage',
@@ -2263,7 +2387,12 @@ var bozhonshowsixupdateproject = new Vue({
                     _select.items = [];
                     _select.items = json.result.result.list;
                     _select.listnumber = json.result.result.totalItems;
-                    _select.pagenumber = _select.listnumber / _select.pagesize + 1;
+                    if(_select.listnumber>_select.pagesize){
+                        _select.pagenumber = _select.listnumber /_select.pagesize + 1;
+                        document.writeln(_select.pagenumber>>0);
+                    }else{
+                        _select.pagenumber=1;
+                    }
                 },
                 error: function (data) {
                     console.log("未取到项目列表");
@@ -2271,9 +2400,8 @@ var bozhonshowsixupdateproject = new Vue({
                 }
             })
         },
-         //选中事件
-         checkedthing: function (item, event) {
-            this.additem=new Array();
+        //选中事件
+        checkedthing: function (item, event) {
             if (event.target.checked) {
                 this.additem.push(item);
                 this.checkednumber++;
@@ -2304,7 +2432,7 @@ var bozhonshowsixupdateproject = new Vue({
         //分页功能
         pagefirstclickdown: function () {
             this.pagefirstimg = '../images/Previous page (1).png';
-            this.pageCode = 1;
+            this.pagecode = 1;
             this.getobject();
         },
         pagefirstclickup: function () {
@@ -2313,8 +2441,8 @@ var bozhonshowsixupdateproject = new Vue({
         },
         pageprevclickdown: function () {
             this.pageprevimg = '../images/prev (1).png';
-            if (this.pageCode > 1) {
-                this.pageCode--;
+            if (this.pagecode > 1) {
+                this.pagecode--;
                 this.getobject();
             }
         },
@@ -2323,8 +2451,8 @@ var bozhonshowsixupdateproject = new Vue({
         },
         pagenextclickdown: function () {
             this.pagenextimg = '../images/next (1).png';
-            if (this.pageCode < this.pagenumber) {
-                this.pageCode++;
+            if (this.pagecode < this.pagenumber) {
+                this.pagecode++;
                 this.getobject();
             }
         },
@@ -2333,7 +2461,7 @@ var bozhonshowsixupdateproject = new Vue({
         },
         pagelastclickdown: function () {
             this.pagelastimg = '../images/next page (1).png';
-            this.pageCode = this.pagenumber;
+            this.pagecode = this.pagenumber;
             this.getobject();
         },
         pagelastclickup: function () {
@@ -2343,23 +2471,15 @@ var bozhonshowsixupdateproject = new Vue({
             this.displaystr = "none";
         },
         saveproject: function () {
-            // let checkDom = this.$refs.sixupdateproject.getElementsByClassName("sixupdateprojectbtn");
-            // let idArray = [];
-            // this.selectnumber = 0;
-            // for (var i = 0; i < checkDom.length; i++) {
-            //     if (checkDom[i].checked) {
-            //         idArray.push(checkDom[i].dataset.id);
-            //         this.selectnumber++;
-            //     }
-            // }
-            // this.id = idArray;
-            if (this.checkednumber == 1) {
-
-                bozhonshowsixupdate.items.targetProject = additem[0].targetProject;
-                this.displaystr = "none";
-            } else {
-                alert("请选择一种配置所属项目！");
-            }
+            bozhonshowsixupdate.targetproject = this.additem[0].projectName;
+            bozhonshowsixupdate.targetprojectid = this.additem[0].ProjectId;
+            bozhonshowsixupdate.targetTypestr = this.additem[0].projectTypeStr;
+            bozhonshowsixupdate.targetType = this.additem[0].projectType;
+            bozhonshowsixupdate.projectConfVersion = this.additem[0].projectConfVersion;
+            this.displaystr = "none";
+            this.additem = new Array();
+            this.checkednumber = 0;
+            this.boxcheck = [false, false, false, false, false, false, false, false, false, false];
         },
     },
 })
@@ -2375,26 +2495,26 @@ var bozhonshowtwonewprojectConfigVersion = new Vue({
         pagenextimg: '../images/next.png',
         pagelastimg: '../images/next page.png',
         pagenumber: 0,
-        pagecode: '',
+        pagecode: 1,
         pagesize: 10,
         listnumber: '',
         selectnumber: 0,
         items: [],
         setdata: {
-            pageNo: '',
-            pageSize: '',
-            projectId:'',
+            page: '',
+            size: '',
+            projectId: '',
         },
         id: [],
-        additem:[],
-        checkednumber:0,
-        btndisabled:true,
-        projectId:'',
-        configFileId:'',
-        schdisplaytxt:'none',
+        additem: [],
+        checkednumber: 0,
+        btndisabled: true,
+        projectId: '',
+        configFileId: '',
+        schdisplaytxt: 'none',
     },
     mounted: function () {
-
+        this.additem = new Array();
     },
     methods: {
         getprojectConfigVersion: function () {
@@ -2403,9 +2523,9 @@ var bozhonshowtwonewprojectConfigVersion = new Vue({
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             //localStorage.setItem("Url", ipAddress);
             var _select = this;
-            this.setdata.pageNo = this.pagecode;
-            this.setdata.pageSize = this.pagesize;
-            this.setdata.projectId=this.projectId;
+            this.setdata.page = this.pagecode;
+            this.setdata.size = this.pagesize;
+            this.setdata.projectId = this.projectId;
             $.ajax({
                 url: ipAddress + 'api/getConfigFileByPage',//todo
                 type: 'post',
@@ -2413,11 +2533,20 @@ var bozhonshowtwonewprojectConfigVersion = new Vue({
                 dataType: "json",
                 contentType: "application/json",
                 success: function (json) {
-                    _select.schdisplaytxt = "none";
                     _select.items = [];
                     _select.items = json.result.result.list;
                     _select.listnumber = json.result.result.totalItems;
-                    _select.pagenumber = _select.listnumber / _select.pagesize + 1;
+                    if(_select.listnumber>_select.pagesize){
+                        _select.pagenumber = _select.listnumber /_select.pagesize + 1;
+                        document.writeln(_select.pagenumber>>0);
+                    }else{
+                        _select.pagenumber=1;
+                    }
+                    if(json.result.result.totalItems==0){
+                         alert("当前没有合适数据");
+                    }else{
+                          _select.schdisplaytxt = "none";
+                    }
                 },
                 error: function (data) {
                     console.log("未取到项目列表");
@@ -2425,9 +2554,9 @@ var bozhonshowtwonewprojectConfigVersion = new Vue({
                 }
             })
         },
-         //选中事件
-         checkedthing: function (item, event) {
-            this.additem=new Array();
+        //选中事件
+        checkedthing: function (item, event) {
+
             if (event.target.checked) {
                 this.additem.push(item);
                 this.checkednumber++;
@@ -2496,12 +2625,12 @@ var bozhonshowtwonewprojectConfigVersion = new Vue({
         closepage: function () {
             this.displaystr = "none";
         },
-        putout:function(){
+        putout: function () {
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             //localStorage.setItem("Url", ipAddress);
             var _select = this;
-            this.configFileId=this.additem[0].configFileId;
+            this.configFileId = this.additem[0].configFileId;
             $.ajax({
                 url: ipAddress + 'api/updateProjectConfVersion',//todo
                 type: 'post',
@@ -2510,7 +2639,7 @@ var bozhonshowtwonewprojectConfigVersion = new Vue({
                 contentType: "application/json",
                 success: function (json) {
                     _select.schdisplaytxt = "none";
-                   alert("发布成功");
+                    alert("发布成功");
                 },
                 error: function (data) {
                     console.log("未取到项目列表");
@@ -2518,8 +2647,8 @@ var bozhonshowtwonewprojectConfigVersion = new Vue({
                 }
             })
         },
-        opennewpage:function(){
-            bozhonshowtwoaddnewprojectConfigVersion.displaystr="block";
+        opennewpage: function () {
+            bozhonshowtwoaddnewprojectConfigVersion.displaystr = "block";
         },
     },
 })
@@ -2531,14 +2660,14 @@ var bozhonshowtwoaddnewprojectConfigVersion = new Vue({
     el: '#bozhon-show-two-add-newprojectConfigVersion',
     data: {
         displaystr: 'none',
-        configFileid:'',
-        configFileversion:'',
-        conf:{
-            configProjectId:'',
-            configFileVersion:'',
+        configFileid: '',
+        configFileversion: '',
+        conf: {
+            configProjectId: '',
+            configFileVersion: '',
         },
         items: {},
-        file:'',
+        file: '',
     },
     methods: {
         closepage: function () {
@@ -2553,21 +2682,21 @@ var bozhonshowtwoaddnewprojectConfigVersion = new Vue({
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             // localStorage.setItem("Url", ipAddress);
             var _select = this;
-            var formdata=new FormData();
+            var formdata = new FormData();
             this.conf.configFileId = this.configFileid;
             this.conf.configFileVersion = this.configFileversion;
-            if (this.conf.configFileVersion== null || this.conf.configFileVersion == "") {
+            if (this.conf.configFileVersion == null || this.conf.configFileVersion == "") {
                 alert("请输入版本配置！");
             } else {
-                formdata.append('conf',JSON.stringify(this.conf));
-                formdata.append('file',this.file);
+                formdata.append('conf', JSON.stringify(this.conf));
+                formdata.append('file', this.file);
                 $.ajax({
                     url: ipAddress + 'api/saveConfigFile',
                     type: 'post',
-                    data:_select.formdata,
+                    data: _select.formdata,
                     dataType: "json",
                     contentType: false,
-                    processData:false,
+                    processData: false,
                     success: function (json) {
                         bozhonshowtwonewprojectConfigVersion.getprojectConfigVersion();
                         _select.displaystr = 'none';
@@ -2578,10 +2707,10 @@ var bozhonshowtwoaddnewprojectConfigVersion = new Vue({
                 })
             }
         },
-        fileup:function(event){
-            this.file=new File();
-           this.file=event.target.files;
-           console.log(this.file);
+        fileup: function (event) {
+            this.file = new File();
+            this.file = event.target.files;
+            console.log(this.file);
         }
     },
 })

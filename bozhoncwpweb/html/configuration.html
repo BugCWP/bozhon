@@ -65,7 +65,7 @@
                     <span>用户名：</span>
                     <input type="text" id="bozhon-show-one-part1-low1-username" v-model="uname">
                     <input type="button" id="bozhon-show-one-part1-low1-select" value="查询" v-on:click="getbozhonshowone">
-                    <input type="button" id="bozhon-show-one-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowone">
+                    <input type="button" id="bozhon-show-one-part1-low1-flesh" value="刷新" v-on:click="flashpage">
                 </div>
             </div>
             <div id="bozhon-show-one-part2">
@@ -130,7 +130,7 @@
                     />
                     <input type="button" id="bozhon-show-two-part1-low1-delete" value="删除" v-on:click="deletebozhonshowtwo" v-bind:disabled='btndisabledsome'
                     />
-                    <input type="button" id="bozhon-show-two-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowtwo" />
+                    <input type="button" id="bozhon-show-two-part1-low1-flesh" value="刷新" v-on:click="flashpage" />
                     <input type="button" id="bozhon-show-two-part1-low1-change" value="项目配置" v-on:click="openpeizhipage" v-bind:disabled='btndisabledsome'
                     />
                 </div>
@@ -142,7 +142,7 @@
                 <table id="bozhon-show-two-part2-low2" ref="table2">
                     <tr>
                         <th style="width: 1%;">
-                            <input type="checkbox" v-model:checked="boxcheck">
+                            <input type="checkbox">
                         </th>
                         <th style="width: 4%;">ID</th>
                         <th style="width: 4%;">国家</th>
@@ -154,9 +154,9 @@
                         <th style="width: 4%;">当前配置版本</th>
                         <!-- <th style="width: 4%;">操作</th> -->
                     </tr>
-                    <tr v-for="item in items">
+                    <tr v-for="(item,index) in items">
                         <td style="width: 1%;">
-                            <input type="checkbox" class="selBtn" v-on:click="checkedthing(item,$event)">
+                            <input type="checkbox" class="selBtn" v-on:click="checkedthing(item,$event)" v-model:checked="boxcheck[index]">
                         </td>
                         <td style="width: 4%;">{{item.projectId}}</td>
                         <td style="width: 4%;">{{item.projectNation}}</td>
@@ -206,7 +206,7 @@
                 <table id="bozhon-show-three-part2-low2">
                     <tr>
                         <th style="width: 1%">
-                            <input type="checkbox" v-model:checked="boxcheck" />
+                            <input type="checkbox" />
                         </th>
                         <th style="width: 4%">项目名称</th>
                         <th style="width: 4%">更新时间</th>
@@ -214,9 +214,9 @@
                         <th style="width: 4%">更新结果</th>
                         <th style="width: 4%">结果描述</th>
                     </tr>
-                    <tr v-for="item in items">
+                    <tr v-for="(item,index) in items">
                         <td style="width: 1%">
-                            <input type="checkbox" />
+                            <input type="checkbox" v-model:checked="boxcheck[index]"/>
                         </td>
                         <td style="width: 4%">{{item.projectName}}</td>
                         <td style="width: 4%">{{item.updateResultTime}}</td>
@@ -256,7 +256,7 @@
                     <span>关键字:</span>
                     <input type="text" id="bozhon-show-four-part1-low1-keyword" v-model="cityname" />
                     <input type="button" id="bozhon-show-four-part1-low1-select" value="查询" v-on:click="getbozhonshowfour" />
-                    <input type="button" id="bozhon-show-four-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowfour" />
+                    <input type="button" id="bozhon-show-four-part1-low1-flesh" value="刷新" v-on:click="flashpage" />
                 </div>
             </div>
             <div id="bozhon-show-four-part2">
@@ -266,21 +266,21 @@
                 <table id="bozhon-show-four-part2-low2">
                     <tr>
                         <th style="width: 1%">
-                            <input type="checkbox" v-model:checked="boxcheck" />
+                            <input type="checkbox" />
                         </th>
                         <th style="width: 10%">ID</th>
                         <th style="width: 10%">{{citylevel}}</th>
                     </tr>
-                    <tr v-for="item in items">
+                    <tr v-for="(item,index) in items">
                         <td style="width: 1%">
-                            <input type="checkbox" v-bind:checked="boxcheck" />
+                            <input type="checkbox" v-model:checked="boxcheck[index]" />
                         </td>
                         <td style="width: 10%" v-if="citylevel=='国家'">{{item.nationId}}</td>
-                        <td style="width: 10%" v-else-if="citylevel=='一级城市'">{{item.cityId}}</td>
-                        <td style="width: 10%" v-else-if="citylevel=='二级城市'">{{item.provincId}}</td>
+                        <td style="width: 10%" v-else-if="citylevel=='二级城市'">{{item.cityId}}</td>
+                        <td style="width: 10%" v-else-if="citylevel=='一级城市'">{{item.provinceId}}</td>
                         <td style="width: 10%" v-if="citylevel=='国家'">{{item.nationName}}</td>
-                        <td style="width: 10%" v-else-if="citylevel=='一级城市'">{{item.cityName}}</td>
-                        <td style="width: 10%" v-else-if="citylevel=='二级城市'">{{item.provincName}}</td>
+                        <td style="width: 10%" v-else-if="citylevel=='二级城市'">{{item.cityName}}</td>
+                        <td style="width: 10%" v-else-if="citylevel=='一级城市'">{{item.provinceName}}</td>
                     </tr>
                 </table>
                 <div id="bozhon-show-four-sch" style="position: absolute;left:450px;top:250px;height:150px;width:150px" v-bind:style="{display:schdisplaytxt}"></div>
@@ -317,7 +317,7 @@
                     />
                     <input type="button" id="bozhon-show-five-part1-low1-delete" value="删除" v-on:click="deletebozhonshowfive" v-bind:disabled='btndisabledsome'
                     />
-                    <input type="button" id="bozhon-show-five-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowfive" />
+                    <input type="button" id="bozhon-show-five-part1-low1-flesh" value="刷新" v-on:click="flashpage" />
                 </div>
             </div>
             <div id="bozhon-show-five-part2">
@@ -327,16 +327,16 @@
                 <table id="bozhon-show-five-part2-low2" ref="table5">
                     <tr>
                         <th style="width: 1%">
-                            <input type="checkbox" v-model:checked="boxcheck" />
+                            <input type="checkbox" />
                         </th>
                         <th style="width: 5%">ID</th>
                         <th style="width: 5%">配置文件名</th>
                         <th style="width: 5%">配置路径</th>
                         <th style="width: 5%">是否通配类型</th>
                     </tr>
-                    <tr v-for="item in items">
+                    <tr v-for="(item,index) in items">
                         <td style="width: 1%">
-                            <input type="checkbox" class="fivebtn" v-on:click="checkedthing(item,$event)" />
+                            <input type="checkbox" class="fivebtn" v-on:click="checkedthing(item,$event)" v-model:checked="boxcheck[index]" />
                         </td>
                         <td style="width: 5%">{{item.confId}}</td>
                         <td style="width: 5%">{{item.confFileName}}</td>
@@ -380,7 +380,7 @@
                     />
                     <input type="button" id="bozhon-show-six-part1-low1-delete" value="删除" v-on:click="deletebozhonshowsix" v-bind:disabled='btndisabledsome'
                     />
-                    <input type="button" id="bozhon-show-six-part1-low1-flesh" value="刷新" v-on:click="getbozhonshowsix" />
+                    <input type="button" id="bozhon-show-six-part1-low1-flesh" value="刷新" v-on:click="flashpage" />
                 </div>
             </div>
             <div id="bozhon-show-six-part2">
@@ -390,7 +390,7 @@
                 <table id="bozhon-show-six-part2-low2" ref="table6">
                     <tr>
                         <th style="width: 1%">
-                            <input type="checkbox" v-model:checked="boxcheck" />
+                            <input type="checkbox" />
                         </th>
                         <th style="width: 4%">ID</th>
                         <th style="width: 4%">目标UUID</th>
@@ -398,9 +398,9 @@
                         <th style="width: 4%">所属项目</th>
                         <th style="width: 4%">目标类型</th>
                     </tr>
-                    <tr v-for="item in items">
+                    <tr v-for="(item,index) in items">
                         <td style="width: 1%">
-                            <input type="checkbox" class="sixbtn" v-on:click="checkedthing(item,$event)" />
+                            <input type="checkbox" class="sixbtn" v-on:click="checkedthing(item,$event)" v-model:checked="boxcheck[index]"/>
                         </td>
                         <td style="width: 4%">{{item.targetId}}</td>
                         <td style="width: 4%">{{item.targetUUID}}</td>
@@ -444,16 +444,15 @@
             </div>
             <div id="bozhon-show-two-add-low4">
                 所在城市
-                <select v-model="cityname">
-                    <option v-for="city in citys">{{city.cityName}}</option>
+                <select v-model="cityname" v-model:value="cityid">
+                    <option v-for="city in citys" v-bind:value="city.cityId">{{city.cityName}}</option>
                 </select>
-                <input type="text" v-model="cityname" v-on:input="changecityinput">
             </div>
             <div id="bozhon-show-two-add-low5">
                 项目类别
-                <select v-model="projecttypestr">
-                    <option>机器人</option>
-                    <option>调度系统</option>
+                <select v-model:value="projecttypestr">
+                    <option value="1">机器人</option>
+                    <option value="2">调度系统</option>
                 </select>
             </div>
             <div id="bozhon-show-two-add-low6">
@@ -473,16 +472,15 @@
             </div>
             <div id="bozhon-show-two-update-low4">
                 所在城市
-                <select v-model="cityname">
+                <select v-model="city">
                     <option v-for="city in citys">{{city.cityName}}</option>
                 </select>
-                <input type="text" v-model="cityname" v-on:input="changecityinput">
             </div>
             <div id="bozhon-show-two-update-low5">
                 项目类别
-                <select v-model="projecttypestr">
-                    <option>机器人</option>
-                    <option>调度系统</option>
+                <select v-model="projecttype">
+                    <option value="1">机器人</option>
+                    <option value="2">调度系统</option>
                 </select>
             </div>
             <div id="bozhon-show-two-update-low6">
@@ -571,9 +569,9 @@
                         <th style="width: 5%">项目名称</th>
                         <th style="width: 5%">项目描述</th>
                     </tr>
-                    <tr v-for="item in items">
+                    <tr v-for="(item,index) in items">
                         <td style="width: 1%">
-                            <input type="checkbox" class="sixaddprojectbtn" v-on:click="checkedthing(item,$event)">
+                            <input type="checkbox" class="sixaddprojectbtn" v-on:click="checkedthing(item,$event)" v-model:checked="boxcheck[index]">
                         </td>
                         <td style="width: 5%">{{item.projectId}}</td>
                         <td style="width: 5%">{{item.projectName}}</td>
@@ -611,14 +609,14 @@
         <div id="bozhon-show-six-update-box">
             <div id="bozhon-show-six-update-low1">修改配置目标</div>
             <div id="bozhon-show-six-update-low2">目标UUID
-                <input type="text"  v-model="items.targetUUID">
+                <input type="text"  v-model="targetuuid">
             </div>
             <div id="bozhon-show-six-update-low3">目标描述&nbsp;
-                <input type="text"  v-model="items.targetDesc">
+                <input type="text"  v-model="targetdesc">
             </div>
             <div id="bozhon-show-six-update-low4">
                 所属项目&nbsp;
-                <input type="text"  v-model="items.targetProject">
+                <input type="text"  v-model="targetproject">
                 <input type="button" value="选择" v-on:click="openupdateobjectpage">
             </div>
             <div id="bozhon-show-six-update-low5">
@@ -643,9 +641,9 @@
                         <th style="width: 5%">项目名称</th>
                         <th style="width: 5%">项目描述</th>
                     </tr>
-                    <tr v-for="item in items">
+                    <tr v-for="(item,index) in items">
                         <td style="width: 1%">
-                            <input type="checkbox" class="sixupdateprojectbtn" v-on:click="checkedthing(item,$event)">
+                            <input type="checkbox" class="sixupdateprojectbtn" v-on:click="checkedthing(item,$event)" v-model:checked="boxcheck[index]">
                         </td>
                         <td style="width: 5%">{{item.projectId}}</td>
                         <td style="width: 5%">{{item.projectName}}</td>
@@ -695,9 +693,9 @@
                         <th style="width: 5%">描述</th>
                         <th style="width: 5%">创建时间</th>
                     </tr>
-                    <tr v-for="item in items">
+                    <tr v-for="(item,index) in items">
                         <td style="width: 1%">
-                            <input type="checkbox" v-on:click="checkedthing(item,$event)">
+                            <input type="checkbox" v-on:click="checkedthing(item,$event)" v-model:checked="boxcheck[index]">
                         </td>
                         <td style="width: 5%">{{item.configFileId}}</td>
                         <td style="width: 5%">{{item.configFileVersion}}</td>

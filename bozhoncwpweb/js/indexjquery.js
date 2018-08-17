@@ -1,8 +1,5 @@
 $(function(){
-    $('#bozhon-show-two-part3-btn11').lc_switch();
-    $('#bozhon-show-two-part3-btn21').lc_switch();
-    $('#bozhon-show-two-part3-btn31').lc_switch();
-    $('#bozhon-show-two-part3-btn41').lc_switch();
+    $('#bozhon-show-two-part3-btn').lc_switch();
 	// triggered each time a field changes status
 	$('body').delegate('.lcs_check', 'lcs-statuschange', function() {
 		var status = ($(this).is(':checked')) ? 'checked' : 'unchecked';
