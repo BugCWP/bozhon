@@ -18,10 +18,14 @@
         <el-aside class="aside-body" style="width:65px">
           <el-menu class="firstmenu">
             <el-menu-item @click="showDispatch">
-              <i class="el-icon-share"></i>
+               <el-tooltip class="item" effect="dark" content="调度系统" placement="right-start">
+                 <i class="el-icon-share"></i>
+                </el-tooltip>
             </el-menu-item>
             <el-menu-item @click="showConfiguration">
-              <i class="el-icon-setting"></i>
+               <el-tooltip class="item" effect="dark" content="配置中心" placement="right-start">
+                 <i class="el-icon-setting"></i>
+               </el-tooltip>
             </el-menu-item>
           </el-menu>
         </el-aside>
@@ -62,14 +66,6 @@ export default {
 </script>
 
 <style>
-#app {
-  /* font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px; */
-}
 .container-body {
   height: 610px;
 }

@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <el-aside :style="{width:asidewidth}">
-          <el-menu :collapse="isCollapse" id="menubody" @open="handleOpen" @close="handleClose">
+          <el-menu :collapse="isCollapse" id="menubody"  background-color="#545c64" text-color="#fff" active-text-color="#409eff">
               <el-menu-item @click="showMenu">
                   <i class="el-icon-more"></i>
               </el-menu-item>
@@ -48,7 +48,7 @@
           </el-menu>
         </el-aside>
         <el-container >
-            <el-main class="mainbody" :style="{}">
+            <el-main id="mainbody" :class="{mainbodyleft:isCollapse}">
                 <component :is="tabView"></component>
             </el-main>
         </el-container>
@@ -56,6 +56,7 @@
 </template>
 
 <script>
+//配置中心模块
 import List1 from "./UserList.vue";
 import List2 from "./ProjectList.vue";
 import List3 from "./UpdateList.vue";
@@ -71,16 +72,9 @@ export default {
             isCollapse:true,
             asidewidth:'200px',
             tabView:'List1',
-            runLeft:'-100px',
         }
     },
     methods:{
-       handleOpen(key,keyPath){
-           this.runLeft='100px';
-       },
-       handleClose(key,keyPath){
-           this.runLeft='-100px';
-       },
        showList(index){
              this.tabView=`List${index}`;
        },
@@ -101,6 +95,8 @@ export default {
 #mainbody{
     padding-left: 0;
     position: relative;
+}
+.mainbodyleft{
     left: -100px;
 }
 </style>
