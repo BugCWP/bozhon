@@ -20,11 +20,11 @@
         <el-col :span="22">
             <div id="tablehead">
               <div id="tableheadtitle">更新列表</div>
-              <!-- <div id="tableheadbutton">
-                  <el-button  size="mini" icon="el-icon-search"></el-button>
-                  <el-button  size="mini" icon="el-icon-refresh"></el-button>
+              <div id="tableheadbutton">
+                  <!-- <el-button  size="mini" icon="el-icon-search"></el-button> -->
+                  <el-button  size="mini" icon="el-icon-refresh" @click="getflash" :loading="btnloading"></el-button>
               </div>
-              <div id="tableheadinput">
+              <!-- <div id="tableheadinput">
                   <el-input  size="small" prefix-icon="el-icon-search" clearable></el-input>
               </div> -->
             </div>
@@ -52,7 +52,7 @@
                    @current-change="handleCurrentChange"
                    :current-page="currentPage"
                    :page-sizes="[10, 20, 30, 40]"
-                   :page-size="100"
+                   :page-size="10"
                    layout="total, sizes, prev, pager, next, jumper"
                    :total="datasize">
                  </el-pagination>
@@ -63,22 +63,94 @@
 </template>
 <script>
 //配置中心更新事件模块
+import $ from 'jquery';
 export default {
      data(){
         return{
             listdata:[],
             currentPage:1,//当前页面
-            datasize:200,//数据条数
+            datasize:0,//数据条数
             loading:false,//数据加载动画
+            btnloading:false,
+            req: {
+               page: 1,
+               size: 10,
+               projectName: '',
+            },
         }
+    },
+    mounted:function(){
+       this.req.page=1;
+       this.getUpdateList();
     },
     methods: {
       handleSizeChange(val) {
+        this.req.size=val;
+        this.getUpdateList();
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
+        this.req.page=val;
+        this.getUpdateList();
         console.log(`当前页: ${val}`);
-      }
+      },
+      //刷新
+      getflash(){
+          this.btnloading=true;
+        this.req.page=1;
+         this.getUpdateList();
+      },
+      //获取更新数据
+      getUpdateList(){
+         //开启加载动画
+        this.loading=true;
+        var host=location.hostname;
+        var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+        var _select=this;
+         $.ajax({
+                url:ipAddress + 'api/getUpdateEventByPage',
+                type: 'post',
+                data: JSON.stringify(this.req),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (json) {
+                    console.log("获取到更新事件");
+                    if ("0" == json.result.result.size) {
+                        alert("当前无符合条件的记录!");
+                        _select.listdata = [];
+                    } else {
+                        _select.loading = false;
+                        _select.listdata = [];
+                        _select.listdata = json.result.result.list;
+                        _select.datasize = json.result.result.totalItems;
+                        _select.openmessageSuccess("获取更新事件成功");
+                        _select.btnloading=false;
+                    }
+
+                },
+                error: function (data) {
+                   _select.openmessageErr("获取更新事件失败");
+                    _select.listdata = [];
+                    _select.btnloading=false;
+                }
+            })
+      },
+      //打开错误提示功能
+       openmessageErr(msg){
+       this.$message({
+          showClose: true,
+          message: msg,
+          type: 'error'
+        });
+       },
+      //打开成功提示功能
+      openmessageSuccess(msg){
+        this.$message({
+          showClose: true,
+          message: msg,
+          type: 'success'
+        });
+    },
     },
 }
 </script>

@@ -22,11 +22,11 @@
             <div id="tablehead">
               <div id="tableheadtitle">一级城市列表</div>
               <div id="tableheadbutton">
-                  <el-button  size="mini" icon="el-icon-search">搜索</el-button>
-                  <el-button  size="mini" icon="el-icon-refresh">刷新</el-button>
+                  <el-button  size="mini" icon="el-icon-search" @click="getProvinceList">搜索</el-button>
+                  <el-button  size="mini" icon="el-icon-refresh" @click="getflash" :loading="btnloading">刷新</el-button>
               </div>
               <div id="tableheadinput">
-                  <el-input  size="small" prefix-icon="el-icon-search" clearable></el-input>
+                  <el-input  size="small" prefix-icon="el-icon-search" clearable v-model="req.provinceName"></el-input>
               </div>
             </div>
         </el-col>
@@ -50,7 +50,7 @@
                    @current-change="handleCurrentChange"
                    :current-page="currentPage"
                    :page-sizes="[10, 20, 30, 40]"
-                   :page-size="100"
+                   :page-size="10"
                    layout="total, sizes, prev, pager, next, jumper"
                    :total="datasize">
                  </el-pagination>
@@ -68,15 +68,84 @@ export default {
             currentPage:1,//当前页面
             datasize:200,//数据条数
             loading:false,//数据加载动画
+            btnloading:false,
+            req: {
+               page: 1,
+               size: 10,
+               provinceName: '',
+            },
         }
+    },
+    mounted:function(){
+        this.getProvinceList();
     },
     methods: {
       handleSizeChange(val) {
+          this.req.size=val;
+         this.getProvinceList();
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
+          this.req.page=val;
+          this.getProvinceList();
         console.log(`当前页: ${val}`);
-      }
+      },
+      getflash(){
+          this.btnloading=true;
+        this.req.page=1;
+        this.req.provinceName='';
+        this.getProvinceList();
+      },
+      //获取一级城市信息
+      getProvinceList(){
+         //开启加载动画
+        this.loading=true;
+        var host=location.hostname;
+        var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+        var _select=this;
+        $.ajax({
+                    url: ipAddress + 'api/getProvinceByPage',
+                    type: 'post',
+                    data: JSON.stringify(_select.req),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (json) {
+                        if ("0" == json.result.result.size) {
+                            alert("当前无符合条件的记录!");
+                            _select.listdata = [];
+                        } else {
+                            _select.loading = false;
+                            console.log("获取到一级城市");
+                            _select.listdata = [];
+                            _select.listdata = json.result.result.list;
+                            _select.datasize = json.result.result.totalItems;
+                            _select.openmessageSuccess("获取一级城市成功");
+                            _select.btnloading=false;
+                        }
+                    },
+                    error: function (data) {
+                        _select.openmessageErr("获取一级城市失败");
+                        _select.listdata = [];
+                        _select.btnloading=false;
+                    }
+                })
+      },
+      //打开错误提示功能
+       openmessageErr(msg){
+       this.$message({
+          showClose: true,
+          message: msg,
+          type: 'error'
+        });
+       },
+      //打开成功提示功能
+      openmessageSuccess(msg){
+        this.$message({
+          showClose: true,
+          message: msg,
+          type: 'success'
+        });
+    },
     },
 }
 </script>

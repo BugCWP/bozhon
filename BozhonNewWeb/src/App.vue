@@ -17,12 +17,12 @@
       <el-container>
         <el-aside class="aside-body" style="width:65px">
           <el-menu class="firstmenu">
-            <el-menu-item @click="showDispatch">
+            <el-menu-item @click="showmune(1)">
                <el-tooltip class="item" effect="dark" content="调度系统" placement="right-start">
                  <i class="el-icon-share"></i>
                 </el-tooltip>
             </el-menu-item>
-            <el-menu-item @click="showConfiguration">
+            <el-menu-item @click="showmune(2)">
                <el-tooltip class="item" effect="dark" content="配置中心" placement="right-start">
                  <i class="el-icon-setting"></i>
                </el-tooltip>
@@ -51,11 +51,8 @@ export default {
     }
   },
   methods:{
-      showDispatch(){
-          this.tabView='simple1';
-      },
-      showConfiguration(){
-          this.tabView='simple2';
+      showmune(index){
+        this.tabView=`simple${index}`;
       }
   },
   components:{

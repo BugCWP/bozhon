@@ -21,11 +21,11 @@
             <div id="tablehead">
               <div id="tableheadtitle">用户列表</div>
               <div id="tableheadbutton">
-                  <el-button  size="mini" icon="el-icon-search">搜索</el-button>
-                  <el-button  size="mini" icon="el-icon-refresh">刷新</el-button>
+                  <el-button  size="mini" icon="el-icon-search" @click="getUserList" :loading="btnloadingS">搜索</el-button>
+                  <el-button  size="mini" icon="el-icon-refresh" @click="getflash" :loading="btnloadingF">刷新</el-button>
               </div>
               <div id="tableheadinput">
-                  <el-input  size="small" prefix-icon="el-icon-search" clearable></el-input>
+                  <el-input  size="small" prefix-icon="el-icon-search" clearable v-model="req.uName"></el-input>
               </div>
             </div>
         </el-col>
@@ -52,7 +52,7 @@
                    @current-change="handleCurrentChange"
                    :current-page="currentPage"
                    :page-sizes="[10, 20, 30, 40]"
-                   :page-size="100"
+                   :page-size="10"
                    layout="total, sizes, prev, pager, next, jumper"
                    :total="datasize">
                  </el-pagination>
@@ -63,25 +63,100 @@
 </template>
 <script>
 //配置中心用户管理模块
+import $ from 'jquery'
 export default {
     data(){
         return{
             listdata:[],
             currentPage:1,//当前页面
-            datasize:200,//数据条数
+            datasize:0,//数据条数
             loading:false,//数据加载动画
+            btnloadingS:false,
+            btnloadingF:false,
+            req:{
+              page: 1,
+              size: 10,
+              uName: '',
+            },
         }
+    },
+    mounted:function(){
+        this.getUserList();
     },
     methods: {
       handleSizeChange(val) {
+        this.req.size=val;
+        this.getUserList();
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
+        this.req.page=val;
+        this.getUserList();
         console.log(`当前页: ${val}`);
       },
-      getUserList(){
-         
+      //刷新
+      getflash(){
+         this.btnloadingF=true;
+         this.req.uName='';
+         this.req.page=1;
+         this.getUserList();
       },
+      //获取用户信息列表
+      getUserList(){
+        //开启加载动画
+        this.loading=true;
+        var host=location.hostname;
+        var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+        var _select=this;
+        $.ajax({
+                url: ipAddress + 'api/getUsersByPage',
+                type: 'post',
+                data: JSON.stringify(_select.req),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (json) {
+                    console.log("用户信息列表取到");
+                    if ("0" == json.result.size) {
+                        alert("当前无符合条件的记录!");
+                        _select.items = [];
+                    } else {
+                        //关闭加载动画
+                        _select.loading = false;
+                        //清空数据
+                        _select.listdata = [];
+                        //获取数据
+                        _select.listdata = json.result.result.list;
+                        //获取数量
+                        _select.datasize = json.result.result.totalItems;
+                        
+                        _select.openmessageSuccess("访问用户列表成功");
+                        _select.btnloadingF=false;
+                    }
+                },
+                error: function (data) {
+                   
+                    _select.openmessageErr("访问用户列表失败");
+                    _select.listdata = []; 
+                    _select.btnloadingF=false;
+                }
+        })
+      },
+      //打开错误提示功能
+       openmessageErr(msg){
+       this.$message({
+          showClose: true,
+          message: msg,
+          type: 'error'
+        });
+       },
+      //打开成功提示功能
+      openmessageSuccess(msg){
+        this.$message({
+          showClose: true,
+          message: msg,
+          type: 'success'
+        });
+    },
     },
 }
 </script>

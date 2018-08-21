@@ -6,7 +6,7 @@
             <div>
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item>配置系统</el-breadcrumb-item>
-                    <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+                    <el-breadcrumb-item>项目管理</el-breadcrumb-item>
                     <el-breadcrumb-item>查看</el-breadcrumb-item>
                 </el-breadcrumb>
             </div>
@@ -21,11 +21,11 @@
             <div id="tablehead">
               <div id="tableheadtitle">项目列表</div>
               <div id="tableheadbutton">
-                  <el-button  size="mini" icon="el-icon-search">搜索</el-button>
+                  <el-button  size="mini" icon="el-icon-search" @click="getProjectList">搜索</el-button>
                   <el-button  size="mini" >新增</el-button>
                   <el-button  size="mini" >修改</el-button>
                   <el-button  size="mini" icon="el-icon-delete"></el-button>
-                  <el-button size="mini" icon="el-icon-refresh"></el-button>
+                  <el-button size="mini" icon="el-icon-refresh" @click="getflash"></el-button>
                   <el-button size="mini" icon="el-icon-upload">项目配置</el-button>
               </div>
               <div id="tableheadinput">
@@ -59,7 +59,7 @@
                    @current-change="handleCurrentChange"
                    :current-page="currentPage"
                    :page-sizes="[10, 20, 30, 40]"
-                   :page-size="100"
+                   :page-size="10"
                    layout="total, sizes, prev, pager, next, jumper"
                    :total="datasize">
                  </el-pagination>
@@ -75,17 +75,68 @@ export default {
         return{
             listdata:[],
             currentPage:1,//当前页面
-            datasize:200,//数据条数
+            datasize:0,//数据条数
             loading:false,//数据加载动画
+            req: {
+               page: 1,
+               size: 10,
+               projectName: '',
+            },
         }
+    },
+    //界面加载的数据获取
+    mounted:function(){
+        this.getProjectList();
     },
     methods: {
       handleSizeChange(val) {
+        this.req.size=val;
+        this.getProjectList();
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
+          this.req.page=val;
+          this.getProjectList();
         console.log(`当前页: ${val}`);
-      }
+      },
+      //刷新
+      getflash(){
+         this.req.page=1;
+         this.req.projectName='';
+         this.getProjectList();
+      },
+      //获取项目列表信息
+      getProjectList(){
+          //开启加载动画
+        this.loading=true;
+        var host=location.hostname;
+        var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+        var _select=this;
+         $.ajax({
+                url: ipAddress + 'api/listProjectByPage',
+                type: 'post',
+                data: JSON.stringify(this.req),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (json) {
+                    console.log("项目管理列表取到");
+                    if ("0" == json.result.result.size) {
+                        alert("当前无符合条件的记录!");
+                        _select.items = [];
+                    } else {
+                        _select.loading = false;
+                        _select.listdata = [];
+                        _select.listdata = json.result.result.list;
+                        _select.datasize = json.result.result.totalItems;
+                    }
+
+                },
+                error: function (data) {
+                    console.log("获取项目列表失败");
+                    _select.listdata = [];
+                }
+            })
+      },
     },
 }
 </script>

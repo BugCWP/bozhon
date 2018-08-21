@@ -19,16 +19,16 @@
         <el-col :span="2"><div>&nbsp;</div></el-col>
         <el-col :span="22">
             <div id="tablehead">
-              <div id="tableheadtitle">用户列表</div>
+              <div id="tableheadtitle">目标列表</div>
               <div id="tableheadbutton">
-                 <el-button  size="mini" icon="el-icon-search">查询</el-button>
+                 <el-button  size="mini" icon="el-icon-search" @click="getTargetList">查询</el-button>
                   <el-button  size="mini" >新增</el-button>
                   <el-button  size="mini" >修改</el-button>
                   <el-button  size="mini" icon="el-icon-delete"></el-button>
-                  <el-button  size="mini" icon="el-icon-refresh"></el-button>
+                  <el-button  size="mini" icon="el-icon-refresh" @click="getflash"></el-button>
               </div>
               <div id="tableheadinput">
-                  <el-input  size="small" prefix-icon="el-icon-search" clearable></el-input>
+                  <el-input  size="small" prefix-icon="el-icon-search" clearable v-model="req.targetDesc"></el-input>
               </div>
             </div>
         </el-col>
@@ -55,7 +55,7 @@
                    @current-change="handleCurrentChange"
                    :current-page="currentPage"
                    :page-sizes="[10, 20, 30, 40]"
-                   :page-size="100"
+                   :page-size="10"
                    layout="total, sizes, prev, pager, next, jumper"
                    :total="datasize">
                  </el-pagination>
@@ -71,17 +71,65 @@ export default {
         return{
             listdata:[],
             currentPage:1,//当前页面
-            datasize:200,//数据条数
+            datasize:0,//数据条数
             loading:false,//数据加载动画
+            req: {
+              page: 1,
+              size: 10,
+              targetDesc: '',
+            },
         }
+    },
+    mounted:function(){
+          this.getTargetList();
     },
     methods: {
       handleSizeChange(val) {
+          this.req.size=val;
+          this.getTargetList();
         console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
+          this.req.page=val;
+          this.getTargetList();
         console.log(`当前页: ${val}`);
-      }
+      },
+      //刷新
+      getflash(){
+        this.req.page=1;
+        this.req.targetDesc='';
+        this.getTargetList();
+      },
+      //获取目标
+      getTargetList(){
+        //开启加载动画
+        this.loading=true;
+        var host=location.hostname;
+        var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+        var _select=this;
+        $.ajax({
+                url: ipAddress + 'api/listTargetByPage',
+                type: 'post',
+                data: JSON.stringify(this.req),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (json) {
+                    console.log("获取目标管理成功");
+                    if ("0" == json.result.result.size) {
+                        alert("当前无符合条件的记录!");
+                    } else {
+                        _select.schdisplaytxt = "none";
+                        _select.listdata = [];
+                        _select.listdata = json.result.result.list;
+                        _select.datasize = json.result.result.totalItems;
+                    }
+                },
+                error: function (data) {
+                    console.log("目标管理无法获取");
+                    _select.listdata = [];
+                },
+            })
+      },
     },
 }
 </script>
