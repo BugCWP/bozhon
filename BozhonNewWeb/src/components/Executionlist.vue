@@ -43,7 +43,17 @@
                     <template slot-scope="scope">
                         <el-button size="mini" type="primary"  :loading="btnloadingStop" @click="isstorp(scope.row.uuid)">暂停</el-button>
                         <el-button size="mini" type="primary"  :loading="btnloadingStart" @click="isstart(scope.row.uuid)">继续</el-button>
-                        <el-button size="mini" icon="el-icon-delete" type="danger" :loading="btnloadingD" @click="isDelete(scope.row.robot)"></el-button>
+                        <el-popover 
+                             placement="top"  
+                             width="160" 
+                             v-model="visible2">
+                            <p>确定要删除吗？</p>
+                            <div style="text-align: right; margin: 0">
+                                  <el-button size="mini" type="text" @click="visible2 = false">取消</el-button>
+                                  <el-button type="primary" size="mini" @click="isDelete(scope.row.robot)">确定</el-button>
+                            </div>
+                            <el-button slot="reference" size="mini" icon="el-icon-delete" type="danger" :loading="btnloadingD" @click="visible2=true"></el-button>
+                        </el-popover>     
                     </template> 
                 </el-table-column>
             </el-table>
@@ -80,6 +90,7 @@ export default {
             btnloadingStart:false,
             btnloadingStop:false,
             btnloadingD:false,
+            visible2:false,
             req: {
                Project: '',
             },
@@ -92,7 +103,7 @@ export default {
         }
     },
     mounted:function(){
-        this.getExecutionList();
+        // this.getExecutionList();
     },
     methods: {
       handleSizeChange(val) {
@@ -137,6 +148,7 @@ export default {
       },
        //删除
         isDelete: function (name) {
+            this.visible2=false;
             console.log(name);
             this.btnloadingD=true;
             this.deletereq.RobotName=name;

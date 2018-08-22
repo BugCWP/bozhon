@@ -68,9 +68,29 @@
                                      <span>{{ props.row.approved_access_area }}</span>
                                 </el-form-item>
                                 <el-form-item label="操作:">
-                                     <el-button size="mini" type="primary" icon="el-icon-delete" @click="isClearWorry(props.row.name)" :loading="btnloadingCW">清错</el-button>
-                                     <el-button size="mini" type="primary" icon="el-icon-delete" @click="isDelete(props.row.name)" :loading="btnloadingD">删除任务</el-button>
-                                     <el-button size="mini" type="primary" icon="el-icon-delete" @click="isClearArea(props.row.name)" :loading="btnloadingCA">清除区域</el-button>
+                                    <el-button size="mini" type="primary" icon="el-icon-delete" @click="isClearWorry(props.row.name)" :loading="btnloadingCW">清错</el-button>
+                                    <el-popover
+                                        placement="top"
+                                        width="160"
+                                        v-model="visible1">
+                                        <p>确定要删除吗？</p>
+                                        <div style="text-align: right; margin: 0">
+                                              <el-button size="mini" type="text" @click="visible1 = false">取消</el-button>
+                                              <el-button type="primary" size="mini" @click="isDelete(props.row.name)">确定</el-button>
+                                        </div>
+                                        <el-button slot="reference" size="mini" type="danger" icon="el-icon-delete"  :loading="btnloadingD">删除任务</el-button>
+                                     </el-popover>
+                                      <el-popover
+                                        placement="top"
+                                        width="160"
+                                        v-model="visible2">
+                                        <p>确定要清除吗？</p>
+                                        <div style="text-align: right; margin: 0">
+                                              <el-button size="mini" type="text" @click="visible2 = false">取消</el-button>
+                                              <el-button type="primary" size="mini" @click="isClearArea(props.row.name)">确定</el-button>
+                                        </div>
+                                     <el-button slot="reference" size="mini" type="danger" icon="el-icon-delete"  :loading="btnloadingCA">清除区域</el-button>
+                                     </el-popover>
                                 </el-form-item>
                               </el-form>
                             </template>
@@ -148,6 +168,8 @@ export default {
       btnloadingF:false,
       activeName: "first",
       valuemoshi:true,
+      visible1:false,
+      visible2:false,
       req:{
         Project: '',
       },
@@ -157,7 +179,7 @@ export default {
     };
   },
   mounted:function(){
-      this.getRobotList();
+    //   this.getRobotList();
   },
   methods: {
     handleSizeChange(val) {
@@ -225,6 +247,7 @@ export default {
     },
      //删除功能
         isDelete: function (name) {
+            this.visible1=false;
             this.btnloadingD=true;
             this.deletereq.RobotName=name;
             var host = location.hostname;
@@ -276,6 +299,7 @@ export default {
         },
         //清除区域
         isClearArea: function (name) {
+            this.visible2=false;
            this.btnloadingCA=true;
             this.deletereq.RobotName=name;
             var host = location.hostname;
