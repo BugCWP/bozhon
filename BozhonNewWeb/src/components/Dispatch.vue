@@ -24,8 +24,10 @@
           </el-menu>
         </el-aside>
         <el-container>
-            <el-main id="mainbody" :class="{mainbodyleft:isCollapse}">
-                <component :is="tabView"></component>
+            <el-main id="mainbody" :class="{mainbodyleft:isCollapse}" style="height:550px;overflow-x:hidden">
+                <div style="height:510px;width:100%">
+                    <component :is="tabView"></component>
+                </div>
             </el-main>
         </el-container>
     </el-container>

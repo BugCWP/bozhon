@@ -60,13 +60,14 @@
     </div>
 </template>
 <script>
+import $ from 'jquery'
 //配置中心地区管理一级城市模块
 export default {
        data(){
         return{
             listdata:[],
             currentPage:1,//当前页面
-            datasize:200,//数据条数
+            datasize:0,//数据条数
             loading:false,//数据加载动画
             btnloading:false,
             req: {

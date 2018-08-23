@@ -78,6 +78,7 @@
     </div>
 </template>
 <script>
+import $ from 'jquery'
 //调度系统执行中任务模块
 export default {
      data(){

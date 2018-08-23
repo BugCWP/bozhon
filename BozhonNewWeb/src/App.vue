@@ -14,7 +14,7 @@
             </el-select>
          </div>
       </el-header>
-      <el-container>
+      <el-container v-if="denglu">
         <el-aside class="aside-body" style="width:65px">
           <el-menu class="firstmenu">
             <el-menu-item @click="showmune(1)">
@@ -35,6 +35,11 @@
          </el-main>
        </el-container>
       </el-container>
+    <el-container v-else>
+      <el-main>
+        <component :is="login"></component>
+      </el-main>
+    </el-container>
     </el-container>
   </div>
 </template>
@@ -43,11 +48,14 @@
 //cd VsCode/Bozhon/bozhon/BozhonNewWeb
 import simple1 from "./components/Dispatch.vue";
 import simple2 from "./components/Configuration.vue";
+import login from "./components/Login.vue"
 export default {
   name: "App",
   data(){
     return{
       tabView:'simple1',
+      denglu:login.denglu,
+      login:'login',
     }
   },
   methods:{

@@ -37,7 +37,7 @@
                        <el-button  slot="reference"  size="mini" icon="el-icon-delete" :disabled="btndeletedis" :loading="btnLoadingD"></el-button>
                  </el-popover>
                   <el-button size="mini" icon="el-icon-refresh" @click="getflash" :loading="btnLoadingF"></el-button>
-                  <el-button size="mini" icon="el-icon-upload" :disabled="btnuploaddis">项目配置</el-button>
+                  <el-button size="mini" icon="el-icon-upload" :disabled="btnuploaddis" @click="openUp">项目配置</el-button>
               </div>
               <div id="tableheadinput">
                   <el-input size="small" prefix-icon="el-icon-search" clearable></el-input>
@@ -128,9 +128,84 @@
        <el-button type="primary" @click="isUpdate" :loading="btnLoadingUpdate">确 定</el-button>
     </div>
     </el-dialog>
+      <el-dialog title="配置文件列表" :visible.sync="outerVisible">
+        <el-dialog
+          width="40%"
+          title="新建配置文件"
+          :visible.sync="innerVisible"
+          append-to-body>
+           <el-form :model="form3">
+             <el-form-item label="配置描述" :label-width="formLabelWidth">
+               <el-input v-model="form3.configFileDesc" auto-complete="off"></el-input>
+             </el-form-item>
+             <el-form-item label="配置版本号" :label-width="formLabelWidth">
+                 <el-input v-model="form3.configFileVersion" auto-complete="off" placeholder="必须填"></el-input>
+             </el-form-item>
+             <el-form-item label="上传配置文件" :label-width="formLabelWidth">
+                <input type="file" multiple="multiple" @change="fileup($event)"/>
+             </el-form-item>
+     </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="innerVisible = false">取 消</el-button>
+        <el-button type="primary"  @click="saveup" :loading="btnLoadingsave">保存</el-button>
+     </div>
+       </el-dialog>
+       <el-table
+    :data="newprojectdate"
+    border
+    style="width: 100%"
+    height="380px"
+    v-loading="newprojectloading">
+    <el-table-column
+      fixed
+      prop="configFileId"
+      label="ID"
+      width="150">
+    </el-table-column>
+    <el-table-column
+      prop="configFileVersion"
+      label="版本"
+      width="120">
+    </el-table-column>
+    <el-table-column
+      prop="configFileDesc"
+      label="描述"
+      width="120">
+    </el-table-column>
+    <el-table-column
+      prop="configCreateTime"
+      label="创建时间"
+      width="120">
+    </el-table-column>
+    <el-table-column
+      fixed="right"
+      label="操作"
+      width="100">
+      <template slot-scope="scope">
+        <el-button size="small" type="primary" @click="putout(scope.row.configFileId)" :loading="btnLoadingup">发布</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+      <div class="block">
+                 <el-pagination 
+                   @size-change="handleSizeChange1"
+                   @current-change="handleCurrentChange1"
+                   :current-page="currentPage"
+                   :page-sizes="[10, 20, 30, 40]"
+                   :page-size="10"
+                   layout="total, sizes, prev, pager, next, jumper"
+                   :total="datasize1">
+                 </el-pagination>
+        </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="outerVisible = false">取 消</el-button>
+        <el-button type="primary"  @click="innerVisible = true">新建配置</el-button>
+     </div>
+  </el-dialog>
     </div>
 </template>
 <script>
+import $ from 'jquery'
 //配置中心项目管理模块
 export default {
      data(){
@@ -138,20 +213,27 @@ export default {
             listdata:[{projectId:1,projectNation:2,projectProvince:3,projectCity:4,projectName:5,projectDesc:6,projectTypeStr:7,projectConfigVersion:8},{projectId:1,projectNation:2,projectProvince:3,projectCity:4,projectName:5,projectDesc:6,projectTypeStr:7,projectConfigVersion:8},{projectId:1,projectNation:2,projectProvince:3,projectCity:4,projectName:5,projectDesc:6,projectTypeStr:7,projectConfigVersion:8}],
             currentPage:1,//当前页面
             datasize:0,//数据条数
+            datasize1:0,
             loading:false,//数据加载动画
             btnLoadingF:false,
             btnLoadingS:false,
             btnLoadingD:false,
             btnLoadingAdd:false,
             btnLoadingUpdate:false,
+            btnLoadingsave:false,
+            btnLoadingup:false,
             btnupdatedis:true,
             btndeletedis:true,
             btnuploaddis:true,
             visible2:false,
             dialogFormVisible1:false,
             dialogFormVisible2:false,
+            innerVisible:false,
+            outerVisible:false,
+            newprojectloading:false,
             checklist:[],
             citys:[],
+            newprojectdate:[{configFileId:1,configFileVersion:2,configFileDesc:3,configCreateTime:4}],
             deletereq:{
                 ids:[],
             },
@@ -196,6 +278,17 @@ export default {
                resource: '',
               desc: ''
              },
+             form3: {
+               configFileDesc: '',
+               configFileVersion: '',
+               file:'',
+               date1: '',
+               date2: '',
+               delivery: false,
+               type: [],
+               resource: '',
+              desc: ''
+             },
              formLabelWidth: '120px',
              updatereq: {
                  cityId: '',
@@ -211,6 +304,16 @@ export default {
                  projectCity: '',
                  provinceId: '',
               },
+              confreq: {
+                 configProjectId: '',
+                 configFileVersion: '',
+                 configFileDesc:'',
+              },
+              upreq: {
+                 page: 1,
+                 size: 10,
+                 projectId: '',
+             },
         }
     },
     //界面加载的数据获取
@@ -226,6 +329,16 @@ export default {
       handleCurrentChange(val) {
           this.req.page=val;
           this.getProjectList();
+        console.log(`当前页: ${val}`);
+      },
+      handleSizeChange1(val) {
+        this.upreq.size=val;
+        this.getUp();
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange1(val) {
+          this.upreq.page=val;
+          this.getUp();
         console.log(`当前页: ${val}`);
       },
       //刷新
@@ -305,9 +418,103 @@ export default {
                 }
             })
       },
+      //获取配置列表
+      getUp(){
+            this.newprojectloading = true;
+            var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            var _select = this;
+            $.ajax({
+                url: ipAddress + 'api/getConfigFileByPage',//todo
+                type: 'post',
+                data: JSON.stringify(_select.upreq),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (json) {
+                    _select.newprojectloading=false;
+                    _select.newprojectdate = [];
+                    _select.newprojectdate = json.result.result.list;
+                    _select.datasize1 = json.result.result.totalItems;
+                    _select.openmessageSuccess("获取项目列表成功");
+                },
+                error: function (data) {
+                    _select.openmessageErr("未取到项目列表");
+                    _select.items = [];
+                }
+            })
+      },
+      //发布
+      putout(id){
+          this.btnLoadingup=true;
+           var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            var _select = this;
+            $.ajax({
+                url: ipAddress + 'api/updateProjectConfVersion',
+                type: 'post',
+                data: JSON.stringify(id),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (json) {
+                   _select.getProjectList();
+                    _select.openmessageSuccess("发布成功");
+                    _select.btnLoadingup=false;
+                },
+                error: function (data) {
+                    _select.openmessageErr("发布失败");
+                    _select.btnLoadingup=false;
+                }
+            })
+      },
+      //保存新建的配置
+      saveup(){
+          this.btnLoadingsave=true;
+           var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            var _select = this;
+            var formdata = new FormData();
+            this.confreq.configFileDesc=this.form3.configFileDesc;
+            this.confreq.configFileVersion=this.form3.configFileVersion;
+            this.confreq.configProjectId=this.checklist[0].projectId;
+            if (this.confreq.configFileVersion == null || this.confreq.configFileVersion == "") {
+                alert("请输入版本配置！");
+            } else {
+                formdata.append('conf', JSON.stringify(this.confreq));
+                formdata.append('file', this.form3.file);
+                $.ajax({
+                    url: ipAddress + 'api/saveConfigFile',
+                    type: 'post',
+                    data: _select.formdata,
+                    dataType: "json",
+                    contentType: false,
+                    processData: false,
+                    success: function (json) {
+                        _select.innerVisible=false;
+                        _select.getUp();
+                        _select.openmessageSuccess("保存成功");
+                        _select.btnLoadingsave=false;
+                    },
+                    error: function (data) {
+                        _select.openmessageErr("保存失败");
+                        _select.btnLoadingsave=false;
+                    }
+                })
+            }
+      },
+      //打开配置文件列表
+      openUp(){
+           this.outerVisible=true;
+           this.upreq.projectId=this.checklist[0].projectId;
+           this.getUp();
+      },
+      fileup: function (event) {
+          var file=event.target.files;
+          console.log(file);
+          this.form3.file = file;
+            // console.log(this.form3.file);
+        },
       //新增功能
       isAdd(){
-          
            var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             var _select = this;

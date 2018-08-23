@@ -28,13 +28,13 @@
         <el-col :span="22">
            <el-collapse v-model="activeNames" @change="handleChange">
                 <el-collapse-item title="实时状态" name="1">
-                
+                <component :is="chart1"></component>
                 </el-collapse-item>
                 <el-collapse-item title="机器人种类" name="2">
-              
+                <component :is="chart2"></component>
                 </el-collapse-item>
                 <el-collapse-item title="统计数据" name="3">
-               
+               <component :is="chart3"></component>
                 </el-collapse-item>
            </el-collapse>
         </el-col> 
@@ -45,12 +45,19 @@
     </div>
 </template>
 <script>
+import chart1 from './Chart1.vue';
+import chart2 from './Chart2.vue';
+import chart3 from './Chart3.vue';
 //调度系统控制台模块
 export default {
     data(){
         return{
             listdata:[],
             loading:false,//数据加载动画
+            chart1:'chart1',
+            chart2:'chart2',
+            chart3:'chart3',
+            activeNames:1,
         }
     },
     methods: {
@@ -58,6 +65,9 @@ export default {
             this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
          },
     },
+    components:{
+        chart1,chart2,chart3
+    }
 }
 </script>
 <style>

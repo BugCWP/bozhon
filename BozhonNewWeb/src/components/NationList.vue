@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 //配置中心地区管理国家模块
 export default {
      data(){

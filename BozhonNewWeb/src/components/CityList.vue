@@ -60,6 +60,7 @@
     </div>
 </template>
 <script>
+import $ from 'jquery'
 //配置中心地区管理二级城市模块
 export default {
      data(){

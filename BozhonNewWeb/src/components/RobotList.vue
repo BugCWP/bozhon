@@ -154,6 +154,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 //调度系统机器人列表模块
 export default {
   data() {
@@ -386,7 +387,7 @@ export default {
   .box-card {
     width: 480px;
     float: left;
-    margin-right: 15px;
+    margin-right: 5px;
     margin-top:20px;
   }
 </style>

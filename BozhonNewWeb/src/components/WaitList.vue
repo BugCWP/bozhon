@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 //调度系统等待中任务模块
 export default {
  data(){

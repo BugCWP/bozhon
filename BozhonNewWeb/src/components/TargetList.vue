@@ -23,7 +23,7 @@
               <div id="tableheadbutton">
                  <el-button  size="mini" icon="el-icon-search" @click="getTargetList">查询</el-button>
                   <el-button  size="mini" @click="outerVisible1=true">新增</el-button>
-                  <el-button  size="mini" :disabled="btnupdatedis">修改</el-button>
+                  <el-button  size="mini" :disabled="btnupdatedis" @click="openupdate">修改</el-button>
                    <el-popover
                        placement="top"
                        width="160"
@@ -121,9 +121,56 @@
        <el-button type="primary" @click="isadd" :loading="btnLoadingAdd">保存</el-button>
      </div>
    </el-dialog>
+     <el-dialog title="修改配置目标" :visible.sync="outerVisible2">
+      <el-dialog
+        width="40%"
+        title="项目列表"
+        :visible.sync="innerVisible2"
+         append-to-body>
+          <el-table :data="adddatelist" height="300px" v-loading="selectloading1" @selection-change="handleSelectionChange1">
+              <el-table-column type="selection"></el-table-column>
+              <el-table-column property="projectId" label="ID" width="150"></el-table-column>
+             <el-table-column property="projectName" label="项目名称" width="200"></el-table-column>
+             <el-table-column property="projectDesc" label="项目描述"></el-table-column>
+          </el-table>
+          <div class="block">
+                 <el-pagination 
+                   @size-change="handleSizeChange1"
+                   @current-change="handleCurrentChange1"
+                   :current-page="currentPage"
+                   :page-sizes="[10, 20, 30, 40]"
+                   :page-size="10"
+                   layout="total, sizes, prev, pager, next, jumper"
+                   :total="datasize1">
+                 </el-pagination>
+             </div>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="innerVisible2 = false">取 消</el-button>
+             <el-button type="primary" :disabled="butnOK2" @click="updateselectproject">确定</el-button>
+          </div>
+      </el-dialog>
+      <el-form :model="form2">
+       <el-form-item label="目标UUID" :label-width="formLabelWidth">
+          <el-input v-model="form2.targetUUID" auto-complete="off"></el-input>
+       </el-form-item>
+        <el-form-item label="目标描述" :label-width="formLabelWidth">
+          <el-input v-model="form2.targetDesc" auto-complete="off"></el-input>
+       </el-form-item>
+        <el-form-item label="所属项目" :label-width="formLabelWidth">
+          <el-input v-model="form2.targetProject" auto-complete="off">
+              <el-button slot="append" @click="openupdateproject">选择</el-button>
+          </el-input>
+       </el-form-item>
+     </el-form>
+     <div slot="footer" class="dialog-footer">
+       <el-button @click="outerVisible2 = false">取 消</el-button>
+       <el-button type="primary" @click="isupdate" :loading="btnLoadingUpdate">保存</el-button>
+     </div>
+   </el-dialog>
     </div>
 </template>
 <script>
+import $ from 'jquery'
 //配置中心目标管理模块
 export default {
       data(){
@@ -142,8 +189,11 @@ export default {
             visible2:false,
             outerVisible1:false,
             innerVisible1:false,
+             outerVisible2:false,
+            innerVisible2:false,
             selectloading1:false,
             butnOK1:true,
+            butnOK2:true,
             checklist:[],
             checklist1:[],
             adddatelist:[],
@@ -166,8 +216,31 @@ export default {
                resource: '',
               desc: ''
              },
+              form2: {
+               targetUUID:'',
+               targetDesc: '',
+               targetProject: '',
+               date1: '',
+               date2: '',
+               delivery: false,
+               type: [],
+               resource: '',
+              desc: ''
+             },
              formLabelWidth: '120px',
              addreq: {
+                  configFileUrl: '',
+                  needUpdate: '',
+                  projectConfVersion: '',
+                  targetTypeStr: '',
+                  targetId: '',
+                  targetUUID: '',
+                  targetDesc: '',
+                  targetProject: '',
+                  targetProjectId: '',
+                  targetType: '',
+            },
+            updatereq: {
                  targetUUID: '',
                  targetDesc: '',
                  targetProject: '',
@@ -276,6 +349,29 @@ export default {
           this.selectloading1=true;
           this.getproject();
       },
+      //打开修改功能的项目列表
+      openupdateproject(){
+        this.innerVisible2=true;
+        this.selectloading1=true;
+        this.getproject();
+      },
+      //打开修改功能
+      openupdate(){
+         this.outerVisible2=true;
+         console.log(this.checklist.targetUUID);
+         this.form2.targetUUID=this.checklist[0].targetUUID;
+         this.form2.targetDesc=this.checklist[0].targetDesc;
+         this.form2.targetProject=this.checklist[0].targetProject;
+         this.updatereq.configFileUrl=this.checklist[0].configFileUrl;
+         this.updatereq.needUpdate=this.checklist[0].needUpdate;
+         this.updatereq.projectConfVersion=this.checklist[0].projectConfVersion;
+         this.updatereq.targetTypeStr=this.checklist[0].targetTypeStr;
+         this.updatereq.targetId=this.checklist[0].targetId;
+         this.updatereq.targetType=this.checklist[0].targetType;
+         this.updatereq.targetProject=this.checklist[0].projectName;
+         this.updatereq.targetProjectId=this.checklist[0].projectId;
+         this.updatereq.targetType=this.checklist[0].projectDesc;
+      },
       //删除功能
       isDelete(){
           this.visible2=false;
@@ -336,13 +432,54 @@ export default {
                 })
             }
       },
+      //修改
+      isupdate(){
+           var host = location.hostname;
+            var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
+            var _select = this;
+            this.updatereq.targetUUID=this.form2.targetUUID;
+            this.updatereq.targetDesc=this.form2.targetDesc;
+            this.updatereq.targetProject=this.form2.targetProject;
+             if (this.updatereq.targetUUID == null || this.updatereq.targetUUID == "") {
+                this.openmessageErr("请输入配置目标UUID！");
+            } else if (this.updatereq.targetProject == null || this.updatereq.targetProject == "") {
+                this.openmessageErr("请输入配置目标所属项目！");
+            } else {
+                this.btnLoadingUpdate=true;
+                $.ajax({
+                    url: ipAddress + 'api/target',
+                    type: 'put',
+                    data: JSON.stringify(_select.updatereq),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (json) {
+                        _select.getTargetList();
+                       _select.openmessageSuccess("修改成功");
+                       _select.btnLoadingUpdate=false;
+                       _select.outerVisible2=false;
+                    },
+                    error: function (data) {
+                       _select.openmessageErr("修改失败");
+                       _select.btnLoadingUpdate=false;
+                    }
+                })
+            }
+      },
       //添加功能的选中一个project
       addselectproject(){
-          this.form.targetProject=this.checklist1.projectName;
-          this.addreq.targetProject=this.checklist1.projectName;
-          this.addreq.targetProjectId=this.checklist1.projectId;
-          this.addreq.targetType=this.checklist1.projectDesc;
+          this.form.targetProject=this.checklist1[0].projectName;
+          this.addreq.targetProject=this.checklist1[0].projectName;
+          this.addreq.targetProjectId=this.checklist1[0].projectId;
+          this.addreq.targetType=this.checklist1[0].projectDesc;
            this.innerVisible1=false;
+      },
+      //修改功能的选中一个project
+      updateselectproject(){
+           this.form2.targetProject=this.checklist1[0].projectName;
+           this.updatereq.targetProject=this.checklist1[0].projectName;
+           this.updatereq.targetProjectId=this.checklist1[0].projectId;
+           this.updatereq.targetType=this.checklist1[0].projectDesc;
+           this.innerVisible2=false;
       },
         //选中功能
       handleSelectionChange(val){
@@ -364,12 +501,15 @@ export default {
            this.checklist1=val;
             if(this.getjsonlength(this.checklist1)<1){
                   this.butnOK1=true;
+                  this.butnOK2=true;
              }
              if(this.getjsonlength(this.checklist1)>0){
                  this.butnOK1=false;
+                 this.butnOK2=false;
              } 
              if(this.getjsonlength(this.checklist1)>1){
                  this.butnOK1=true;
+                 this.butnOK2=true;
              }
       },
        //计算json数组长度

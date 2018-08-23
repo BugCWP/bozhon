@@ -118,6 +118,7 @@
     </div>
 </template>
 <script>
+import $ from 'jquery'
 //配置中心配置管理模块
 export default {
      data(){
