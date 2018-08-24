@@ -5,16 +5,17 @@
     <el-container class="container-body">
       <el-header class="header-body">
          <span id="bozhonlogo">BOHHOM</span>
-         <div id="bozhonUser">
-           <span></span>|<span>注销</span>
+         <div id="bozhonUser" v-show="$store.state.Denglu">
+           <span>{{$store.state.uName}}</span>|<span @click="btnout">注销</span>
          </div>
          <div id="bozhonproject">
-            <el-select filterable placeholder="请选择Project"  >
-                <el-option></el-option>
+            <el-select filterable placeholder="请选择Project"  v-show="$store.state.Denglu" @change="getproject">
+                <el-option value="bozhon" key="bozhon" label="bozhon">bozhon</el-option>
+                <el-option value="bozhoning" key="bozhoning" label="bozhoning">bozhoning</el-option>
             </el-select>
          </div>
       </el-header>
-      <el-container v-if="denglu">
+      <el-container v-if="$store.state.Denglu">
         <el-aside class="aside-body" style="width:65px">
           <el-menu class="firstmenu">
             <el-menu-item @click="showmune(1)">
@@ -22,7 +23,7 @@
                  <i class="el-icon-share"></i>
                 </el-tooltip>
             </el-menu-item>
-            <el-menu-item @click="showmune(2)">
+            <el-menu-item @click="showmune(2)" >
                <el-tooltip class="item" effect="dark" content="配置中心" placement="right-start">
                  <i class="el-icon-setting"></i>
                </el-tooltip>
@@ -37,7 +38,7 @@
       </el-container>
     <el-container v-else>
       <el-main>
-        <component :is="login"></component>
+         <component :is="login"></component>
       </el-main>
     </el-container>
     </el-container>
@@ -48,24 +49,33 @@
 //cd VsCode/Bozhon/bozhon/BozhonNewWeb
 import simple1 from "./components/Dispatch.vue";
 import simple2 from "./components/Configuration.vue";
-import login from "./components/Login.vue"
+import Login from "./components/Login.vue";
 export default {
   name: "App",
   data(){
     return{
       tabView:'simple1',
-      denglu:login.denglu,
-      login:'login',
+      login:'Login',
     }
+  },
+  mounted(){
+    console.log(this.$store.state.Denglu);
   },
   methods:{
       showmune(index){
         this.tabView=`simple${index}`;
-      }
+      },
+       btnout(){
+            this.$store.commit('loginout');
+        },
+        getproject(val){
+            this.$store.commit('getproject',val);
+        },
   },
   components:{
     simple1,
-    simple2
+    simple2,
+    Login,
   }
 };
 </script>

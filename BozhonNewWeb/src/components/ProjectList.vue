@@ -318,7 +318,7 @@ export default {
     },
     //界面加载的数据获取
     mounted:function(){
-        // this.getProjectList();
+        this.getProjectList();
     },
     methods: {
       handleSizeChange(val) {

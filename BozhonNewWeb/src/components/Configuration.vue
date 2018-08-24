@@ -5,7 +5,7 @@
               <el-menu-item @click="showMenu">
                   <i class="el-icon-more"></i>
               </el-menu-item>
-              <el-menu-item @click="showList(1)">
+              <el-menu-item @click="showList(1)" v-if="$store.state.roles=='admin'">
                 <i class="el-icon-star-on"></i>
                 <span>用户管理</span>
               </el-menu-item>
@@ -13,11 +13,11 @@
                 <i class="el-icon-tickets"></i>
                 <span>项目管理</span>
               </el-menu-item>
-              <el-menu-item @click="showList(3)">
+              <el-menu-item @click="showList(3)" v-if="$store.state.roles=='admin'">
                  <i class="el-icon-refresh"></i>
                  <span>更新事件</span>
               </el-menu-item>
-              <el-submenu>
+              <el-submenu v-if="$store.state.roles=='admin'">
                   <template slot="title">
                       <i class="el-icon-location"></i>
                      <span slot="title">地区管理</span>

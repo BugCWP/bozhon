@@ -180,7 +180,7 @@ export default {
         }
     },
     mounted:function(){
-        // this.getConfigureList();
+        this.getConfigureList();
     },
     methods: {
       handleSizeChange(val) {

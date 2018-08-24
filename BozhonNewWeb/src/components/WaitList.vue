@@ -131,6 +131,7 @@ export default {
         var host=location.hostname;
         var ipAddress = "http://" + host + ":8090/";
         var _select=this;
+        this.req.Project=this.$store.state.project;
         $.ajax({
                 url: ipAddress + 'api/GetRemainningJobStatusList',
                 type: 'post',

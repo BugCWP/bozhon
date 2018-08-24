@@ -51,7 +51,7 @@
                   style="width: 100%" border height="350"
                    :default-sort="{prop:'uId'}" v-loading="loading" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="40"></el-table-column>
-                <el-table-column prop="targetId" label="ID" width="105" sortable></el-table-column>
+                <el-table-column prop="targetId" label="ID" width="106" sortable></el-table-column>
                 <el-table-column prop="targetUUID" label="目标UUID" width="190"></el-table-column>
                 <el-table-column prop="targetDesc" label="目标描述" width="190"></el-table-column>
                 <el-table-column prop="targetProject" label="所属项目" width="250" ></el-table-column>
@@ -255,7 +255,7 @@ export default {
         }
     },
     mounted:function(){
-        //   this.getTargetList();
+          this.getTargetList();
     },
     methods: {
       handleSizeChange(val) {
@@ -309,12 +309,14 @@ export default {
                         _select.datasize = json.result.result.totalItems;
                        _select.openmessageSuccess("目标管理获取成功");
                         _select.btnLoadingF=false;
+                        _select.loading=false;
                     }
                 },
                 error: function (data) {
                     _select.openmessageErr("目标管理无法获取");
                     _select.listdata = [];
                     _select.btnLoadingF=false;
+                    _select.loading=false;
                 },
             })
       },

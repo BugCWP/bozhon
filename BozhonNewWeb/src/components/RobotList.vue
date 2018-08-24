@@ -95,16 +95,16 @@
                               </el-form>
                             </template>
                        </el-table-column>
-                       <el-table-column prop="name" label="机器人" width="100" ></el-table-column>
+                       <el-table-column prop="name" label="机器人" width="120" ></el-table-column>
                        <el-table-column prop="online" label="在线" width="80"></el-table-column>
-                       <el-table-column prop="battery_level" label="电池电量" width="80"></el-table-column>
-                       <el-table-column prop="emergency" label="急停状态" width="90" ></el-table-column>
+                       <el-table-column prop="battery_level" label="电池电量" width="100"></el-table-column>
+                       <el-table-column prop="emergency" label="急停状态" width="100" ></el-table-column>
                        <el-table-column prop="diagnostic_state" label="诊断状态" width="90" ></el-table-column>
-                       <el-table-column prop="task_state" label="任务状态" width="100" ></el-table-column>
-                       <el-table-column prop="task_description" label="任务名称" width="100" ></el-table-column>
-                       <el-table-column prop="control_mode" label="控制模式" width="100" ></el-table-column>
-                       <el-table-column prop="required_access_area" label="申请区域" width="100" ></el-table-column>
-                       <el-table-column prop="approved_access_area" label="批复区域" width="100" ></el-table-column>
+                       <el-table-column prop="task_state" label="任务状态" width="120" ></el-table-column>
+                       <el-table-column prop="task_description" label="任务名称" width="120" ></el-table-column>
+                       <el-table-column prop="control_mode" label="控制模式" width="120" ></el-table-column>
+                       <el-table-column prop="required_access_area" label="申请区域" width="120" ></el-table-column>
+                       <el-table-column prop="approved_access_area" label="批复区域" width="120" ></el-table-column>
                    </el-table>
                    <div class="block">
                       <el-pagination 
@@ -201,6 +201,7 @@ export default {
         var host=location.hostname;
         var ipAddress = "http://" + host + ":8090/";
         var _select=this;
+        this.req.Project=this.$store.state.project;
         $.ajax({
                 url: ipAddress + 'api/GetRobotStatusList',
                 type: 'post',

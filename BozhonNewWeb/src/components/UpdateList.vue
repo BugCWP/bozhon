@@ -116,7 +116,7 @@ export default {
                 success: function (json) {
                     console.log("获取到更新事件");
                     if ("0" == json.result.result.size) {
-                        alert("当前无符合条件的记录!");
+                        _select.openmessageErr("当前无符合条件的记录!");
                         _select.listdata = [];
                     } else {
                         _select.loading = false;
