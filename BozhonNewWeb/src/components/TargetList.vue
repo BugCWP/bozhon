@@ -50,12 +50,12 @@
             <el-table ref="multipleTable" :data="listdata" tooltip-effect="dark"
                   style="width: 100%" border height="350"
                    :default-sort="{prop:'uId'}" v-loading="loading" @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="40"></el-table-column>
-                <el-table-column prop="targetId" label="ID" width="106" sortable></el-table-column>
-                <el-table-column prop="targetUUID" label="目标UUID" width="190"></el-table-column>
-                <el-table-column prop="targetDesc" label="目标描述" width="190"></el-table-column>
-                <el-table-column prop="targetProject" label="所属项目" width="250" ></el-table-column>
-                <el-table-column prop="targetTypeStr" label="目标类型" width="200" ></el-table-column>
+                <el-table-column type="selection"></el-table-column>
+                <el-table-column prop="targetId" label="ID"  sortable></el-table-column>
+                <el-table-column prop="targetUUID" label="目标UUID" ></el-table-column>
+                <el-table-column prop="targetDesc" label="目标描述" ></el-table-column>
+                <el-table-column prop="targetProject" label="所属项目" ></el-table-column>
+                <el-table-column prop="targetTypeStr" label="目标类型" ></el-table-column>
             </el-table>
         </el-col>
     </el-row>
@@ -83,8 +83,8 @@
          append-to-body>
           <el-table :data="adddatelist" height="300px" v-loading="selectloading1" @selection-change="handleSelectionChange1">
               <el-table-column type="selection"></el-table-column>
-              <el-table-column property="projectId" label="ID" width="150"></el-table-column>
-             <el-table-column property="projectName" label="项目名称" width="200"></el-table-column>
+              <el-table-column property="projectId" label="ID" ></el-table-column>
+             <el-table-column property="projectName" label="项目名称" ></el-table-column>
              <el-table-column property="projectDesc" label="项目描述"></el-table-column>
           </el-table>
           <div class="block">
@@ -129,8 +129,8 @@
          append-to-body>
           <el-table :data="adddatelist" height="300px" v-loading="selectloading1" @selection-change="handleSelectionChange1">
               <el-table-column type="selection"></el-table-column>
-              <el-table-column property="projectId" label="ID" width="150"></el-table-column>
-             <el-table-column property="projectName" label="项目名称" width="200"></el-table-column>
+              <el-table-column property="projectId" label="ID" ></el-table-column>
+             <el-table-column property="projectName" label="项目名称" ></el-table-column>
              <el-table-column property="projectDesc" label="项目描述"></el-table-column>
           </el-table>
           <div class="block">
@@ -229,7 +229,14 @@ export default {
              },
              formLabelWidth: '120px',
              addreq: {
-                  configFileUrl: '',
+                 targetUUID: '',
+                 targetDesc: '',
+                 targetProject: '',
+                 targetProjectId: '',
+                 targetType: '',
+            },
+            updatereq: {
+                 configFileUrl: '',
                   needUpdate: '',
                   projectConfVersion: '',
                   targetTypeStr: '',
@@ -239,13 +246,6 @@ export default {
                   targetProject: '',
                   targetProjectId: '',
                   targetType: '',
-            },
-            updatereq: {
-                 targetUUID: '',
-                 targetDesc: '',
-                 targetProject: '',
-                 targetProjectId: '',
-                 targetType: '',
             },
             projectreq: {
               page: 1,
@@ -316,7 +316,6 @@ export default {
                     _select.openmessageErr("目标管理无法获取");
                     _select.listdata = [];
                     _select.btnLoadingF=false;
-                    _select.loading=false;
                 },
             })
       },
@@ -472,7 +471,7 @@ export default {
           this.form.targetProject=this.checklist1[0].projectName;
           this.addreq.targetProject=this.checklist1[0].projectName;
           this.addreq.targetProjectId=this.checklist1[0].projectId;
-          this.addreq.targetType=this.checklist1[0].projectDesc;
+          this.addreq.targetType=this.checklist1[0].projectType;
            this.innerVisible1=false;
       },
       //修改功能的选中一个project
@@ -480,7 +479,7 @@ export default {
            this.form2.targetProject=this.checklist1[0].projectName;
            this.updatereq.targetProject=this.checklist1[0].projectName;
            this.updatereq.targetProjectId=this.checklist1[0].projectId;
-           this.updatereq.targetType=this.checklist1[0].projectDesc;
+           this.updatereq.targetType=this.checklist1[0].projectType;
            this.innerVisible2=false;
       },
         //选中功能

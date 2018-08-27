@@ -49,7 +49,7 @@ export default {
 <style>
 .graphL{
    float: left;
-   width: 920px;
+   width: 92%;
    height: 200px;
    border: 0.5px dotted #e0dcdc;
    margin-right: 10px;
@@ -57,7 +57,7 @@ export default {
 }
 .graph{
    float: left;
-   width: 300px;
+   width: 30%;
    height: 200px;
     border:0.5px dotted #e0dcdc;
      margin-right: 10px;

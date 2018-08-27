@@ -30,25 +30,17 @@
         <el-col :span="2"><div>&nbsp;</div></el-col>
         <el-col :span="22">
             <el-table ref="multipleTable" :data="listdata" tooltip-effect="dark" style="width: 100%" border height="350" :default-sort="{prop:'stamp'}" v-loading="loading">
-                <el-table-column prop="stamp" label="时间" width="100" ></el-table-column>
-                <el-table-column prop="uuid" label="UUID" width="160"></el-table-column>
-                <el-table-column prop="opcode" label="名称" width="160"></el-table-column>
-                <el-table-column prop="status" label="状态" width="190" sortable></el-table-column>
-                <el-table-column prop="level" label="等级" width="140" ></el-table-column>
+                <el-table-column prop="stamp" label="时间"  ></el-table-column>
+                <el-table-column prop="uuid" label="UUID" ></el-table-column>
+                <el-table-column prop="opcode" label="名称" ></el-table-column>
+                <el-table-column prop="status" label="状态" sortable></el-table-column>
+                <el-table-column prop="level" label="等级"  ></el-table-column>
                 <el-table-column label="操作" width="270" fixed="right">
                     <template slot-scope="scope">
                         <el-button size="mini" type="primary" icon="el-icon-upload2" :loading="btnloadingUp" @click="isup(scope.row.uuid)"></el-button>
                         <el-button size="mini" type="primary" icon="el-icon-download" :loading="btnloadingDown" @click="isdown(scope.row.uuid)"></el-button>
                         <el-button size="mini" icon="" type="primary" :loading="btnloadingTop" @click="istop(scope.row.uuid)">置顶</el-button>
-                        
-                         <el-popover placement="top"  width="160" v-model="visible2">
-                            <p>确定要删除吗？</p>
-                            <div style="text-align: right; margin: 0">
-                                  <el-button size="mini" type="text" @click="visible2 = false">取消</el-button>
-                                  <el-button type="primary" size="mini" @click="isDelete(scope.row.uuid)">确定</el-button>
-                            </div>
-                            <el-button slot="reference" size="mini" icon="el-icon-delete" type="danger" :loading="btnloadingD" @click="visible2=true"></el-button>
-                        </el-popover>  
+                            <el-button slot="reference" size="mini" icon="el-icon-delete" type="danger" :loading="btnloadingD" @click="isDelete(scope.row.uuid)"></el-button>
                     </template> 
                 </el-table-column>
             </el-table>
@@ -110,7 +102,7 @@ export default {
         }
     },
     mounted:function(){
-        //  this.getWaitList();
+         this.getWaitList();
     },
     methods: {
       handleSizeChange(val) {
@@ -156,7 +148,6 @@ export default {
       },
       //删除
         isDelete: function (id) {
-            this.visible2=false;
             this.btnloadingD=true;
             this.uuidreq.FleetJobID=id;
             var host = location.hostname;

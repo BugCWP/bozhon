@@ -34,12 +34,12 @@
         <el-col :span="2"><div>&nbsp;</div></el-col>
         <el-col :span="22">
             <el-table ref="multipleTable" :data="listdata" tooltip-effect="dark" style="width: 100%" border height="350" :default-sort="{prop:'uId'}" v-loading="loading">
-                <el-table-column type="selection" width="40"></el-table-column>
-                <el-table-column prop="projectName" label="项目名称" width="105" sortable></el-table-column>
-                <el-table-column prop="updateResultTime" label="更新时间" width="190"></el-table-column>
-                <el-table-column prop="updateResultTargetUUID" label="目标UUID" width="190"></el-table-column>
-                <el-table-column prop="updateResult" label="更新结果" width="250" sortable></el-table-column>
-                <el-table-column prop="updateResultMessage" label="结果描述" width="200" sortable></el-table-column>
+                <el-table-column type="selection" ></el-table-column>
+                <el-table-column prop="projectName" label="项目名称"  sortable></el-table-column>
+                <el-table-column prop="updateResultTime" label="更新时间" ></el-table-column>
+                <el-table-column prop="updateResultTargetUUID" label="目标UUID" ></el-table-column>
+                <el-table-column prop="updateResult" label="更新结果"  sortable></el-table-column>
+                <el-table-column prop="updateResultMessage" label="结果描述" sortable></el-table-column>
             </el-table>
         </el-col>
     </el-row>
@@ -118,6 +118,8 @@ export default {
                     if ("0" == json.result.result.size) {
                         _select.openmessageErr("当前无符合条件的记录!");
                         _select.listdata = [];
+                         _select.loading = false;
+                        _select.btnloading=false;
                     } else {
                         _select.loading = false;
                         _select.listdata = [];

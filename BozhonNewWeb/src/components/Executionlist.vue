@@ -34,11 +34,11 @@
         <el-col :span="2"><div>&nbsp;</div></el-col>
         <el-col :span="22">
             <el-table ref="multipleTable" :data="listdata" tooltip-effect="dark" style="width: 100%" border height="350" :default-sort="{prop:'stamp'}" v-loading="loading">
-                <el-table-column prop="robot" label="机器人" width="100" fixed="left" ></el-table-column>
-                <el-table-column prop="state" label="状态" width="160"></el-table-column>
-                <el-table-column prop="opcode" label="名称" width="160"></el-table-column>
-                <el-table-column prop="stamp" label="时间" width="190" sortable></el-table-column>
-                <el-table-column prop="uuid" label="UUID" width="190" ></el-table-column>
+                <el-table-column prop="robot" label="机器人"  fixed="left" ></el-table-column>
+                <el-table-column prop="state" label="状态" ></el-table-column>
+                <el-table-column prop="opcode" label="名称" ></el-table-column>
+                <el-table-column prop="stamp" label="时间"  sortable></el-table-column>
+                <el-table-column prop="uuid" label="UUID"  ></el-table-column>
                 <el-table-column label="操作" width="230" fixed="right">
                     <template slot-scope="scope">
                         <el-button size="mini" type="primary"  :loading="btnloadingStop" @click="isstorp(scope.row.uuid)">暂停</el-button>

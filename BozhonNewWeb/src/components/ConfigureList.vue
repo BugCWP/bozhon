@@ -51,11 +51,11 @@
                       style="width: 100%" border height="350" 
                       :default-sort="{prop:'uId'}" v-loading="loading"
                       @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="40"></el-table-column>
-                <el-table-column prop="confId" label="ID" width="200" sortable></el-table-column>
-                <el-table-column prop="confFileName" label="配置文件名" width="315"></el-table-column>
-                <el-table-column prop="confFilePath" label="配置路径" width="300"></el-table-column>
-                <el-table-column prop="isWildcard" label="是否通配类型" width="120" ></el-table-column>
+                <el-table-column type="selection" ></el-table-column>
+                <el-table-column prop="confId" label="ID" sortable></el-table-column>
+                <el-table-column prop="confFileName" label="配置文件名" ></el-table-column>
+                <el-table-column prop="confFilePath" label="配置路径"></el-table-column>
+                <el-table-column prop="isWildcard" label="是否通配类型" ></el-table-column>
             </el-table>
         </el-col>
     </el-row>
@@ -86,7 +86,7 @@
       <el-form-item label="是否通配" :label-width="formLabelWidth">
         <el-select v-model="form.isWildcard" placeholder="请选择是否通配" style="width:520px">
           <el-option label="是" value="1"></el-option>
-          <el-option label="否" value="2"></el-option>
+          <el-option label="否" value="0"></el-option>
         </el-select>
       </el-form-item>
      </el-form>
@@ -106,7 +106,7 @@
       <el-form-item label="是否通配" :label-width="formLabelWidth">
         <el-select v-model="form2.isWildcard" placeholder="请选择是否通配" style="width:520px">
           <el-option label="是" value="1"></el-option>
-          <el-option label="否" value="2"></el-option>
+          <el-option label="否" value="0"></el-option>
         </el-select>
       </el-form-item>
      </el-form>
@@ -159,6 +159,7 @@ export default {
                confFileName:'',
                confFilePath: '',
                isWildcard: '',
+               confId:'',
                date1: '',
                date2: '',
                delivery: false,
@@ -175,6 +176,7 @@ export default {
              updatereq: {
                confFileName: '',
                confFilePath: '',
+               confId:'',
                isWildcard: '',
             },
         }
@@ -250,7 +252,7 @@ export default {
                         dataType: "json",
                         contentType: "application/json",
                         success: function (json) {
-                            _select.getProjectList();
+                            _select.getConfigureList();
                             _select.openmessageSuccess("删除成功");
                             _select.btnLoadingD=false;
                         },
@@ -265,21 +267,21 @@ export default {
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             var _select = this;
-            this.delereq.confFileName=this.form.confFileName;
-            this.delereq.confFilePath=this.form.confFilePath;
-            this.delereq.isWildcard=this.form.isWildcard;
-            if (this.delereq.confFileName == '' || this.delereq.confFileName == null) {
+            this.addreq.confFileName=this.form.confFileName;
+            this.addreq.confFilePath=this.form.confFilePath;
+            this.addreq.isWildcard=this.form.isWildcard;
+            if (this.addreq.confFileName == '' || this.addreq.confFileName == null) {
                 _select.openmessageErr("请输入配置文件！");
-            } else if (this.delereq.confFilePath == '' || this.delereq.confFilePath == null) {
+            } else if (this.addreq.confFilePath == '' || this.addreq.confFilePath == null) {
                 _select.openmessageErr("请输入配置路径！");
-            } else if (this.delereq.isWildcard == '' || this.delereq.isWildcard == null) {
+            } else if (this.addreq.isWildcard == '' || this.addreq.isWildcard == null) {
                 _select.openmessageErr("请选择是否通配！");
             } else {
                 this.btnLoadingAdd=true;
                 $.ajax({
                     url: ipAddress + 'api/config',
                     type: 'post',
-                    data: JSON.stringify(_select.setdataconf),
+                    data: JSON.stringify(_select.addreq),
                     dataType: "json",
                     contentType: "application/json",
                     success: function (json) {
@@ -300,6 +302,7 @@ export default {
           this.dialogFormVisible2=true;
           this.form2.confFileName=this.checklist[0].confFileName;
           this.form2.confFilePath=this.checklist[0].confFilePath;
+          this.form2.confId=this.checklist[0].confId;
           this.form2.isWildcard=this.checklist[0].isWildcard;
       },
       //修改功能
@@ -312,6 +315,7 @@ export default {
             this.updatereq.confFileName = this.form2.confFileName;
             this.updatereq.confFilePath = this.form2.confFilePath;
             this.updatereq.isWildcard = this.form2.isWildcard;
+            this.updatereq.confId=this.form2.confId;
             console.log(this.updatereq);
             if (this.updatereq.confFileName == '' || this.updatereq.confFileName == null) {
                 _select.openmessageErr("请输入配置文件！");
@@ -323,7 +327,7 @@ export default {
                 _select.btnLoadingUpdate=true;
                 $.ajax({
                     url: ipAddress + 'api/config',
-                    type: 'post',
+                    type: 'put',
                     data: JSON.stringify(_select.updatereq),
                     dataType: "json",
                     contentType: "application/json",

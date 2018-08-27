@@ -9,9 +9,8 @@
            <span>{{$store.state.uName}}</span>|<span @click="btnout">注销</span>
          </div>
          <div id="bozhonproject">
-            <el-select filterable placeholder="请选择Project"  v-show="$store.state.Denglu" @change="getproject">
-                <el-option value="bozhon" key="bozhon" label="bozhon">bozhon</el-option>
-                <el-option value="bozhoning" key="bozhoning" label="bozhoning">bozhoning</el-option>
+            <el-select filterable placeholder="请选择Project" v-model="value"  v-show="$store.state.Denglu" @change="getproject">
+                <el-option v-for="item in items" :key="item.key" :value="item.value" :label="item.label"></el-option>
             </el-select>
          </div>
       </el-header>
@@ -23,7 +22,7 @@
                  <i class="el-icon-share"></i>
                 </el-tooltip>
             </el-menu-item>
-            <el-menu-item @click="showmune(2)" >
+            <el-menu-item @click="showmune(2)" v-if="$store.state.roles=='admin'||$store.state.roles=='engineer'">
                <el-tooltip class="item" effect="dark" content="配置中心" placement="right-start">
                  <i class="el-icon-setting"></i>
                </el-tooltip>
@@ -46,6 +45,7 @@
 </template>
 
 <script>
+//v-if="$store.state.roles=='admin'||$store.state.roles=='engineer'"
 //cd VsCode/Bozhon/bozhon/BozhonNewWeb
 import simple1 from "./components/Dispatch.vue";
 import simple2 from "./components/Configuration.vue";
@@ -56,6 +56,20 @@ export default {
     return{
       tabView:'simple1',
       login:'Login',
+      items:[
+        {
+          value:'bozhon',
+          key:'bozhon',
+          label:'bozhon',
+        },
+        {
+          value:'bozhoning',
+          key:'bozhoning',
+          label:'bozhoning',
+        },
+       
+      ],
+       value:'',
     }
   },
   mounted(){
@@ -68,8 +82,10 @@ export default {
        btnout(){
             this.$store.commit('loginout');
         },
-        getproject(val){
-            this.$store.commit('getproject',val);
+        getproject(){
+            this.$store.commit('getproject',this.value);
+            // console.log(this.value);
+            
         },
   },
   components:{
@@ -93,7 +109,7 @@ export default {
 }
 .firstmenu{
   width: 60px;
-  height: 540px;
+  height:100%;
 }
 .main-body {
   padding: 0px;

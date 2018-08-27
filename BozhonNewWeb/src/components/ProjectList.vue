@@ -49,16 +49,16 @@
         <el-col :span="2"><div>&nbsp;</div></el-col>
         <el-col :span="22">
             <el-table ref="multipleTable" :data="listdata" tooltip-effect="dark" style="width: 100%" 
-                      border height="350" :default-sort="{prop:'uId'}" v-loading="loading"  @selection-change="handleSelectionChange" >
-                <el-table-column type="selection" width="40"></el-table-column>
-                <el-table-column prop="projectId" label="ID" width="100" sortable></el-table-column>
-                <el-table-column prop="projectNation" label="国家" width="100" sortable></el-table-column>
-                <el-table-column prop="projectProvince" label="一级城市" width="120" sortable></el-table-column>
-                <el-table-column prop="projectCity" label="二级城市" width="120" sortable></el-table-column>
-                <el-table-column prop="projectName" label="项目名称" width="120" ></el-table-column>
-                <el-table-column prop="projectDesc" label="项目描述" width="120" ></el-table-column>
-                <el-table-column prop="projectTypeStr" label="项目类型" width="120" ></el-table-column>
-                <el-table-column prop="projectConfigVersion" label="当前配置版本" width="135" ></el-table-column>
+                      border height="350px" :default-sort="{prop:'uId'}" v-loading="loading"  @selection-change="handleSelectionChange" >
+                <el-table-column type="selection" ></el-table-column>
+                <el-table-column prop="projectId" label="ID" sortable></el-table-column>
+                <el-table-column prop="projectNation" label="国家" sortable></el-table-column>
+                <el-table-column prop="projectProvince" label="一级城市" sortable></el-table-column>
+                <el-table-column prop="projectCity" label="二级城市"  sortable></el-table-column>
+                <el-table-column prop="projectName" label="项目名称"></el-table-column>
+                <el-table-column prop="projectDesc" label="项目描述"></el-table-column>
+                <el-table-column prop="projectTypeStr" label="项目类型"></el-table-column>
+                <el-table-column prop="projectConfigVersion" label="当前配置版本"></el-table-column>
             </el-table>
         </el-col>
     </el-row>
@@ -87,14 +87,14 @@
           <el-input v-model="form.projectDesc" auto-complete="off"></el-input>
        </el-form-item>
       <el-form-item label="所在城市" :label-width="formLabelWidth">
-        <el-select v-model="form.city" placeholder="请选择所在城市" style="width:520px">
-          <el-option v-for="item in citys" :key="item.cityId" :label="item.cityName" :value="item"></el-option>
+        <el-select v-model="form.city"  placeholder="请选择所在城市" style="width:520px">
+          <el-option v-for="item in citys" :key="item.cityId" :label="item.cityName" :value="item.cityId"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="项目类别" :label-width="formLabelWidth">
-        <el-select v-model="form.projectType" placeholder="请选择项目类别" style="width:520px">
-          <el-option label="机器人" value="1"></el-option>
-          <el-option label="调度系统" value="2"></el-option>
+        <el-select v-model="form.projectTypeStr" placeholder="请选择项目类别" style="width:520px">
+          <el-option label="机器人" value="2"></el-option>
+          <el-option label="调度系统" value="1"></el-option>
         </el-select>
       </el-form-item>
      </el-form>
@@ -113,13 +113,13 @@
        </el-form-item>
       <el-form-item label="所在城市" :label-width="formLabelWidth">
         <el-select v-model="form2.city" placeholder="请选择所在城市" style="width:520px">
-          <el-option v-for="item in citys" :key="item.cityId" :label="item.cityName" :value="item"></el-option>
+          <el-option v-for="item in citys" :key="item.cityId" :label="item.cityName" :value="item.cityId"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="项目类别" :label-width="formLabelWidth">
-        <el-select v-model="form2.projectType" placeholder="请选择项目类别" style="width:520px">
-          <el-option label="机器人" value="1"></el-option>
-          <el-option label="调度系统" value="2"></el-option>
+        <el-select v-model="form2.projectTypeStr" placeholder="请选择项目类别" style="width:520px">
+          <el-option label="机器人" value="2"></el-option>
+          <el-option label="调度系统" value="1"></el-option>
         </el-select>
       </el-form-item>
      </el-form>
@@ -160,22 +160,22 @@
       fixed
       prop="configFileId"
       label="ID"
-      width="150">
+     >
     </el-table-column>
     <el-table-column
       prop="configFileVersion"
       label="版本"
-      width="120">
+      >
     </el-table-column>
     <el-table-column
       prop="configFileDesc"
       label="描述"
-      width="120">
+      >
     </el-table-column>
     <el-table-column
       prop="configCreateTime"
       label="创建时间"
-      width="120">
+     >
     </el-table-column>
     <el-table-column
       fixed="right"
@@ -257,8 +257,9 @@ export default {
             form: {
                projectName:'',
                projectDesc: '',
-               city: '',
+               city:'',
                projectType:'',
+               projectTypeStr:'',
                date1: '',
                date2: '',
                delivery: false,
@@ -269,8 +270,9 @@ export default {
              form2: {
                projectName:'',
                projectDesc: '',
-               city: [],
+               city: '',
                projectType:'',
+               projectTypeStr:'',
                date1: '',
                date2: '',
                delivery: false,
@@ -314,6 +316,7 @@ export default {
                  size: 10,
                  projectId: '',
              },
+             formdata:'',
         }
     },
     //界面加载的数据获取
@@ -398,8 +401,9 @@ export default {
               this.dialogFormVisible2=true;
               this.form2.projectName=this.checklist[0].projectName;
               this.form2.projectDesc=this.checklist[0].projectDesc;
-              this.form2.projectCity=this.checklist[0].projectCity;
-              this.form2.projectType=this.checklist[0].projectTypeStr;
+              this.form2.city=this.checklist[0].cityId;
+              this.form2.projectType=this.checklist[0].projectType;
+              this.form2.projectTypeStr=this.checklist[0].projectTypeStr;
           }
            var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
@@ -468,11 +472,12 @@ export default {
       },
       //保存新建的配置
       saveup(){
+          console.log("热部署");
           this.btnLoadingsave=true;
            var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             var _select = this;
-            var formdata = new FormData();
+            this.formdata = new FormData();
             this.confreq.configFileDesc=this.form3.configFileDesc;
             this.confreq.configFileVersion=this.form3.configFileVersion;
             this.confreq.configProjectId=this.checklist[0].projectId;
@@ -484,10 +489,11 @@ export default {
                 $.ajax({
                     url: ipAddress + 'api/saveConfigFile',
                     type: 'post',
-                    data: _select.formdata,
+                    data:_select.formdata,
                     dataType: "json",
                     contentType: false,
                     processData: false,
+                    cache:false,
                     success: function (json) {
                         _select.innerVisible=false;
                         _select.getUp();
@@ -518,11 +524,17 @@ export default {
            var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             var _select = this;
-            this.addreq.projectName = this.form.projectname;
-            this.addreq.projectDesc = this.form.projectdesc;
-            this.addreq.projectType = this.form.projecttypestr;
-            this.addreq.projectCity = this.form.city.cityname;
-            this.addreq.cityId = this.form.city.cityid;
+            this.addreq.projectName = this.form.projectName;
+            this.addreq.projectDesc = this.form.projectDesc;
+            console.log(this.form.projectTypeStr);
+            if(this.form.projectTypeStr=="1"){
+                this.addreq.projectType=1;
+
+            }else if(this.form.projectTypeStr=="2"){
+                this.addreq.projectType=2;
+            }
+            // this.addreq.projectCity = this.form.city.cityName;
+            this.addreq.cityId=this.form.city;
             if (this.addreq.projectName == "" || this.addreq.projectName == null) {
                 _select.openmessageErr("请输入项目名称");
             }
@@ -532,7 +544,7 @@ export default {
             else if (this.addreq.projectType == "" || this.addreq.projectType == null) {
                 _select.openmessageErr("请选择项目类别");
             }
-            else if (this.addreq.projectCity == "" || this.addreq.projectCity == null) {
+            else if (this.addreq.cityId == "" || this.addreq.cityId == null) {
                 _select.openmessageErr("请选择所在城市");
             } else {
                 this.btnLoadingAdd=true;
@@ -586,22 +598,18 @@ export default {
       },
       //修改功能
       isUpdate(){
-            this.updatereq.cityId=this.form2.city.cityId;
-            this.updatereq.nationId=this.form2.city.nationId;
-            this.updatereq.projectConfVersion=this.checklist.projectConfigVersion;
-            this.updatereq.projectId=this.checklist.projectId;
-            this.updatereq.projectNation=this.checklist.projectNation;
-            this.updatereq.projectProvince=this.checklist.projectProvince;
-            if(this.form2.projectType==1){
-                this.updatereq.projectTypeStr="机器人";
-            }else{
-                this.updatereq.projectTypeStr="调度系统";
+            this.updatereq.cityId=this.form2.city;
+            this.updatereq.projectConfVersion=this.checklist[0].projectConfigVersion;
+            this.updatereq.projectId=this.checklist[0].projectId;
+            this.updatereq.projectNation=this.checklist[0].projectNation;
+            this.updatereq.projectProvince=this.checklist[0].projectProvince;
+            if(this.form2.projectTypeStr=="1"){
+                this.updatereq.projectType=1;
+            }else if(this.form2.projectTypeStr=="2"){
+                this.updatereq.projectType=2;
             }
             this.updatereq.projectName=this.form2.projectName;
             this.updatereq.projectDesc=this.form2.projectDesc;
-            this.updatereq.projectType=this.form2.projectType;
-            this.updatereq.projectCity=this.form2.city.cityName;
-            this.updatereq.provinceId=this.form2.city.provinceId;
             var host = location.hostname;
             var ipAddress = "http://" + host + ":8080/bzdiamond-server/";
             var _select = this;
@@ -614,7 +622,7 @@ export default {
             else if (this.updatereq.projectType == "" || this.updatereq.projectType == null) {
                 _select.openmessageErr("请选择项目类别");
             }
-            else if (this.updatereq.projectCity == "" || this.updatereq.projectCity == null) {
+            else if (this.updatereq.cityId == "" || this.updatereq.cityId == null) {
                 _select.openmessageErr("请选择所在城市");
             } else {
                 this.btnLoadingUpdate=true;

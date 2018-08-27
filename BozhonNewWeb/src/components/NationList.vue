@@ -36,8 +36,8 @@
         <el-col :span="22">
             <el-table ref="multipleTable" :data="listdata" tooltip-effect="dark" style="width: 100%" border height="350" :default-sort="{prop:'uId'}" v-loading="loading">
                 <el-table-column type="selection" width="40"></el-table-column>
-                <el-table-column prop="nationId" label="ID" width="465" sortable></el-table-column>
-                <el-table-column prop="nationName" label="国家" width="470"></el-table-column>
+                <el-table-column prop="nationId" label="ID"  sortable></el-table-column>
+                <el-table-column prop="nationName" label="国家"></el-table-column>
             </el-table>
         </el-col>
     </el-row>

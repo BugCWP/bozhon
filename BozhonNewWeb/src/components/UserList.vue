@@ -25,7 +25,7 @@
                   <el-button  size="mini" icon="el-icon-refresh" @click="getflash" :loading="btnloadingF">刷新</el-button>
               </div>
               <div id="tableheadinput">
-                  <el-input  size="small" prefix-icon="el-icon-search" clearable v-model="req.uName"></el-input>
+                  <el-input  size="small" prefix-icon="el-icon-search" clearable></el-input>
               </div>
             </div>
         </el-col>
@@ -33,13 +33,13 @@
     <el-row>
         <el-col :span="2"><div>&nbsp;</div></el-col>
         <el-col :span="22">
-            <el-table ref="multipleTable" :data="listdata" tooltip-effect="dark" style="width: 100%" border height="350" :default-sort="{prop:'uId'}" v-loading="loading">
-                <el-table-column type="selection" width="40"></el-table-column>
-                <el-table-column prop="uId" label="ID" width="105" sortable></el-table-column>
-                <el-table-column prop="uName" label="用户名" width="190"></el-table-column>
-                <el-table-column prop="uRole" label="用户角色" width="190"></el-table-column>
-                <el-table-column prop="uLastLoginTime" label="上次登录时间" width="250" sortable></el-table-column>
-                <el-table-column prop="uLoginCount" label="登录次数统计" width="200" sortable></el-table-column>
+            <el-table ref="multipleTable" :data="listdata" tooltip-effect="dark" style="width: 100%" border height="350px" :default-sort="{prop:'uId'}" v-loading="loading">
+                <el-table-column type="selection" ></el-table-column>
+                <el-table-column prop="uId" label="ID"  sortable></el-table-column>
+                <el-table-column prop="uName" label="用户名" ></el-table-column>
+                <el-table-column prop="uRole" label="用户角色" ></el-table-column>
+                <el-table-column prop="uLastLoginTime" label="上次登录时间"  sortable></el-table-column>
+                <el-table-column prop="uLoginCount" label="登录次数统计"  sortable></el-table-column>
             </el-table>
         </el-col>
     </el-row>
@@ -76,7 +76,6 @@ export default {
             req:{
               page: 1,
               size: 10,
-              uName: '',
             },
         }
     },

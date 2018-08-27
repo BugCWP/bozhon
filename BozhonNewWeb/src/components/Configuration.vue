@@ -1,5 +1,5 @@
 <template>
-    <el-container>
+    <el-container style="width:100%;height:100%">
         <el-aside :style="{width:asidewidth}">
           <el-menu :collapse="isCollapse" id="menubody"  background-color="#545c64" text-color="#fff" active-text-color="#409eff">
               <el-menu-item @click="showMenu">
@@ -90,10 +90,16 @@ export default {
 
 <style>
 #menubody{
-    height: 550px;
+    height:100%;
+     margin-top: 0px;
+    margin-left: 0px;
+    padding: 0px;
 }
 #mainbody{
-    padding-left: 0;
+    padding-left:0px;
+    padding-top: 10px;
+    margin-left: 0px;
+    margin-top: 0px;
     position: relative;
 }
 .mainbodyleft{

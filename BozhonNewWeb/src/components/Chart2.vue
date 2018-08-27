@@ -63,10 +63,13 @@ import echarts from 'echarts';   //这里是你必须的，千万不能忘记！
                        that.numberlist.push(items[i].data);
                    }
                    that.opinion=that.namelist;
-                   for(var i in namelist){
-                       that.opinionData[i].name=namelist[i];
-                       that.opinionData[i].value=numberlist[i];
+                   console.log(that.opinion);
+                   that.opinionData=new Array();
+                   for(var i in that.namelist){
+                       that.opinionData[i].name=that.namelist[i];
+                       that.opinionData[i].value=that.numberlist[i];
                    }
+                   console.log(that.opinionData);
                 },
                 error: function (msg) {
                     that.openmessageErr("饼状图信息获取失败");

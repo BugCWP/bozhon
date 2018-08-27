@@ -26,7 +26,7 @@
                        <el-input v-model="form.userName" auto-complete="off"></el-input>
                   </el-form-item><br/>
                   <el-form-item label="密码:" :label-width="formLabelWidth">
-                        <el-input v-model="form.userPassword" auto-complete="off"></el-input>
+                        <el-input type="password" v-model="form.userPassword" auto-complete="off"></el-input>
                  </el-form-item><br/>
                 <el-form-item label="" :label-width="formLabelWidth">
                       <el-button type="primary" style="width:350px" @click="btnlogin" :loading="btnloadinglogin">登录</el-button>
@@ -126,7 +126,7 @@ export default {
                     }
                 })
                 // _select.$store.commit('getroles',["admin","user"]);
-            // this.$store.commit('loginin');//这句要注释
+            this.$store.commit('loginin');//这句要注释
             console.log(this.$store.state.Denglu);
         },
        
